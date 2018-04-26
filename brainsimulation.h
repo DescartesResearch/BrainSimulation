@@ -1,4 +1,4 @@
 //types
-typedef t_nodeval double;
+typedef double t_nodeval;
 
 //function declarations
