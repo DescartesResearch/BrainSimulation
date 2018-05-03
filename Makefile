@@ -3,7 +3,7 @@ name = brainsimulation
 all: $(name)
 
 $(name): main.c $(name).c nodefunc.c
-	cc -Wall main.c $(name).c nodefunc.c -o $(name)m
+	cc -Wall main.c $(name).c nodefunc.c -o $(name)
 
 install: $(name)
 	echo "Must be run as root/sudo"
