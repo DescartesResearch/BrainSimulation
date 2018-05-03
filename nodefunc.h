@@ -1,7 +1,7 @@
 /**
  * Represents the behavior of single nodes.
  */
-#include "brainsimulation.h"
+typedef double t_nodeval;
 /**
 * This is the process done by the each agent.
 * Takes the old state and information about the neighbors and calculated the new energy level.

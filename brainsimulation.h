@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include "nodefunc.h"
+#include <stdlib.h>
+#include <time.h>
 //types
 
 /**
@@ -54,4 +58,23 @@ int simulate(int tick_ms,
 	t_nodeval ** nodes,
 	int num_obervationnodes,
 	t_nodetimeseries * oberservationnodes);
+
+/**
+ * Allocates a new 2d array with m pointers, pointing to a list of n elements.
+ * @param m The number of nodes in the first dimension (x-axis).
+ * @param n The number of nodes in the second dimension (y-axis).
+ *
+ * @return A two-dimensional array of size m*n.
+ */
+t_nodeval ** alloc_2d(int m, int n);
+
+int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval ** old_state,
+                 t_nodeval ** new_state);
+
+t_nodeval * d_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j);
+
+t_nodeval * id_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j);
+
+void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries * observationnodes,
+                              t_nodeval ** state);
 	
