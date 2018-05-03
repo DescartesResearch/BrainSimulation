@@ -42,9 +42,9 @@ typedef struct
  * @param number_nodes_y The number of nodes in the second dimension of nodes.
  * @param nodes 2D array of nodes with their starting energy level.
  * @param num_obervationnodes The number of nodes to observe during simulation.
- * @param The nodes to observe during simulation. x_index and y_index members
+ * @param oberservationnodes The nodes to observe during simulation. x_index and y_index members
  * must be set. All other members will be overwritten with the simulation
- * results. Must have observationnodes as length.
+ * results. Must have num_obervationnodes as length.
  * @return Return-codes.
  */
 int simulate(int tick_ms,
