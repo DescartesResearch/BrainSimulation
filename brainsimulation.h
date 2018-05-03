@@ -38,15 +38,19 @@ typedef struct
  * @param num_ticks The number of ticks to simulate.
  * This will also be the length of all timeseries contained in the returned
  * oberservationnodes.
+ * @param number_nodes_x The number of nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of nodes in the second dimension of nodes.
  * @param nodes 2D array of nodes with their starting energy level.
  * @param num_obervationnodes The number of nodes to observe during simulation.
  * @param The nodes to observe during simulation. x_index and y_index members
  * must be set. All other members will be overwritten with the simulation
  * results. Must have observationnodes as length.
- @return Return-codes.
+ * @return Return-codes.
  */
 int simulate(int tick_ms,
 	int num_ticks,
+	int number_nodes_x,
+	int number_nodes_y,
 	t_nodeval ** nodes,
 	int num_obervationnodes,
 	t_nodetimeseries * oberservationnodes);
