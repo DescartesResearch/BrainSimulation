@@ -1,9 +1,12 @@
 #ifndef NODEFUNC_H
 #define NODEFUNC_H
+
+#include "brainsimulation.h"
+
 /**
  * Represents the behavior of single nodes.
  */
-typedef double t_nodeval;
+
 /**
 * This is the process done by the each agent.
 * Takes the old state and information about the neighbors and calculated the new energy level.
