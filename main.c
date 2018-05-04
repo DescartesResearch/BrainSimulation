@@ -28,12 +28,12 @@ int main(int argc, char *argv[])
     simulate(tick_ms,num_ticks,number_nodes_x,number_nodes_y,nodegrid,
 		num_observationnodes, observationnodes);
     printf("Output:\n");
-	for (int j = 0; j < num_observationnodes; ++j) {
-		printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);
-        int i;
-        for (i = 0; i < num_ticks; ++i) {
-			printf("    Time: %d, Energy-Value: %f.\n", i, observationnodes[j].timeseries[i]);
-        }
-    }
+//	for (int j = 0; j < num_observationnodes; ++j) {
+//		printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);
+//        int i;
+//        for (i = 0; i < num_ticks; ++i) {
+//			printf("    Time: %d, Energy-Value: %f.\n", i, observationnodes[j].timeseries[i]);
+//        }
+//    }
 }
 

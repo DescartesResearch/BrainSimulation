@@ -67,6 +67,19 @@ int simulate(int tick_ms,
  */
 t_nodeval ** alloc_2d(int m, int n);
 
+
+/**
+ * Allocates a new 4d array with m pointers, pointing to a list of n elements, pointing to a list of o elements,
+ * pointing to a list of p elements.
+ * @param m The number of nodes in the first dimension.
+ * @param n The number of nodes in the second dimension.
+ * @param o The number of nodes in the third dimension.
+ * @param p The number of nodes in the fourth dimension.
+ *
+ * @return A four-dimensional array of size m*n*o*p.
+ */
+t_nodeval **** alloc_4d(int m, int n, int o, int p);
+
 /**
  * Executes one tick of the simulation.
  *
@@ -76,10 +89,13 @@ t_nodeval ** alloc_2d(int m, int n);
  * @param old_state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
  * @param new_state 2D array of nodes with the new energy level. Values will be overwritten. Size number_nodes_x *
  * number_nodes_y.
+ * @param kernels 2D array containing the kernels of each node at each index. Each index node points to an array
+ * containing (currently) two kernels, each (currently) containing 4 neighbouring noides. Dimensions: number_nodes_x *
+ * number_nodes_y * 2 * 4.
  * @return Return-codes.
  */
 int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval ** old_state,
-                 t_nodeval ** new_state);
+                 t_nodeval ** new_state, t_nodeval **** kernels);
 
 /**
  * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.
