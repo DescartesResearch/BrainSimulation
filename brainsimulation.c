@@ -1,4 +1,10 @@
 #include "brainsimulation.h"
+#include "nodefunc.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 // implement the actual simulation here
 int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, t_nodeval ** old_state,
              int num_obervationnodes, t_nodetimeseries * observationnodes){

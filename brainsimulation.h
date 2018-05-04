@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include "nodefunc.h"
-#include <stdlib.h>
-#include <time.h>
+#ifndef BRAINSIMULATION_H
+#define BRAINSIMULATION_H
+
 //types
 
 /**
@@ -78,3 +77,4 @@ t_nodeval * id_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nod
 void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries * observationnodes,
                               t_nodeval ** state);
 	
+#endif
