@@ -18,6 +18,7 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     start_time = clock();
     int i = 0;
     for (i = 0; i < num_obervationnodes; ++i) {
+		observationnodes[i].timeseries = malloc(num_ticks * sizeof(t_nodeval));
         printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
     }
     printf("\n");
