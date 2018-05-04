@@ -12,25 +12,24 @@ typedef double t_nodeval;
  * Struct to store the results of a simulation for a single observed node.
  * x_index and y_index members must be set when passing it to a simulation.
  */
-typedef struct 
-{
-	/**
-	 * x index of the node.
-	 */
-	int x_index;
-	/**
-	 * y index of the node.
-	 */
-	int y_index;
-	/**
-	 * Series of observed node energy levels. One element per tick.
-	 * Has #timeseries_ticks as length.
-	 */
-	t_nodeval * timeseries;
-	/**
-	 * Length of #timeseries.
-	 */
-	int timeseries_ticks;
+typedef struct {
+    /**
+     * x index of the node.
+     */
+    int x_index;
+    /**
+     * y index of the node.
+     */
+    int y_index;
+    /**
+     * Series of observed node energy levels. One element per tick.
+     * Has #timeseries_ticks as length.
+     */
+    t_nodeval *timeseries;
+    /**
+     * Length of #timeseries.
+     */
+    int timeseries_ticks;
 } t_nodetimeseries;
 
 //function declarations
@@ -51,12 +50,12 @@ typedef struct
  * @return Return-codes.
  */
 int simulate(int tick_ms,
-	int num_ticks,
-	int number_nodes_x,
-	int number_nodes_y,
-	t_nodeval ** nodes,
-	int num_obervationnodes,
-	t_nodetimeseries * oberservationnodes);
+             int num_ticks,
+             int number_nodes_x,
+             int number_nodes_y,
+             t_nodeval **nodes,
+             int num_obervationnodes,
+             t_nodetimeseries *oberservationnodes);
 
 /**
  * Allocates a new 2d array with m pointers, pointing to a list of n elements.
@@ -65,7 +64,7 @@ int simulate(int tick_ms,
  *
  * @return A two-dimensional array of size m*n.
  */
-t_nodeval ** alloc_2d(int m, int n);
+t_nodeval **alloc_2d(int m, int n);
 
 
 /**
@@ -78,7 +77,7 @@ t_nodeval ** alloc_2d(int m, int n);
  *
  * @return A four-dimensional array of size m*n*o*p.
  */
-t_nodeval **** alloc_4d(int m, int n, int o, int p);
+t_nodeval ****alloc_4d(int m, int n, int o, int p);
 
 /**
  * Executes one tick of the simulation.
@@ -94,8 +93,8 @@ t_nodeval **** alloc_4d(int m, int n, int o, int p);
  * number_nodes_y * 2 * 4.
  * @return Return-codes.
  */
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval ** old_state,
-                 t_nodeval ** new_state, t_nodeval **** kernels);
+int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval **old_state,
+                 t_nodeval **new_state, t_nodeval ****kernels);
 
 /**
  * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.
@@ -107,7 +106,7 @@ int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval 
  * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
  * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
  */
-void d_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int x, int y);
+void d_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int x, int y);
 
 /**
  * Calculates the indirect kernel for one specific node of the node grid, i.e., the indirect neighborhood.
@@ -119,7 +118,7 @@ void d_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_node
  * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
  * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
  */
-void id_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int i, int j);
+void id_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int i, int j);
 
 /**
  * Extracts and stores/saves the information into the specified observation nodes.
@@ -130,7 +129,7 @@ void id_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nod
  * initialized. Length: num_observationnodes.
  * @param state The current state to store.
  */
-void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries * observationnodes,
-                              t_nodeval ** state);
-	
+void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries *observationnodes,
+                              t_nodeval **state);
+
 #endif
