@@ -57,8 +57,8 @@ int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval 
             // room for optimization -> does this initialization here lead to unnecessary copying and mallocs?
             t_nodeval d[4] = {0};
             t_nodeval id[4] = {0};
-            d_kernel(d, old_state, number_nodes_x, number_nodes_y, i, j);
-            id_kernel(id, old_state, number_nodes_x, number_nodes_y, i, j);
+            d_kernel(d, number_nodes_x, number_nodes_y, old_state, i, j);
+            id_kernel(id, number_nodes_x, number_nodes_y, old_state, i, j);
             // we do not know what slope is, yet.
             t_nodeval slope_old = 0;
             new_state[i][j] = process(old_state[i][j], slope_old, d, id);
@@ -75,34 +75,32 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetim
     return;
 }
 
-t_nodeval * d_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j){
-    if (i - 1 >= 0){
-        result[0] = old_state[i-1][j];
+void d_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int x, int y){
+    if (x - 1 >= 0){
+        result[0] = nodegrid[x-1][y];
     }
-    if (j - 1 >= 0){
-        result[1] = old_state[i][j-1];
+    if (y - 1 >= 0){
+        result[1] = nodegrid[x][y-1];
     }
-    if (j + 1 < number_nodes_y){
-        result[2] = old_state[i][j+1];
+    if (y + 1 < number_nodes_y){
+        result[2] = nodegrid[x][y+1];
     }
-    if (i + 1 < number_nodes_x){
-        result[3] = old_state[i+1][j];
+    if (x + 1 < number_nodes_x){
+        result[3] = nodegrid[x+1][y];
     }
-    return result;
 }
 
-t_nodeval * id_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j){
-    if (i - 1 >= 0 && j - 1 >= 0){
-        result[0] = old_state[i-1][j-1];
+void id_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int x, int y){
+    if (x - 1 >= 0 && y - 1 >= 0){
+        result[0] = nodegrid[x-1][y-1];
     }
-    if (i - 1 >= 0 && j + 1 < number_nodes_y){
-        result[1] = old_state[i-1][j+1];
+    if (x - 1 >= 0 && y + 1 < number_nodes_y){
+        result[1] = nodegrid[x-1][y+1];
     }
-    if (i +1 < number_nodes_x && j - 1 >= 0){
-        result[2] = old_state[i+1][j-1];
+    if (x +1 < number_nodes_x && y - 1 >= 0){
+        result[2] = nodegrid[x+1][y-1];
     }
-    if (i +1 < number_nodes_x && j + 1 < number_nodes_y){
-        result[3] = old_state[i+1][j+1];
+    if (x +1 < number_nodes_x && y + 1 < number_nodes_y){
+        result[3] = nodegrid[x+1][y+1];
     }
-    return result;
 }

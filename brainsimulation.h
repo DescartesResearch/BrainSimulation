@@ -68,13 +68,53 @@ int simulate(int tick_ms,
  */
 t_nodeval ** alloc_2d(int m, int n);
 
+/**
+ * Executes one tick of the simulation.
+ *
+ * @param tick_ms Milliseconds in between each simulation tick.
+ * @param number_nodes_x The number of nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of nodes in the second dimension of nodes.
+ * @param old_state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+ * @param new_state 2D array of nodes with the new energy level. Values will be overwritten. Size number_nodes_x *
+ * number_nodes_y.
+ * @return Return-codes.
+ */
 int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval ** old_state,
                  t_nodeval ** new_state);
 
-t_nodeval * d_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j);
+/**
+ * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.
+ *
+ * @param result The array to store the kernel into. Length 4.
+ * @param number_nodes_x The number of nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of nodes in the second dimension of nodes.
+ * @param nodegrid 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+ * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
+ * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
+ */
+void d_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int x, int y);
 
-t_nodeval * id_kernel(t_nodeval * result, t_nodeval ** old_state, int number_nodes_x, int number_nodes_y, int i, int j);
+/**
+ * Calculates the indirect kernel for one specific node of the node grid, i.e., the indirect neighborhood.
+ *
+ * @param result The array to store the kernel into. Length 4.
+ * @param number_nodes_x The number of nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of nodes in the second dimension of nodes.
+ * @param nodegrid 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+ * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
+ * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
+ */
+void id_kernel(t_nodeval * result, int number_nodes_x, int number_nodes_y, t_nodeval ** nodegrid, int i, int j);
 
+/**
+ * Extracts and stores/saves the information into the specified observation nodes.
+ *
+ * @param ticknumber The current tick number, i.e., the tick number to store.
+ * @param num_obervationnodes The number of observation nodes.
+ * @param observationnodes An array containing all observation nodes. All values in the struct elements must be already
+ * initialized. Length: num_observationnodes.
+ * @param state The current state to store.
+ */
 void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries * observationnodes,
                               t_nodeval ** state);
 	
