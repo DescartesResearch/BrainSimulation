@@ -20,7 +20,6 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
 
     int j;
     for (j = 0; j < num_ticks; ++j) {
-
         int returncode = execute_tick(tick_ms, number_nodes_x, number_nodes_y, old_state, new_state);
         printf("Executed tick %d.\n", j);
         if (returncode != 0) {
@@ -70,6 +69,9 @@ int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval 
 
 void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries * observationnodes,
                                 t_nodeval ** state){
+    for (int i = 0; i < num_obervationnodes; ++i) {
+        observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
+    }
     return;
 }
 
