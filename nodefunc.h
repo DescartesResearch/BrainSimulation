@@ -13,11 +13,13 @@
 *
 * @param actOld: The old state information.
 * @param slopeOld: The old slope.
-* @param dNeighbors: Array of direct neighboring states. Length 4.
-* @param idNeighbors: Array of indirect neighboring states. Length 4.
+* @param number_d_neighbors The number of direct neighbors.
+* @param d_neighbors: Array of direct neighboring states. Length: number_d_neighbors.
+* @param id_neighbors: Array of indirect neighboring states. Length: number_id_neighbors.
 *
 * @returns The new resulting energy level.
 */
-t_nodeval process(t_nodeval actOld, t_nodeval slopeOld, t_nodeval *dNeighbors, t_nodeval *idNeighbors);
+t_nodeval process(t_nodeval act_old, t_nodeval slope_old, int number_d_neighbors, t_nodeval *d_neighbors,
+                  int number_id_neighbors, t_nodeval *id_neighbors);
 
 #endif
