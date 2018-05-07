@@ -15,6 +15,7 @@
 * @param slopeOld: The old slope.
 * @param number_d_neighbors The number of direct neighbors.
 * @param d_neighbors: Array of direct neighboring states. Length: number_d_neighbors.
+* @param number_id_neighbors The number of indirect neighbors.
 * @param id_neighbors: Array of indirect neighboring states. Length: number_id_neighbors.
 *
 * @returns The new resulting energy level.

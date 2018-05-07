@@ -55,7 +55,7 @@ int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval 
             id_kernel(kernels[i][j][1], number_nodes_x, number_nodes_y, old_state, i, j);
             // we do not know what slope is, yet.
             t_nodeval slope_old = 0;
-            new_state[i][j] = process(old_state[i][j], slope_old, kernels[i][j][0], kernels[i][j][1]);
+            new_state[i][j] = process(old_state[i][j], slope_old, 4, kernels[i][j][0], 4, kernels[i][j][1]);
         }
     }
     return 0;

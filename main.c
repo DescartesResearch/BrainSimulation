@@ -16,9 +16,8 @@ const t_nodeval START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
 
 int main(int argc, char *argv[]) {
     int tick_ms = 1;
-    int num_ticks = 1000;
-    int num_observationnodes = 4;
-    t_nodetimeseries *observationnodes = init_observation_timeseries(num_observationnodes,
+    int num_ticks = 100;
+    t_nodetimeseries *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
 																	 num_ticks);
@@ -29,7 +28,7 @@ int main(int argc, char *argv[]) {
 		NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
 		START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
     simulate(tick_ms, num_ticks, number_nodes_x, number_nodes_y, nodegrid,
-             num_observationnodes, observationnodes);
+             NUM_OBERSERVATIONNODES_DEFAULT, observationnodes);
     printf("Output:\n");
 //	for (int j = 0; j < num_observationnodes; ++j) {
 //		printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);
