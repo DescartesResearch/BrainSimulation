@@ -50,7 +50,7 @@ int system_processor_online_count()
 	#endif
 }
 
-threadhandle_t * create_and_run_simulation_thread(void(*callback)(threadcontext_t *), threadcontext_t * context)
+threadhandle_t * create_and_run_simulation_thread(unsigned int (*callback)(threadcontext_t *), threadcontext_t * context)
 {
 	threadhandle_t * handle = malloc(sizeof(threadhandle_t));
 	#ifdef _WIN32

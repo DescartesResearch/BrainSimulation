@@ -101,11 +101,12 @@ int system_processor_online_count();
 
 /**
  * Creates a new platform-specific thread with the context and starts it.
- * @param callback The callback function to run. The function must take a threadcontext struct and return nothing.
+ * @param callback The callback function to run.
+ * The function must take a threadcontext struct and returns 0 or an error code.
  * @param context The threadcontext struct to pass.
  * @return A handle for the running thread.
  */
-threadhandle_t * create_and_run_simulation_thread(void (* callback)(threadcontext_t * ), threadcontext_t * context);
+threadhandle_t * create_and_run_simulation_thread(unsigned int (* callback)(threadcontext_t * ), threadcontext_t * context);
 
 /**
  * Joins all threads and then closes them. Frees all thread handles.
