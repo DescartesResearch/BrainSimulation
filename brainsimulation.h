@@ -1,36 +1,7 @@
 #ifndef BRAINSIMULATION_H
 #define BRAINSIMULATION_H
 
-//types
-
-/**
- * Type that the nodes in the brainsimulation use to store their energy level.
- */
-typedef double t_nodeval;
-
-/**
- * Struct to store the results of a simulation for a single observed node.
- * x_index and y_index members must be set when passing it to a simulation.
- */
-typedef struct {
-    /**
-     * x index of the node.
-     */
-    int x_index;
-    /**
-     * y index of the node.
-     */
-    int y_index;
-    /**
-     * Series of observed node energy levels. One element per tick.
-     * Has #timeseries_ticks as length.
-     */
-    t_nodeval *timeseries;
-    /**
-     * Length of #timeseries.
-     */
-    int timeseries_ticks;
-} t_nodetimeseries;
+#include "definitions.h"
 
 //function declarations
 
@@ -56,28 +27,6 @@ int simulate(int tick_ms,
              t_nodeval **nodes,
              int num_obervationnodes,
              t_nodetimeseries *oberservationnodes);
-
-/**
- * Allocates a new 2d array with m pointers, pointing to a list of n elements.
- * @param m The number of nodes in the first dimension (x-axis).
- * @param n The number of nodes in the second dimension (y-axis).
- *
- * @return A two-dimensional array of size m*n.
- */
-t_nodeval **alloc_2d(int m, int n);
-
-
-/**
- * Allocates a new 4d array with m pointers, pointing to a list of n elements, pointing to a list of o elements,
- * pointing to a list of p elements.
- * @param m The number of nodes in the first dimension.
- * @param n The number of nodes in the second dimension.
- * @param o The number of nodes in the third dimension.
- * @param p The number of nodes in the fourth dimension.
- *
- * @return A four-dimensional array of size m*n*o*p.
- */
-t_nodeval ****alloc_4d(int m, int n, int o, int p);
 
 /**
  * Executes one tick of the simulation.

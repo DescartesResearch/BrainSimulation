@@ -1,3 +1,5 @@
+#include "definitions.h"
+#include "helpers.h"
 #include "brainsimulation.h"
 #include "brainsetup.h"
 #include <stdio.h>
@@ -7,13 +9,10 @@ const int OBSERVATION_X_INDICES_DEFAULT[] = {20, 21, 22, 100};
 const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
 const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
 
-void init_state(int number_nodes_x, int number_nodes_y, t_nodeval **nodes) {
-    // init the (one-time) state here
-    nodes[20][20] = 304;
-    nodes[40][40] = 12;
-    nodes[50][50] = 3;
-    nodes[100][100] = 1000;
-}
+const int START_NODES_X_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
+const int START_NODES_Y_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
+const int NUM_START_NODES_DEFAULT = 4;
+const t_nodeval START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
 
 int main(int argc, char *argv[]) {
     int tick_ms = 1;
@@ -21,11 +20,14 @@ int main(int argc, char *argv[]) {
     int num_observationnodes = 4;
     t_nodetimeseries *observationnodes = init_observation_timeseries(num_observationnodes,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
-                                                                     OBSERVATION_Y_INDICES_DEFAULT);
+                                                                     OBSERVATION_Y_INDICES_DEFAULT,
+																	 num_ticks);
     int number_nodes_x = 1200;
     int number_nodes_y = 1200;
     t_nodeval **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
-    init_state(number_nodes_x, number_nodes_y, nodegrid);
+	init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
+		NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
+		START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
     simulate(tick_ms, num_ticks, number_nodes_x, number_nodes_y, nodegrid,
              num_observationnodes, observationnodes);
     printf("Output:\n");
@@ -37,4 +39,3 @@ int main(int argc, char *argv[]) {
 //        }
 //    }
 }
-
