@@ -1,7 +1,7 @@
 #ifndef NODEFUNC_H
 #define NODEFUNC_H
 
-#include "brainsimulation.h"
+#include "definitions.h"
 
 /**
  * Represents the behavior of single nodes.

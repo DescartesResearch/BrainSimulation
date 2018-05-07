@@ -1,9 +1,10 @@
 .PHONY: all install uninstall
 name = brainsimulation
+cfiles = main.c $(name).c nodefunc.c brainsetup.c helpers.c
 all: $(name)
 
-$(name): main.c $(name).c nodefunc.c brainsetup.c
-	cc -Wall main.c $(name).c nodefunc.c brainsetup.c -o $(name)
+$(name):$(cfiles)
+	cc -Wall $(cfiles) -o $(name)
 
 install: $(name)
 	echo "Must be run as root/sudo"

@@ -1,8 +1,8 @@
 #include "brainsimulation.h"
 #include "nodefunc.h"
+#include "helpers.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 // implement the actual simulation here
@@ -18,7 +18,6 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     start_time = clock();
     int i = 0;
     for (i = 0; i < num_obervationnodes; ++i) {
-        observationnodes[i].timeseries = malloc(num_ticks * sizeof(t_nodeval));
         printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
     }
     printf("\n");
@@ -46,30 +45,6 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
     printf("Elapsed time: %f s.\n", cpu_time_used);
     return 0;
-}
-
-t_nodeval **alloc_2d(int m, int n) {
-    t_nodeval **arr = malloc(m * sizeof(*arr));
-    int i;
-    for (i = 0; i < m; ++i) {
-        arr[i] = malloc(n * sizeof(t_nodeval));
-    }
-    return arr;
-}
-
-t_nodeval ****alloc_4d(int m, int n, int o, int p) {
-    int i, j, k;
-    t_nodeval ****arr = malloc(m * sizeof(***arr));
-    for (i = 0; i < m; i++) {
-        arr[i] = malloc(n * sizeof(**arr));
-        for (j = 0; j < n; j++) {
-            arr[i][j] = malloc(o * sizeof(*arr));
-            for (k = 0; k < o; k++) {
-                arr[i][j][k] = malloc(p * sizeof(t_nodeval));
-            }
-        }
-    }
-    return arr;
 }
 
 int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval **old_state,
