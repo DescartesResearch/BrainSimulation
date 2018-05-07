@@ -4,7 +4,7 @@ cfiles = main.c $(name).c nodefunc.c brainsetup.c helpers.c
 all: $(name)
 
 $(name):$(cfiles)
-	cc -Wall $(cfiles) -o $(name)
+	cc -Wall $(cfiles) -o $(name) -lpthread
 
 install: $(name)
 	echo "Must be run as root/sudo"

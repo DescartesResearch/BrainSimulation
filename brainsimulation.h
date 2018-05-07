@@ -24,9 +24,9 @@ int simulate(int tick_ms,
              int num_ticks,
              int number_nodes_x,
              int number_nodes_y,
-             t_nodeval **nodes,
+             nodeval_t **nodes,
              int num_obervationnodes,
-             t_nodetimeseries *oberservationnodes);
+             nodetimeseries_t *oberservationnodes);
 
 /**
  * Executes one tick of the simulation.
@@ -42,8 +42,8 @@ int simulate(int tick_ms,
  * number_nodes_y * 2 * 4.
  * @return Return-codes.
  */
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval **old_state,
-                 t_nodeval **new_state, t_nodeval ****kernels);
+int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                 nodeval_t **new_state, nodeval_t ****kernels);
 
 /**
  * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.
@@ -55,7 +55,7 @@ int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval 
  * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
  * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
  */
-void d_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int x, int y);
+void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y);
 
 /**
  * Calculates the indirect kernel for one specific node of the node grid, i.e., the indirect neighborhood.
@@ -67,7 +67,7 @@ void d_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodev
  * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
  * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
  */
-void id_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int i, int j);
+void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int i, int j);
 
 /**
  * Extracts and stores/saves the information into the specified observation nodes.
@@ -78,7 +78,7 @@ void id_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_node
  * initialized. Length: num_observationnodes.
  * @param state The current state to store.
  */
-void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries *observationnodes,
-                              t_nodeval **state);
+void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
+                              nodeval_t **state);
 
 #endif

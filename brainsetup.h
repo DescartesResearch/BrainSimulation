@@ -16,7 +16,7 @@
  * Timeseries memory is allocated as part of initialization.
  * @return Array of newly initialized timeseries structs. Array has num_oberservationnodes as length.
  */
-t_nodetimeseries *init_observation_timeseries(const int num_oberservationnodes,
+nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
                                               const int *x_indices, const int *y_indices,
 											  const int num_timeseries_elements);
 
@@ -30,8 +30,8 @@ t_nodetimeseries *init_observation_timeseries(const int num_oberservationnodes,
  * @param start_nodes_x The x indices of the starting non-zero nodes. Must have num_start_levels length.
  * @param start_nodes_y The y indices of the starting non-zero nodes. Must have num_start_levels length.
  */
-void init_start_time_state(const int number_nodes_x, const int number_nodes_y, t_nodeval **nodes,
-                           const int num_start_levels, const t_nodeval *start_levels,
+void init_start_time_state(const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes,
+                           const int num_start_levels, const nodeval_t *start_levels,
 						   const int *start_nodes_x, const int *start_nodes_y);
 
 #endif

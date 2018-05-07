@@ -20,7 +20,7 @@
 *
 * @returns The new resulting energy level.
 */
-t_nodeval process(t_nodeval act_old, t_nodeval slope_old, int number_d_neighbors, t_nodeval *d_neighbors,
-                  int number_id_neighbors, t_nodeval *id_neighbors);
+nodeval_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbors, nodeval_t *d_neighbors,
+                  int number_id_neighbors, nodeval_t *id_neighbors);
 
 #endif

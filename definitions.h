@@ -10,7 +10,7 @@
 /**
 * Type that the nodes in the brainsimulation use to store their energy level.
 */
-typedef double t_nodeval;
+typedef double nodeval_t;
 
 /**
 * Struct to store the results of a simulation for a single observed node.
@@ -29,11 +29,12 @@ typedef struct {
 	* Series of observed node energy levels. One element per tick.
 	* Has #timeseries_ticks as length.
 	*/
-	t_nodeval *timeseries;
+	nodeval_t *timeseries;
 	/**
 	* Length of #timeseries.
 	*/
 	int timeseries_ticks;
-} t_nodetimeseries;
+}
+nodetimeseries_t;
 
 #endif

@@ -6,8 +6,8 @@
 #include <time.h>
 
 // implement the actual simulation here
-int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, t_nodeval **old_state,
-             int num_obervationnodes, t_nodetimeseries *observationnodes) {
+int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+             int num_obervationnodes, nodetimeseries_t *observationnodes) {
     printf("Starting simulation.\n");
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %d\n", tick_ms);
@@ -23,8 +23,8 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     printf("\n");
     // Starting simulation
     // initializing memory
-    t_nodeval **new_state = alloc_2d(number_nodes_x, number_nodes_y);
-    t_nodeval ****kernels = alloc_4d(number_nodes_x, number_nodes_y, 2, 4);
+    nodeval_t **new_state = alloc_2d(number_nodes_x, number_nodes_y);
+    nodeval_t ****kernels = alloc_4d(number_nodes_x, number_nodes_y, 2, 4);
 
     int j;
     for (j = 0; j < num_ticks; ++j) {
@@ -36,7 +36,7 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
         }
         extract_observationnodes(j, num_obervationnodes, observationnodes, new_state);
         // swap array states -> the new_state becomes the old_state, old_state can be overwritten
-        t_nodeval **tmp = old_state;
+        nodeval_t **tmp = old_state;
         old_state = new_state;
         new_state = tmp;
     }
@@ -47,29 +47,29 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     return 0;
 }
 
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, t_nodeval **old_state,
-                 t_nodeval **new_state, t_nodeval ****kernels) {
+int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                 nodeval_t **new_state, nodeval_t ****kernels) {
     for (int i = 0; i < number_nodes_x; ++i) {
         for (int j = 0; j < number_nodes_y; ++j) {
             d_kernel(kernels[i][j][0], number_nodes_x, number_nodes_y, old_state, i, j);
             id_kernel(kernels[i][j][1], number_nodes_x, number_nodes_y, old_state, i, j);
             // we do not know what slope is, yet.
-            t_nodeval slope_old = 0;
+            nodeval_t slope_old = 0;
             new_state[i][j] = process(old_state[i][j], slope_old, 4, kernels[i][j][0], 4, kernels[i][j][1]);
         }
     }
     return 0;
 }
 
-void extract_observationnodes(int ticknumber, int num_obervationnodes, t_nodetimeseries *observationnodes,
-                              t_nodeval **state) {
+void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
+                              nodeval_t **state) {
     for (int i = 0; i < num_obervationnodes; ++i) {
         observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
     }
     return;
 }
 
-void d_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int x, int y) {
+void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
     if (x - 1 >= 0) {
         result[0] = nodegrid[x - 1][y];
     } else {
@@ -96,7 +96,7 @@ void d_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodev
     }
 }
 
-void id_kernel(t_nodeval *result, int number_nodes_x, int number_nodes_y, t_nodeval **nodegrid, int x, int y) {
+void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
     if (x - 1 >= 0 && y - 1 >= 0) {
         result[0] = nodegrid[x - 1][y - 1];
     } else {

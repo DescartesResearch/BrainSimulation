@@ -12,18 +12,18 @@ const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
 const int START_NODES_X_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
 const int START_NODES_Y_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
 const int NUM_START_NODES_DEFAULT = 4;
-const t_nodeval START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
+const nodeval_t START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
 
 int main(int argc, char *argv[]) {
     int tick_ms = 1;
     int num_ticks = 100;
-    t_nodetimeseries *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
+    nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
 																	 num_ticks);
     int number_nodes_x = 1200;
     int number_nodes_y = 1200;
-    t_nodeval **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
+    nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
 	init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
 		NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
 		START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
