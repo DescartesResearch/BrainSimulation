@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\brainsetup.c" />
     <ClCompile Include="..\..\brainsimulation.c" />
-    <ClCompile Include="..\..\helpers.c" />
+    <ClCompile Include="..\..\utils.c" />
     <ClCompile Include="..\..\main.c" />
     <ClCompile Include="..\..\nodefunc.c" />
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\..\brainsetup.h" />
     <ClInclude Include="..\..\brainsimulation.h" />
     <ClInclude Include="..\..\definitions.h" />
-    <ClInclude Include="..\..\helpers.h" />
+    <ClInclude Include="..\..\utils.h" />
     <ClInclude Include="..\..\nodefunc.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

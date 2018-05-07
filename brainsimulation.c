@@ -1,6 +1,6 @@
 #include "brainsimulation.h"
 #include "nodefunc.h"
-#include "helpers.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <time.h>

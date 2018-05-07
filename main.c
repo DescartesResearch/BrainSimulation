@@ -1,5 +1,5 @@
 #include "definitions.h"
-#include "helpers.h"
+#include "utils.h"
 #include "brainsimulation.h"
 #include "brainsetup.h"
 #include <stdio.h>

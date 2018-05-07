@@ -27,7 +27,7 @@
     <ClCompile Include="..\..\nodefunc.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\helpers.c">
+    <ClCompile Include="..\..\utils.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClInclude Include="..\..\definitions.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\helpers.h">
+    <ClInclude Include="..\..\utils.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
