@@ -30,4 +30,10 @@ t_nodeval **alloc_2d(const int m, const int n);
 */
 t_nodeval ****alloc_4d(const int m, const int n, const int o, const int p);
 
+/**
+ * Returns the number of processor cores online in the system.
+ * @return The number of processors online in the system.
+ */
+int system_processor_online_count();
+
 #endif
