@@ -1,6 +1,9 @@
 #include "utils.h"
 
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <stdio.h>
 #ifdef _WIN32
 	#include <Windows.h>
 	#include <process.h>
@@ -100,4 +103,22 @@ void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_
 			free(handles[i]);
 		}
 	#endif
+}
+
+
+void output_to_csv(char *filename, int length, nodeval_t *values){
+	printf("Creating %s file\n",filename);
+	FILE *fp = fopen(filename,"w+");
+	if (fp==NULL){
+		printf("File is null.\n Error: %s\n",strerror(errno));
+
+	} else {
+		fprintf(fp,"Energy-value,");
+		int i;
+		for(i=0;i<length;i++){
+			fprintf(fp,"\n%f,",values[i]);
+		}
+		fclose(fp);
+		printf("%s file created.\n",filename);
+	}
 }

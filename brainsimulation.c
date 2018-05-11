@@ -90,7 +90,7 @@ void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, in
     int x_node = 20;
     int y_node = 20;
     nodeval_t increase = 100;
-    if(tick_number%tick_period==0){
+    if(tick_number % (int) (tick_period / tick_ms) == 0){
         printf("Increased node (%d|%d). State before %f, state now: %f.\n", x_node, y_node, state[x_node][y_node],
                state[x_node][y_node] + increase);
         state[x_node][y_node] = state[x_node][y_node] + increase;

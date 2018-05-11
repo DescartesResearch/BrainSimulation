@@ -123,4 +123,13 @@ threadhandle_t * create_and_run_simulation_thread(unsigned int (* callback)(thre
  */
 void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_threads);
 
+/**
+ * Writes the given array to a .csv with every entry in its own line.
+ *
+ * @param filename Name of the file to write to.
+ * @param length Number of entries to write.
+ * @param values The values to write. Length length.
+ */
+void output_to_csv(char *filename, int length, nodeval_t *values);
+
 #endif
