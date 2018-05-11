@@ -1,6 +1,7 @@
 #include "brainsimulation.h"
 #include "nodefunc.h"
 #include "utils.h"
+#include "kernels.h"
 
 #include <stdio.h>
 #include <time.h>
@@ -24,11 +25,17 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     // Starting simulation
     // initializing memory
     nodeval_t **new_state = alloc_2d(number_nodes_x, number_nodes_y);
+    nodeval_t **slopes = alloc_2d(number_nodes_x, number_nodes_y);
+    init_zeros_2d(slopes, number_nodes_x, number_nodes_y);
     nodeval_t ****kernels = alloc_4d(number_nodes_x, number_nodes_y, 2, 4);
+
+    kernelfunc_t d_kernel = d_kernel_function_factory("");
+    kernelfunc_t id_kernel = id_kernel_function_factory("");
 
     int j;
     for (j = 0; j < num_ticks; ++j) {
-        int returncode = execute_tick(tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, kernels);
+        int returncode = execute_tick(tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, slopes, kernels,
+                d_kernel, id_kernel);
         printf("Executed tick %d.\n", j);
         if (returncode != 0) {
             printf("Executing tick %d failed with return code %d. Aborting simulation.\n", j, returncode);
@@ -48,14 +55,18 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
 }
 
 int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-                 nodeval_t **new_state, nodeval_t ****kernels) {
+                 nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr) {
     for (int i = 0; i < number_nodes_x; ++i) {
         for (int j = 0; j < number_nodes_y; ++j) {
-            d_kernel(kernels[i][j][0], number_nodes_x, number_nodes_y, old_state, i, j);
-            id_kernel(kernels[i][j][1], number_nodes_x, number_nodes_y, old_state, i, j);
-            // we do not know what slope is, yet.
-            nodeval_t slope_old = 0;
-            new_state[i][j] = process(old_state[i][j], slope_old, 4, kernels[i][j][0], 4, kernels[i][j][1]);
+            // call the given kernel functions for calculating the kernel
+            int d_count = (*d_ptr)(kernels[i][j][0], number_nodes_x, number_nodes_y, old_state, i, j);
+            int id_count =(*id_ptr)(kernels[i][j][1], number_nodes_x, number_nodes_y, old_state, i, j);
+            // execute one node
+            nodestate_t res = process(old_state[i][j], slopes[i][j], d_count, kernels[i][j][0], id_count,
+                                      kernels[i][j][1]);
+            // store result
+            new_state[i][j] = res.act;
+            slopes[i][j] = res.slope;
         }
     }
     return 0;
@@ -67,58 +78,4 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimes
         observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
     }
     return;
-}
-
-void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
-    if (x - 1 >= 0) {
-        result[0] = nodegrid[x - 1][y];
-    } else {
-        // border behavior
-        result[0] = 0;
-    }
-    if (y - 1 >= 0) {
-        result[1] = nodegrid[x][y - 1];
-    } else {
-        // border behavior
-        result[1] = 0;
-    }
-    if (y + 1 < number_nodes_y) {
-        result[2] = nodegrid[x][y + 1];
-    } else {
-        // border behavior
-        result[2] = 0;
-    }
-    if (x + 1 < number_nodes_x) {
-        result[3] = nodegrid[x + 1][y];
-    } else {
-        // border behavior
-        result[3] = 0;
-    }
-}
-
-void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
-    if (x - 1 >= 0 && y - 1 >= 0) {
-        result[0] = nodegrid[x - 1][y - 1];
-    } else {
-        // border behavior
-        result[0] = 0;
-    }
-    if (x - 1 >= 0 && y + 1 < number_nodes_y) {
-        result[1] = nodegrid[x - 1][y + 1];
-    } else {
-        // border behavior
-        result[1] = 0;
-    }
-    if (x + 1 < number_nodes_x && y - 1 >= 0) {
-        result[2] = nodegrid[x + 1][y - 1];
-    } else {
-        // border behavior
-        result[2] = 0;
-    }
-    if (x + 1 < number_nodes_x && y + 1 < number_nodes_y) {
-        result[3] = nodegrid[x + 1][y + 1];
-    } else {
-        // border behavior
-        result[3] = 0;
-    }
 }

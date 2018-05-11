@@ -1,6 +1,6 @@
 .PHONY: all install uninstall
 name = brainsimulation
-cfiles = main.c $(name).c nodefunc.c brainsetup.c utils.c
+cfiles = main.c $(name).c nodefunc.c brainsetup.c utils.c kernels.c
 all: $(name)
 
 $(name):$(cfiles)

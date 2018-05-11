@@ -1,5 +1,7 @@
 #include "brainsetup.h"
 
+#include "utils.h"
+
 #include <stdlib.h>
 
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes, 
@@ -18,14 +20,7 @@ nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
 void init_start_time_state(const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes,
 	const int num_start_levels, const nodeval_t *start_levels, const int *start_nodes_x, const int *start_nodes_y)
 {
-	//initialize all nodes with 0
-	for (int i = 0; i < number_nodes_x; i++)
-	{
-		for (int j = 0; j < number_nodes_y; j++)
-		{
-			nodes[i][j] = 0.0;
-		}
-	}
+	init_zeros_2d(nodes,number_nodes_x,number_nodes_y);
 
 	//initialize with start levels
 	for (int i = 0; i < num_start_levels; i++)

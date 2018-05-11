@@ -37,4 +37,24 @@ typedef struct {
 }
 nodetimeseries_t;
 
+/**
+* Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
+*/
+typedef struct {
+	/**
+	* Energy-level of node
+	*/
+	nodeval_t act;
+	/**
+	 * Slope of node.
+	 */
+	nodeval_t slope;
+}
+nodestate_t;
+
+/**
+ * Definition of the kernel-function interface.
+ */
+typedef int (*kernelfunc_t)(nodeval_t *, int, int, nodeval_t **, int, int);
+
 #endif

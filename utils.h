@@ -94,6 +94,14 @@ nodeval_t **alloc_2d(const int m, const int n);
 nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p);
 
 /**
+ * Sets all values of the given array to zero.
+ * @param nodes 2D array to be modified. Dimension x * y.
+ * @param number_nodes_x Number of nodes in the first dimension.
+ * @param number_nodes_y Number of nodes in the second dimension.
+ */
+void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y);
+
+/**
  * Returns the number of processor cores online in the system.
  * @return The number of processors online in the system.
  */

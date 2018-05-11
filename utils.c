@@ -39,6 +39,19 @@ nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p)
 	return arr;
 }
 
+void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y){
+	//initialize all nodes with 0
+	for (int i = 0; i < number_nodes_x; i++)
+	{
+		for (int j = 0; j < number_nodes_y; j++)
+		{
+			nodes[i][j] = 0.0;
+		}
+	}
+}
+
+
+
 int system_processor_online_count()
 {
 	#ifdef _WIN32
