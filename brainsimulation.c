@@ -7,11 +7,11 @@
 #include <time.h>
 
 // implement the actual simulation here
-int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
              int num_obervationnodes, nodetimeseries_t *observationnodes) {
     printf("Starting simulation.\n");
     printf("Number of ticks: %d\n", num_ticks);
-    printf("Length of each tick (ms): %d\n", tick_ms);
+    printf("Length of each tick (ms): %f\n", tick_ms);
     printf("Number of observation nodes: %d\n", num_obervationnodes);
     printf("Observation nodes: %d\n", num_obervationnodes);
     clock_t start_time, end_time;
@@ -41,6 +41,9 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
             printf("Executing tick %d failed with return code %d. Aborting simulation.\n", j, returncode);
             return returncode;
         }
+        // add the input signals AFTER the actual computation takes place.
+        // Change location?
+        add_input_influence(j, tick_ms, number_nodes_x, number_nodes_y, new_state);
         extract_observationnodes(j, num_obervationnodes, observationnodes, new_state);
         // swap array states -> the new_state becomes the old_state, old_state can be overwritten
         nodeval_t **tmp = old_state;
@@ -54,7 +57,7 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     return 0;
 }
 
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+int execute_tick(double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
                  nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr) {
     for (int i = 0; i < number_nodes_x; ++i) {
         for (int j = 0; j < number_nodes_y; ++j) {
@@ -78,4 +81,18 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimes
         observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
     }
     return;
+}
+
+void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+                             nodeval_t **state){
+    // every 50th tick -> add burst input at node 20, 20 of value 100
+    int tick_period = 50;
+    int x_node = 20;
+    int y_node = 20;
+    nodeval_t increase = 100;
+    if(tick_number%tick_period==0){
+        printf("Increased node (%d|%d). State before %f, state now: %f.\n", x_node, y_node, state[x_node][y_node],
+               state[x_node][y_node] + increase);
+        state[x_node][y_node] = state[x_node][y_node] + increase;
+    }
 }

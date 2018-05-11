@@ -15,8 +15,8 @@ const int NUM_START_NODES_DEFAULT = 4;
 const nodeval_t START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
 
 int main(int argc, char *argv[]) {
-    int tick_ms = 1;
-    int num_ticks = 50;
+    double tick_ms = 0.1;
+    int num_ticks = 500;
     nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
