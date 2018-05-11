@@ -27,6 +27,10 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
     nodeval_t slope_new = slope_old + slope_vector;
     nodeval_t act_new = act_old + slope_new;
 
+    // physical damping
+    double damping = 0.2;
+    act_new = act_new/(1+damping);
+
     nodestate_t res;
     res.act = act_new;
     res.slope = slope_new;
