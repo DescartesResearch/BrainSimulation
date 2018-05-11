@@ -21,14 +21,14 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
 
 
     // rest of the algorithm
-    nodeval_t slope3 = madn - slope_old;
-    nodeval_t slope4 = maidn - slope_old;
+    nodeval_t slope3 = madn - act_old;
+    nodeval_t slope4 = maidn - act_old;
     nodeval_t slope_vector = slope3 + slope4;
     nodeval_t slope_new = slope_old + slope_vector;
     nodeval_t act_new = act_old + slope_new;
 
-    // physical damping
-    double damping = 0.2;
+    // physical damping, default 0.001
+    double damping = 0.001;
     act_new = act_new/(1+damping);
 
     nodestate_t res;
