@@ -20,7 +20,7 @@
  * results. Must have num_obervationnodes as length.
  * @return Return-codes.
  */
-int simulate(int tick_ms,
+unsigned int simulate(int tick_ms,
              int num_ticks,
              int number_nodes_x,
              int number_nodes_y,
@@ -29,7 +29,7 @@ int simulate(int tick_ms,
              nodetimeseries_t *oberservationnodes);
 
 /**
- * Executes one tick of the simulation.
+ * Executes one tick of the simulation. General entry point.
  *
  * @param tick_ms Milliseconds in between each simulation tick.
  * @param number_nodes_x The number of nodes in the first dimension of nodes.
@@ -42,8 +42,16 @@ int simulate(int tick_ms,
  * number_nodes_y * 2 * 4.
  * @return Return-codes.
  */
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+unsigned int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
                  nodeval_t **new_state, nodeval_t ****kernels);
+
+/**
+ * Executes a partial tick of the simulation, as defined by a partial tick context.
+ * Usually executed in a separate thread.
+ * @param context The partial context to handle in this call.
+ * @return Return-codes, usually 0.
+ */
+unsigned int execute_partial_tick(partialtickcontext_t * context);
 
 /**
  * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.

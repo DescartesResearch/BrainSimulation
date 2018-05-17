@@ -2,12 +2,21 @@
 #include "nodefunc.h"
 #include "utils.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
+/*
+ * Static system environment information initialized at first simulation run.
+ * Remains constant during execution.
+ */
+static int num_threads;
+
 // implement the actual simulation here
-int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-             int num_obervationnodes, nodetimeseries_t *observationnodes) {
+unsigned int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+             int num_obervationnodes, nodetimeseries_t *observationnodes)
+{
+	num_threads = system_processor_online_count() * THREADFACTOR;
     printf("Starting simulation.\n");
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %d\n", tick_ms);
@@ -17,7 +26,8 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     double cpu_time_used;
     start_time = clock();
     int i = 0;
-    for (i = 0; i < num_obervationnodes; ++i) {
+    for (i = 0; i < num_obervationnodes; ++i)
+	{
         printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
     }
     printf("\n");
@@ -27,9 +37,13 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     nodeval_t ****kernels = alloc_4d(number_nodes_x, number_nodes_y, 2, 4);
 
     int j;
-    for (j = 0; j < num_ticks; ++j) {
+    for (j = 0; j < num_ticks; ++j)
+	{
         int returncode = execute_tick(tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, kernels);
-        printf("Executed tick %d.\n", j);
+		if (!(j % 10))
+		{
+			printf("Executed tick %d.\n", j);
+		}
         if (returncode != 0) {
             printf("Executing tick %d failed with return code %d. Aborting simulation.\n", j, returncode);
             return returncode;
@@ -47,29 +61,65 @@ int simulate(int tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y,
     return 0;
 }
 
-int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-                 nodeval_t **new_state, nodeval_t ****kernels) {
-    for (int i = 0; i < number_nodes_x; ++i) {
-        for (int j = 0; j < number_nodes_y; ++j) {
-            d_kernel(kernels[i][j][0], number_nodes_x, number_nodes_y, old_state, i, j);
-            id_kernel(kernels[i][j][1], number_nodes_x, number_nodes_y, old_state, i, j);
-            // we do not know what slope is, yet.
-            nodeval_t slope_old = 0;
-            new_state[i][j] = process(old_state[i][j], slope_old, 4, kernels[i][j][0], 4, kernels[i][j][1]);
-        }
-    }
-    return 0;
+unsigned int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                 nodeval_t **new_state, nodeval_t ****kernels)
+{
+	if (MULTITHREADING) {
+		threadhandle_t ** handles = malloc(num_threads * sizeof(threadhandle_t *));
+		for (int i = 0; i < num_threads; i++)
+		{
+			int thread_start_x = (i * number_nodes_x) / num_threads;
+			int thread_end_x = ((i + 1) * number_nodes_x) / num_threads;
+			partialtickcontext_t context;
+			init_partial_tick_context(&context, tick_ms, number_nodes_x, number_nodes_y, old_state,
+				new_state, kernels, thread_start_x, thread_end_x);
+			handles[i] = create_and_run_simulation_thread(execute_partial_tick, &context);
+		}
+		join_and_close_simulation_threads(handles, num_threads);
+		free(handles);
+	}
+	else
+	{
+		partialtickcontext_t context;
+		init_partial_tick_context(&context, tick_ms, number_nodes_x, number_nodes_y, old_state,
+			new_state, kernels, 0, number_nodes_x);
+		execute_partial_tick(&context);
+	}
+	return 0;
+}
+
+unsigned int execute_partial_tick(partialtickcontext_t * context)
+{
+	for (int i = context->thread_start_x; i < context->thread_end_x; ++i)
+	{
+		for (int j = 0; j < context->number_nodes_y; ++j)
+		{
+			d_kernel(context->kernels[i][j][0], context->number_nodes_x,
+				context->number_nodes_y, context->old_state, i, j);
+			id_kernel(context->kernels[i][j][1], context->number_nodes_x,
+				context->number_nodes_y, context->old_state, i, j);
+			// we do not know what slope is, yet.
+			nodeval_t slope_old = 0;
+			context->new_state[i][j]
+				= process(context->old_state[i][j], slope_old, 4,
+				context->kernels[i][j][0], 4, context->kernels[i][j][1]);
+		}
+	}
+	return 0;
 }
 
 void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
-                              nodeval_t **state) {
-    for (int i = 0; i < num_obervationnodes; ++i) {
+                              nodeval_t **state)
+{
+    for (int i = 0; i < num_obervationnodes; ++i)
+	{
         observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
     }
     return;
 }
 
-void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
+void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y)
+{
     if (x - 1 >= 0) {
         result[0] = nodegrid[x - 1][y];
     } else {
@@ -96,7 +146,8 @@ void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval
     }
 }
 
-void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
+void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y)
+{
     if (x - 1 >= 0 && y - 1 >= 0) {
         result[0] = nodegrid[x - 1][y - 1];
     } else {

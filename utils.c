@@ -39,7 +39,7 @@ nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p)
 	return arr;
 }
 
-int system_processor_online_count()
+unsigned int system_processor_online_count()
 {
 	#ifdef _WIN32
 		SYSTEM_INFO info;
@@ -50,7 +50,7 @@ int system_processor_online_count()
 	#endif
 }
 
-threadhandle_t * create_and_run_simulation_thread(unsigned int (*callback)(threadcontext_t *), threadcontext_t * context)
+threadhandle_t * create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *), partialtickcontext_t * context)
 {
 	threadhandle_t * handle = malloc(sizeof(threadhandle_t));
 	#ifdef _WIN32
@@ -67,24 +67,34 @@ threadhandle_t * create_and_run_simulation_thread(unsigned int (*callback)(threa
 
 void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_threads)
 {
-	#ifdef _WIN32
-		for (int i = 0; i < num_threads; i++)
-		{
+	for (int i = 0; i < num_threads; i++)
+	{
+		#ifdef _WIN32
 			WaitForSingleObject(*handles[i], INFINITE);
-		}
-		for (int i = 0; i < num_threads; i++)
-		{
-			CloseHandle(*handles[i]);
-			free(handles[i]);
-		}
-	#else
-		for (int i = 0; i < num_threads; i++)
-		{
+		#else
 			pthread_join(*handles[i], NULL);
-		}
-		for (int i = 0; i < num_threads; i++)
-		{
-			free(handles[i]);
-		}
-	#endif
+		#endif
+	}
+	for (int i = 0; i < num_threads; i++)
+	{
+		#ifdef _WIN32
+			CloseHandle(*handles[i]);
+		#endif
+		free(handles[i]);
+	}
+}
+
+void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
+	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+	nodeval_t **new_state, nodeval_t ****kernels,
+	int thread_start_x, int thread_end_x)
+{
+	context->tick_ms = tick_ms;
+	context->number_nodes_x = number_nodes_x;
+	context->number_nodes_y = number_nodes_y;
+	context->old_state = old_state;
+	context->new_state = new_state;
+	context->kernels = kernels;
+	context->thread_start_x = thread_start_x;
+	context->thread_end_x = thread_end_x;
 }

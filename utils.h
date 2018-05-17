@@ -23,55 +23,6 @@
 #endif
 
 /**
-* Struct to pass all execution information to a new thread.
-*/
-typedef struct {
-	/**
-	 * Milliseconds in between each simulation tick.
-	 */
-	int tick_ms;
-
-	/**
-	 * The number of nodes in the first dimension of nodes.
-	 */
-	int number_nodes_x;
-
-	/**
-	 * The number of nodes in the second dimension of nodes.
-	 */
-	int number_nodes_y;
-
-	/**
-	 * 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
-	 */
-	nodeval_t **old_state;
-
-	/**
-	 * 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
-	 * number_nodes_y.
-	 */
-	nodeval_t **new_state;
-
-	/**
-	 * 2D array containing the kernels of each node at each index.Each index node points to an array
-	 * containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
-	 * number_nodes_y * 2 * 4.
-	 */
-	nodeval_t ****kernels;
-
-	/**
-	 * Node x index at which to start working in this thread (inclusive).
-	 */
-	int thread_start_x;
-
-	/**
-	 * Node x index at which to stop working in this thread (exclusive).
-	 */
-	int thread_end_x;
-}
-threadcontext_t;
-
-/**
 * Allocates a new 2d array with m pointers, pointing to a list of n elements.
 * @param m The number of nodes in the first dimension (x-axis).
 * @param n The number of nodes in the second dimension (y-axis).
@@ -97,7 +48,7 @@ nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p);
  * Returns the number of processor cores online in the system.
  * @return The number of processors online in the system.
  */
-int system_processor_online_count();
+unsigned int system_processor_online_count();
 
 /**
  * Creates a new platform-specific thread with the context and starts it.
@@ -106,7 +57,7 @@ int system_processor_online_count();
  * @param context The threadcontext struct to pass.
  * @return A handle for the running thread.
  */
-threadhandle_t * create_and_run_simulation_thread(unsigned int (* callback)(threadcontext_t * ), threadcontext_t * context);
+threadhandle_t * create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *), partialtickcontext_t * context);
 
 /**
  * Joins all threads and then closes them. Frees all thread handles.
@@ -114,5 +65,25 @@ threadhandle_t * create_and_run_simulation_thread(unsigned int (* callback)(thre
  * @param num_threads length of handles array.
  */
 void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_threads);
+
+/**
+ * Convenience function to pass all members to a partialtickcontext_t in a single line.
+ * @param context Pointer to the context.
+ * @param tick_ms Milliseconds in between each simulation tick.
+ * @param number_nodes_x The number of total nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of total nodes in the second dimension of nodes.
+ * @param old_state 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
+ * @param new_state 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
+ * number_nodes_y.
+ * @param kernels 2D array containing the kernels of each node at each index.Each index node points to an array
+ * containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
+ * number_nodes_y * 2 * 4.
+ * @param thread_start_x Node x index at which to start working in this thread (inclusive).
+ * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
+ */
+void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
+	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+	nodeval_t **new_state, nodeval_t ****kernels,
+	int thread_start_x, int thread_end_x);
 
 #endif
