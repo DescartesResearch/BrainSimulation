@@ -1,6 +1,9 @@
 #include "utils.h"
 
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <stdio.h>
 #ifdef _WIN32
 	#include <Windows.h>
 	#include <process.h>
@@ -39,7 +42,20 @@ nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p)
 	return arr;
 }
 
-unsigned int system_processor_online_count()
+void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y){
+	//initialize all nodes with 0
+	for (int i = 0; i < number_nodes_x; i++)
+	{
+		for (int j = 0; j < number_nodes_y; j++)
+		{
+			nodes[i][j] = 0.0;
+		}
+	}
+}
+
+
+
+int system_processor_online_count()
 {
 	#ifdef _WIN32
 		SYSTEM_INFO info;
@@ -86,7 +102,8 @@ void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_
 
 void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
 	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t ****kernels,
+	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+	kernelfunc_t d_ptr, kernelfunc_t id_ptr,
 	int thread_start_x, int thread_end_x)
 {
 	context->tick_ms = tick_ms;
@@ -94,7 +111,28 @@ void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
 	context->number_nodes_y = number_nodes_y;
 	context->old_state = old_state;
 	context->new_state = new_state;
+	context->slopes = slopes;
 	context->kernels = kernels;
+	context->d_ptr = d_ptr;
+	context->id_ptr = id_ptr;
 	context->thread_start_x = thread_start_x;
 	context->thread_end_x = thread_end_x;
+}
+
+
+void output_to_csv(char *filename, int length, nodeval_t *values){
+	printf("Creating %s file\n",filename);
+	FILE *fp = fopen(filename,"w+");
+	if (fp==NULL){
+		printf("File is null.\n Error: %s\n",strerror(errno));
+
+	} else {
+		fprintf(fp,"Energy-value,");
+		int i;
+		for(i=0;i<length;i++){
+			fprintf(fp,"\n%f,",values[i]);
+		}
+		fclose(fp);
+		printf("%s file created.\n",filename);
+	}
 }

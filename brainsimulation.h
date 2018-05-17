@@ -20,7 +20,7 @@
  * results. Must have num_obervationnodes as length.
  * @return Return-codes.
  */
-unsigned int simulate(int tick_ms,
+int simulate(double tick_ms,
              int num_ticks,
              int number_nodes_x,
              int number_nodes_y,
@@ -29,7 +29,7 @@ unsigned int simulate(int tick_ms,
              nodetimeseries_t *oberservationnodes);
 
 /**
- * Executes one tick of the simulation. General entry point.
+ * Executes one tick of the simulation.
  *
  * @param tick_ms Milliseconds in between each simulation tick.
  * @param number_nodes_x The number of nodes in the first dimension of nodes.
@@ -37,45 +37,26 @@ unsigned int simulate(int tick_ms,
  * @param old_state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
  * @param new_state 2D array of nodes with the new energy level. Values will be overwritten. Size number_nodes_x *
  * number_nodes_y.
- * @param kernels 2D array containing the kernels of each node at each index. Each index node points to an array
+ * @param slopes 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
+ * number_nodes_y.
+ * @param kernels 4D array containing the kernels of each node at each index. Each index node points to an array
  * containing (currently) two kernels, each (currently) containing 4 neighbouring noides. Dimensions: number_nodes_x *
  * number_nodes_y * 2 * 4.
+ * @param d_ptr Function pointer pointing to the kernel function for the direct neighborhood.
+ * @param id_ptr Function pointer pointing to the kernel function for the indirect neighborhood.
  * @return Return-codes.
  */
-unsigned int execute_tick(int tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-                 nodeval_t **new_state, nodeval_t ****kernels);
+unsigned int execute_tick(double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                 nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr,
+                 kernelfunc_t id_ptr);
 
 /**
- * Executes a partial tick of the simulation, as defined by a partial tick context.
- * Usually executed in a separate thread.
- * @param context The partial context to handle in this call.
- * @return Return-codes, usually 0.
- */
+* Executes a partial tick of the simulation, as defined by a partial tick context.
+* Usually executed in a separate thread.
+* @param context The partial context to handle in this call.
+* @return Return-codes, usually 0.
+*/
 unsigned int execute_partial_tick(partialtickcontext_t * context);
-
-/**
- * Calculates the direct kernel for one specific node of the node grid, i.e., the direct neighborhood.
- *
- * @param result The array to store the kernel into. Length 4.
- * @param number_nodes_x The number of nodes in the first dimension of nodes.
- * @param number_nodes_y The number of nodes in the second dimension of nodes.
- * @param nodegrid 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
- * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
- * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
- */
-void d_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y);
-
-/**
- * Calculates the indirect kernel for one specific node of the node grid, i.e., the indirect neighborhood.
- *
- * @param result The array to store the kernel into. Length 4.
- * @param number_nodes_x The number of nodes in the first dimension of nodes.
- * @param number_nodes_y The number of nodes in the second dimension of nodes.
- * @param nodegrid 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
- * @param x The x-Coordinate of the specific node for which the kernel is to be executed for.
- * @param y The y-Coordinate of the specific node for which the kernel is to be executed for.
- */
-void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int i, int j);
 
 /**
  * Extracts and stores/saves the information into the specified observation nodes.
@@ -88,5 +69,17 @@ void id_kernel(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeva
  */
 void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
                               nodeval_t **state);
+
+/**
+ * Adds the influence of the defined input nodes to the current state.
+ *
+ * @param tick_number The current tick number.
+ * @param tick_ms Milliseconds in between each simulation tick.
+ * @param number_nodes_x The number of nodes in the first dimension of nodes.
+ * @param number_nodes_y The number of nodes in the second dimension of nodes.
+ * @param state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+ */
+void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+                         nodeval_t **state);
 
 #endif

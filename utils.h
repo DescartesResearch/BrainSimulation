@@ -1,5 +1,5 @@
-#ifndef HELPERS_H
-#define HELPERS_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include "definitions.h"
 
@@ -45,10 +45,18 @@ nodeval_t **alloc_2d(const int m, const int n);
 nodeval_t ****alloc_4d(const int m, const int n, const int o, const int p);
 
 /**
+ * Sets all values of the given array to zero.
+ * @param nodes 2D array to be modified. Dimension x * y.
+ * @param number_nodes_x Number of nodes in the first dimension.
+ * @param number_nodes_y Number of nodes in the second dimension.
+ */
+void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y);
+
+/**
  * Returns the number of processor cores online in the system.
  * @return The number of processors online in the system.
  */
-unsigned int system_processor_online_count();
+int system_processor_online_count();
 
 /**
  * Creates a new platform-specific thread with the context and starts it.
@@ -75,15 +83,29 @@ void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_
  * @param old_state 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
  * @param new_state 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
  * number_nodes_y.
+ * @param slopes 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
+ * number_nodes_y.
  * @param kernels 2D array containing the kernels of each node at each index.Each index node points to an array
  * containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
  * number_nodes_y * 2 * 4.
+ * @param d_ptr Function pointer pointing to the kernel function for the direct neighborhood.
+ * @param id_ptr Function pointer pointing to the kernel function for the indirect neighborhood.
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
  */
 void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
 	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t ****kernels,
+	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+	kernelfunc_t d_ptr, kernelfunc_t id_ptr,
 	int thread_start_x, int thread_end_x);
+
+/**
+ * Writes the given array to a .csv with every entry in its own line.
+ *
+ * @param filename Name of the file to write to.
+ * @param length Number of entries to write.
+ * @param values The values to write. Length length.
+ */
+void output_to_csv(char *filename, int length, nodeval_t *values);
 
 #endif

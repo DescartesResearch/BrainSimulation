@@ -50,6 +50,26 @@ typedef struct {
 nodetimeseries_t;
 
 /**
+* Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
+*/
+typedef struct {
+	/**
+	* Energy-level of node
+	*/
+	nodeval_t act;
+	/**
+	* Slope of node.
+	*/
+	nodeval_t slope;
+}
+nodestate_t;
+
+/**
+* Definition of the kernel-function interface.
+*/
+typedef int(*kernelfunc_t)(nodeval_t *, int, int, nodeval_t **, int, int);
+
+/**
 * Struct to pass all execution information to a new thread
 * for executing a tick (or parts thereof).
 */
@@ -81,6 +101,12 @@ typedef struct {
 	nodeval_t **new_state;
 
 	/**
+	 * 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
+	 * number_nodes_y.
+	 */
+	nodeval_t **slopes;
+
+	/**
 	* 2D array containing the kernels of each node at each index.Each index node points to an array
 	* containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
 	* number_nodes_y * 2 * 4.
@@ -96,6 +122,16 @@ typedef struct {
 	* Node x index at which to stop working in this thread (exclusive).
 	*/
 	int thread_end_x;
+
+	/**
+	 * Function pointer pointing to the kernel function for the direct neighborhood.
+	 */
+	kernelfunc_t d_ptr; 
+
+	/**
+	 * Function pointer pointing to the kernel function for the indirect neighborhood.
+	 */
+	kernelfunc_t id_ptr; 
 }
 partialtickcontext_t;
 
