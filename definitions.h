@@ -5,17 +5,20 @@
  * Common definitions.
  */
 
+#ifndef MULTITHREADING
 /**
  * 1 if multithreading is enabled, 0 otherwise.
  */
 #define MULTITHREADING 1
+#endif
 
+#ifndef THREADFACTOR
 /**
  * Flouting point factor to modifiy the number of threads in relation to the number
  * of logical processors on the execution system.
  */
 #define THREADFACTOR 1
-
+#endif
 
 //types
 
