@@ -23,6 +23,30 @@
 #endif
 
 /**
+ * Struct to pass a simulation's technical execution information
+ * to the ticks. Contains information on thread-counts and global handles.
+ */
+typedef struct
+{
+	/**
+	 * Number of threads in use by the simulation.
+	 */
+	unsigned int num_threads;
+
+	/**
+	 * Pointers to thread handles provided by the operating system.
+	 */
+	threadhandle_t **handles;
+
+	/**
+	 * Array of contexts for the different threads. Has num_threads length.
+	 */
+	partialtickcontext_t *contexts;
+}
+simulationexecutioncontext_t;
+
+
+/**
 * Allocates a new 2d array with m pointers, pointing to a list of n elements.
 * @param m The number of nodes in the first dimension (x-axis).
 * @param n The number of nodes in the second dimension (y-axis).

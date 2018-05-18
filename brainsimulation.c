@@ -17,7 +17,7 @@ static int num_threads;
 // implement the actual simulation here
 int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
              int num_obervationnodes, nodetimeseries_t *observationnodes) {
-	num_threads = system_processor_online_count() * THREADFACTOR;
+	num_threads = (int)(THREADFACTOR * system_processor_online_count());
 	printf("Starting simulation.\n");
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %f\n", tick_ms);

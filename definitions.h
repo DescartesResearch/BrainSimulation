@@ -11,7 +11,7 @@
 #define MULTITHREADING 1
 
 /**
- * Int factor to modifiy the number of threads in relation to the number
+ * Flouting point factor to modifiy the number of threads in relation to the number
  * of logical processors on the execution system.
  */
 #define THREADFACTOR 1
@@ -20,14 +20,14 @@
 //types
 
 /**
-* Type that the nodes in the brainsimulation use to store their energy level.
-*/
+ * Type that the nodes in the brainsimulation use to store their energy level.
+ */
 typedef double nodeval_t;
 
 /**
-* Struct to store the results of a simulation for a single observed node.
-* x_index and y_index members must be set when passing it to a simulation.
-*/
+ * Struct to store the results of a simulation for a single observed node.
+ * x_index and y_index members must be set when passing it to a simulation.
+ */
 typedef struct {
 	/**
 	* x index of the node.
@@ -50,8 +50,8 @@ typedef struct {
 nodetimeseries_t;
 
 /**
-* Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
-*/
+ * Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
+ */
 typedef struct {
 	/**
 	* Energy-level of node
@@ -70,9 +70,9 @@ nodestate_t;
 typedef int(*kernelfunc_t)(nodeval_t *, int, int, nodeval_t **, int, int);
 
 /**
-* Struct to pass all execution information to a new thread
-* for executing a tick (or parts thereof).
-*/
+ * Struct to pass all execution information to a new thread
+ * for executing a tick (or parts thereof).
+ */
 typedef struct {
 	/**
 	* Milliseconds in between each simulation tick.
