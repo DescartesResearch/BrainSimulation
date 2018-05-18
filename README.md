@@ -45,3 +45,7 @@ Available switches:
   * Windows:
 
     `> .\brainsimulation`
+
+## Developing
+
+Check out our code documentation at https://descartesresearch.github.io/BrainSimulation/
