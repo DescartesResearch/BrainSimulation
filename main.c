@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
 																	 num_ticks);
-    int number_nodes_x = 120;
-    int number_nodes_y = 120;
+    int number_nodes_x = 500;
+    int number_nodes_y = 500;
     nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
 	init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
 		NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,

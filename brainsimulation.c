@@ -8,10 +8,11 @@
 #include <time.h>
 
 /*
-* Static system environment information initialized at first simulation run.
-* Remains constant during execution.
-*/
+ * Static system environment information initialized at first simulation run.
+ * Remains constant during execution.
+ */
 static int num_threads;
+
 
 // implement the actual simulation here
 int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
@@ -72,16 +73,17 @@ unsigned int execute_tick(double tick_ms, int number_nodes_x, int number_nodes_y
 {
 	if (MULTITHREADING) {
 		threadhandle_t ** handles = malloc(num_threads * sizeof(threadhandle_t *));
+		partialtickcontext_t* contexts = malloc(num_threads * sizeof(partialtickcontext_t));
 		for (int i = 0; i < num_threads; i++)
 		{
 			int thread_start_x = (i * number_nodes_x) / num_threads;
 			int thread_end_x = ((i + 1) * number_nodes_x) / num_threads;
-			partialtickcontext_t context;
-			init_partial_tick_context(&context, tick_ms, number_nodes_x, number_nodes_y, old_state,
+			init_partial_tick_context(&contexts[i], tick_ms, number_nodes_x, number_nodes_y, old_state,
 				new_state, slopes, kernels, d_ptr, id_ptr, thread_start_x, thread_end_x);
-			handles[i] = create_and_run_simulation_thread(execute_partial_tick, &context);
+			handles[i] = create_and_run_simulation_thread(execute_partial_tick, &contexts[i]);
 		}
 		join_and_close_simulation_threads(handles, num_threads);
+		free(contexts);
 		free(handles);
 	}
 	else

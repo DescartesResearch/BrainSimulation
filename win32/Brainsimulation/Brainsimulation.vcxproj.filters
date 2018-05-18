@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\utils.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\kernels.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\brainsetup.h">
@@ -45,6 +48,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\utils.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\kernels.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

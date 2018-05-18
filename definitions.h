@@ -8,7 +8,7 @@
 /**
  * 1 if multithreading is enabled, 0 otherwise.
  */
-#define MULTITHREADING 0
+#define MULTITHREADING 1
 
 /**
  * Int factor to modifiy the number of threads in relation to the number
@@ -77,7 +77,7 @@ typedef struct {
 	/**
 	* Milliseconds in between each simulation tick.
 	*/
-	int tick_ms;
+	double tick_ms;
 
 	/**
 	* The number of total nodes in the first dimension of nodes.

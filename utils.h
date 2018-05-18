@@ -93,7 +93,7 @@ void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
  */
-void init_partial_tick_context(partialtickcontext_t * context, int tick_ms,
+void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
 	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
 	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
 	kernelfunc_t d_ptr, kernelfunc_t id_ptr,
