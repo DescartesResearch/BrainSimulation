@@ -8,7 +8,7 @@ Simulation of the human brain.
     1. Clone the repository.
     2. From the working directory root run
 
-    ```bash
+    ```
     $ make
     ```
     
@@ -25,7 +25,7 @@ You can customize the build by passing Preprocessor options. Using make, pass th
 
 **Example**, sets the `THREADFACTOR` directive to `0.5` using GCCs -D switch:
 
-```bash
+```
 $ make DFLAGS="-DTHREADFACTOR=0.5"
 ```
 
@@ -40,18 +40,18 @@ Available switches:
 3. Execute the simulation in one of the following ways:
     * Linux, running from the build directory:
  
-    ```bash
+    ```
     $ ./brainsimulation
     ```
     
     * Linux, after compiling using *make install*:
     
-    ```bash
+    ```
     $ brainsimulation
     ```
     
     * Windows:
     
-    ```pwsh
+    ```
     > .\brainsimulation
     ```
