@@ -8,7 +8,7 @@ Simulation of the human brain.
 1. Clone the repository.
 2. From the working directory root run
 
-  `$ make`
+    `$ make`
 
 3. The makefile supports the `install` target (optional).
 
