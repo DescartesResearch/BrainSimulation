@@ -125,6 +125,14 @@ void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
 	int thread_start_x, int thread_end_x);
 
 /**
+ * Initializes a simuatlionexecutioncontext.
+ * Derives the number of threads for execution and writes the result to context->num_threads.
+ * Allocates memory for the arrays in the context.
+ * @param context The context to initialize.
+ */
+void init_simulationexecutioncontext(simulationexecutioncontext_t *context);
+
+/**
  * Writes the given array to a .csv with every entry in its own line.
  *
  * @param filename Name of the file to write to.
@@ -133,6 +141,12 @@ void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
  */
 void output_to_csv(char *filename, int length, nodeval_t *values);
 
+/**
+ * Get the time of day.
+ * Platform-independent abstraction of gettimeofday in sys/time.h.
+ * @param tp The timeval to write back to.
+ * @return Error codes.
+ */
 int getdaytime(struct timeval *tp);
 
 #endif

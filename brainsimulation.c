@@ -1,28 +1,23 @@
 #include "brainsimulation.h"
 #include "nodefunc.h"
-#include "utils.h"
 #include "kernels.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-/*
- * Static system environment information initialized at first simulation run.
- * Remains constant during execution.
- */
-static int num_threads;
-
 
 // implement the actual simulation here
 int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
              int num_obervationnodes, nodetimeseries_t *observationnodes) {
-	num_threads = (int)(THREADFACTOR * system_processor_online_count());
+	simulationexecutioncontext_t simulationexecutioncontext;
+	init_simulationexecutioncontext(&simulationexecutioncontext);
 	printf("Starting simulation.\n");
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %f\n", tick_ms);
     printf("Number of observation nodes: %d\n", num_obervationnodes);
     printf("Observation nodes: %d\n", num_obervationnodes);
+	printf("Number of threads: %d\n", simulationexecutioncontext.num_threads);
     struct timeval  tv1, tv2;
 	getdaytime(&tv1);
     int i = 0;
@@ -42,9 +37,9 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
 
     int j;
     for (j = 0; j < num_ticks; ++j) {
-        int returncode = execute_tick(tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, slopes, kernels,
+		int returncode = execute_tick(&simulationexecutioncontext, tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, slopes, kernels,
                 d_kernel, id_kernel);
-		if (!(j % 10)) {
+		if (!(j % 50)) {
 			printf("Executed tick %d.\n", j);
 		}
         if (returncode != 0) {
@@ -68,30 +63,29 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
     return 0;
 }
 
-unsigned int execute_tick(double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+unsigned int execute_tick(simulationexecutioncontext_t *simulationexecutioncontext,
+	double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
 	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr)
 {
-	if (MULTITHREADING) {
-		threadhandle_t ** handles = malloc(num_threads * sizeof(threadhandle_t *));
-		partialtickcontext_t* contexts = malloc(num_threads * sizeof(partialtickcontext_t));
-		for (int i = 0; i < num_threads; i++)
+	if (simulationexecutioncontext->num_threads > 1) {
+		for (int i = 0; i < simulationexecutioncontext->num_threads; i++)
 		{
-			int thread_start_x = (i * number_nodes_x) / num_threads;
-			int thread_end_x = ((i + 1) * number_nodes_x) / num_threads;
-			init_partial_tick_context(&contexts[i], tick_ms, number_nodes_x, number_nodes_y, old_state,
+			int thread_start_x = (i * number_nodes_x) / simulationexecutioncontext->num_threads;
+			int thread_end_x = ((i + 1) * number_nodes_x) / simulationexecutioncontext->num_threads;
+			init_partial_tick_context(&simulationexecutioncontext->contexts[i],
+				tick_ms, number_nodes_x, number_nodes_y, old_state,
 				new_state, slopes, kernels, d_ptr, id_ptr, thread_start_x, thread_end_x);
-			handles[i] = create_and_run_simulation_thread(execute_partial_tick, &contexts[i]);
+			simulationexecutioncontext->handles[i] =
+				create_and_run_simulation_thread(execute_partial_tick, &simulationexecutioncontext->contexts[i]);
 		}
-		join_and_close_simulation_threads(handles, num_threads);
-		free(contexts);
-		free(handles);
+		join_and_close_simulation_threads(simulationexecutioncontext->handles, simulationexecutioncontext->num_threads);
 	}
 	else
 	{
-		partialtickcontext_t context;
-		init_partial_tick_context(&context, tick_ms, number_nodes_x, number_nodes_y, old_state,
+		init_partial_tick_context(simulationexecutioncontext->contexts,
+			tick_ms, number_nodes_x, number_nodes_y, old_state,
 			new_state, slopes, kernels, d_ptr, id_ptr, 0, number_nodes_x);
-		execute_partial_tick(&context);
+		execute_partial_tick(simulationexecutioncontext->contexts);
 	}
 	return 0;
 }

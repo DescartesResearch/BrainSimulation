@@ -123,6 +123,15 @@ void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
 	context->thread_end_x = thread_end_x;
 }
 
+void init_simulationexecutioncontext(simulationexecutioncontext_t *context) {
+	if (MULTITHREADING) {
+		context->num_threads = (int)(THREADFACTOR * system_processor_online_count());
+	} else {
+		context->num_threads = 1;
+	}
+	context->handles = malloc(context->num_threads * sizeof(threadhandle_t *));
+	context->contexts = malloc(context->num_threads * sizeof(partialtickcontext_t));
+}
 
 void output_to_csv(char *filename, int length, nodeval_t *values){
 	printf("Creating %s file\n",filename);

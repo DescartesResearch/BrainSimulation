@@ -2,6 +2,7 @@
 #define BRAINSIMULATION_H
 
 #include "definitions.h"
+#include "utils.h"
 
 //function declarations
 
@@ -31,6 +32,8 @@ int simulate(double tick_ms,
 /**
  * Executes one tick of the simulation.
  *
+ * @param simulationexecutioncontext The technical gobal context of the simulation.
+ * Contains information on threading settings, etc.
  * @param tick_ms Milliseconds in between each simulation tick.
  * @param number_nodes_x The number of nodes in the first dimension of nodes.
  * @param number_nodes_y The number of nodes in the second dimension of nodes.
@@ -46,7 +49,8 @@ int simulate(double tick_ms,
  * @param id_ptr Function pointer pointing to the kernel function for the indirect neighborhood.
  * @return Return-codes.
  */
-unsigned int execute_tick(double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+unsigned int execute_tick(simulationexecutioncontext_t *simulationexecutioncontext,
+				double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
                  nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr,
                  kernelfunc_t id_ptr);
 
