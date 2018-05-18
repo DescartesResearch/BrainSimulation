@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 /*
  * Static system environment information initialized at first simulation run.
@@ -23,9 +24,8 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
     printf("Length of each tick (ms): %f\n", tick_ms);
     printf("Number of observation nodes: %d\n", num_obervationnodes);
     printf("Observation nodes: %d\n", num_obervationnodes);
-    clock_t start_time, end_time;
-    double cpu_time_used;
-    start_time = clock();
+    struct timeval  tv1, tv2;
+    gettimeofday(&tv1, NULL);
     int i = 0;
     for (i = 0; i < num_obervationnodes; ++i) {
         printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
@@ -62,9 +62,10 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
         new_state = tmp;
     }
     printf("Simulation finished succesfully!\n");
-    end_time = clock();
-    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("Elapsed time: %f s.\n", cpu_time_used);
+    gettimeofday(&tv2, NULL);
+    printf ("Total time = %f seconds\n",
+            (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+            (double) (tv2.tv_sec - tv1.tv_sec));
     return 0;
 }
 
