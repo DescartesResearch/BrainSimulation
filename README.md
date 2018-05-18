@@ -21,7 +21,7 @@ Simulation of the human brain.
 
 ### Customizing the build
 
-You can customize the build by passing Preprocessor options. Using make, pass them to the `DFLAGS` variable. Use GCC's regular -D switch.
+You can customize the build by passing Preprocessor options. Using make, pass them to the *DFLAGS* variable. Use GCC's regular -D switch.
 
 **Example**, sets the *THREADFACTOR* directive to *0.5* using GCCs -D switch:
 
