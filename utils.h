@@ -7,6 +7,7 @@
 	#include <Windows.h>
 #else
 	#include <pthread.h>
+	#include <sys/time.h>
 #endif
 
 /**
@@ -131,5 +132,7 @@ void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
  * @param values The values to write. Length length.
  */
 void output_to_csv(char *filename, int length, nodeval_t *values);
+
+int getdaytime(struct timeval *tp);
 
 #endif
