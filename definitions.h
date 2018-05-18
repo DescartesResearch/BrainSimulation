@@ -2,7 +2,8 @@
 #define DEFINITIONS_H
 
 /**
- * Common definitions.
+ * @file
+ * Common definitions (mostly types).
  */
 
 #ifndef MULTITHREADING

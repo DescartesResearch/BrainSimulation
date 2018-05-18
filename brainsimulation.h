@@ -4,6 +4,11 @@
 #include "definitions.h"
 #include "utils.h"
 
+/**
+ * @file
+ * Main entry points for the brainsimultion.
+ */
+
 //function declarations
 
 /**

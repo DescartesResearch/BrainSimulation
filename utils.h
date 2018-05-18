@@ -11,6 +11,7 @@
 #endif
 
 /**
+ * @file
  * Common helper functions.
  */
 

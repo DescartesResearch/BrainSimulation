@@ -4,6 +4,7 @@
 #include "definitions.h"
 
 /**
+ * @file
  * Represents the behavior of single nodes.
  */
 
@@ -11,8 +12,8 @@
 * This is the process done by the each agent.
 * Takes the old state and information about the neighbors and calculated the new energy level.
 *
-* @param actOld: The old state information.
-* @param slopeOld: The old slope.
+* @param act_old: The old state information.
+* @param slope_old: The old slope.
 * @param number_d_neighbors The number of direct neighbors.
 * @param d_neighbors: Array of direct neighboring states. Length: number_d_neighbors.
 * @param number_id_neighbors The number of indirect neighbors.

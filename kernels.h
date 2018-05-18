@@ -1,9 +1,11 @@
-//
 // Created by Johannes on 11.05.2018.
-// Supports different types of kernel-function, which can be chosen live.
-// All kernel functions have to conform to the same interface, in order to be executable.
-// All kernels should, but do not need to come in pairs (d_kernel and id_kernel).
-//
+
+/**
+ * @file
+ * Supports different types of kernel-function, which can be chosen live.
+ * All kernel functions have to conform to the same interface, in order to be executable.
+ * All kernels should, but do not need to come in pairs (d_kernel and id_kernel).
+ */
 
 #ifndef BRAINSIMULATION_KERNELS_H
 #define BRAINSIMULATION_KERNELS_H
@@ -52,6 +54,6 @@ int d_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_
  *
  * @return The number of neighbors generated, i.e., the length of the given result array.
  */
-int id_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int i, int j);
+int id_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y);
 
 #endif //BRAINSIMULATION_KERNELS_H
