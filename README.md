@@ -16,7 +16,7 @@ Simulation of the human brain.
 
 * Windows
     1. Clone the repository.
-    2. Open `win32\win32.sln`in Visual Studio.
+    2. Open `win32\win32.sln` in Visual Studio.
     3. Build using Visual Studio
 
 ### Customizing the build
