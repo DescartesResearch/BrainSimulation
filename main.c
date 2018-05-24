@@ -18,7 +18,7 @@ const nodeval_t START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
 const int NUM_INPUTNODES_DEFAULT = 4;
 const int INPUT_NODES_X_INDICES_DEFAULT[] = {10, 20, 30, 100};
 const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 20, 30, 100};
-const int INPUT_NUMBER_OF_ELEMENTS_DEFAULT[] = {9, 9, 9, 17};
+const int INPUT_NUMBER_OF_ELEMENTS_DEFAULT[] = {50, 50, 50, 63};
 const char *INPUTNODES_PATHS[] = { "./testinput/input10-10.csv", "./testinput/input20-20.csv", "./testinput/input30-30.csv",
                                    "./testinput/input100-100.csv"};
 
