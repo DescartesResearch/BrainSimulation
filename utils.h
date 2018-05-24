@@ -4,10 +4,12 @@
 #include "definitions.h"
 
 #ifdef _WIN32
-	#include <Windows.h>
+#include <Windows.h>
 #else
-	#include <pthread.h>
-	#include <sys/time.h>
+
+#include <pthread.h>
+#include <sys/time.h>
+
 #endif
 
 /**
@@ -19,33 +21,32 @@
  * Platform-independent thread handle.
  */
 #ifdef _WIN32
-	typedef HANDLE threadhandle_t;
+typedef HANDLE threadhandle_t;
 #else
-	typedef pthread_t threadhandle_t;
+typedef pthread_t threadhandle_t;
 #endif
 
 /**
  * Struct to pass a simulation's technical execution information
  * to the ticks. Contains information on thread-counts and global handles.
  */
-typedef struct
-{
-	/**
-	 * Number of threads in use by the simulation.
-	 */
-	unsigned int num_threads;
+typedef struct {
+    /**
+     * Number of threads in use by the simulation.
+     */
+    unsigned int num_threads;
 
-	/**
-	 * Pointers to thread handles provided by the operating system.
-	 */
-	threadhandle_t **handles;
+    /**
+     * Pointers to thread handles provided by the operating system.
+     */
+    threadhandle_t **handles;
 
-	/**
-	 * Array of contexts for the different threads. Has num_threads length.
-	 */
-	partialtickcontext_t *contexts;
+    /**
+     * Array of contexts for the different threads. Has num_threads length.
+     */
+    partialtickcontext_t *contexts;
 }
-simulationexecutioncontext_t;
+        simulationexecutioncontext_t;
 
 
 /**
@@ -91,14 +92,15 @@ int system_processor_online_count();
  * @param context The threadcontext struct to pass.
  * @return A handle for the running thread.
  */
-threadhandle_t * create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *), partialtickcontext_t * context);
+threadhandle_t *
+create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *), partialtickcontext_t *context);
 
 /**
  * Joins all threads and then closes them. Frees all thread handles.
  * @param handles Array of thread handle pointers.
  * @param num_threads length of handles array.
  */
-void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_threads);
+void join_and_close_simulation_threads(threadhandle_t **handles, const int num_threads);
 
 /**
  * Convenience function to pass all members to a partialtickcontext_t in a single line.
@@ -119,11 +121,11 @@ void join_and_close_simulation_threads(threadhandle_t ** handles, const int num_
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
  */
-void init_partial_tick_context(partialtickcontext_t * context, double tick_ms,
-	int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
-	kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-	int thread_start_x, int thread_end_x);
+void init_partial_tick_context(partialtickcontext_t *context, double tick_ms,
+                               int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                               nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+                               kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+                               int thread_start_x, int thread_end_x);
 
 /**
  * Initializes a simuatlionexecutioncontext.
@@ -148,6 +150,23 @@ void output_to_csv(char *filename, int length, nodeval_t *values);
  * @param tp The timeval to write back to.
  * @return Error codes.
  */
-int getdaytime(struct timeval *tp);
+int get_daytime(struct timeval *tp);
+
+/**
+ * Parses the .csv file, given by the specific filename and writes its contents into the given timeseries of the
+ * nodeinputseries_t.
+ * @param timeseries The nodeinputseries_t struct to write the parsed file into.
+ * @param filename The filename of the .csv file.
+ */
+void parse_file(nodeinputseries_t timeseries, const char *filename);
+
+/**
+ * Gets the n-th integer value of a comma-separated (.csv) line.
+ *
+ * @param line The line to parse.
+ * @param num The index of the column to get, i.e. n.
+ * @return The parsed integer.
+ */
+int get_field(char *line, int num);
 
 #endif

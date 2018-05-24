@@ -8,8 +8,8 @@
 
 
 // implement the actual simulation here
-int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-             int num_obervationnodes, nodetimeseries_t *observationnodes) {
+unsigned int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+             int num_obervationnodes, nodetimeseries_t *observationnodes, int number_inputs, nodeinputseries_t *inputs) {
 	simulationexecutioncontext_t simulationexecutioncontext;
 	init_simulationexecutioncontext(&simulationexecutioncontext);
 	printf("Starting simulation.\n");
@@ -19,7 +19,7 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
     printf("Observation nodes: %d\n", num_obervationnodes);
 	printf("Number of threads: %d\n", simulationexecutioncontext.num_threads);
     struct timeval  tv1, tv2;
-	getdaytime(&tv1);
+	get_daytime(&tv1);
     int i = 0;
     for (i = 0; i < num_obervationnodes; ++i) {
         printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
@@ -39,7 +39,7 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
     for (j = 0; j < num_ticks; ++j) {
 		int returncode = execute_tick(&simulationexecutioncontext, tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, slopes, kernels,
                 d_kernel, id_kernel);
-		if (!(j % 50)) {
+		if (!(j % 100)) {
 			printf("Executed tick %d.\n", j);
 		}
         if (returncode != 0) {
@@ -48,7 +48,7 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
         }
         // add the input signals AFTER the actual computation takes place.
         // Change location?
-        add_input_influence(j, tick_ms, number_nodes_x, number_nodes_y, new_state);
+        process_inputs(j, tick_ms, number_nodes_x, number_nodes_y, new_state, number_inputs, inputs);
         extract_observationnodes(j, num_obervationnodes, observationnodes, new_state);
         // swap array states -> the new_state becomes the old_state, old_state can be overwritten
         nodeval_t **tmp = old_state;
@@ -56,7 +56,7 @@ int simulate(double tick_ms, int num_ticks, int number_nodes_x, int number_nodes
         new_state = tmp;
     }
     printf("Simulation finished succesfully!\n");
-	getdaytime(&tv2);
+	get_daytime(&tv2);
     printf ("Total time = %f seconds\n",
             (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
             (double) (tv2.tv_sec - tv1.tv_sec));
@@ -119,16 +119,24 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimes
     return;
 }
 
-void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
-                             nodeval_t **state){
-    // every 50th tick -> add burst input at node 20, 20 of value 100
-    int tick_period = 50;
-    int x_node = 20;
-    int y_node = 20;
-    nodeval_t increase = 100;
-    if(tick_number % (int) (tick_period / tick_ms) == 0){
-        printf("Increased node (%d|%d). State before %f, state now: %f.\n", x_node, y_node, state[x_node][y_node],
-               state[x_node][y_node] + increase);
-        state[x_node][y_node] = state[x_node][y_node] + increase;
-    }
+void process_inputs(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+                    nodeval_t **state, int number_inputs, nodeinputseries_t *inputs){
+	int i;
+	for (i = 0; i < number_inputs; ++i) {
+		state[inputs[i].x_index][inputs[i].y_index] += inputs[i].timeseries[tick_number];
+	}
 }
+
+//void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+//                             nodeval_t **state){
+//    // every 50th tick -> add burst input at node 20, 20 of value 100
+//    int tick_period = 50;
+//    int x_node = 20;
+//    int y_node = 20;
+//    nodeval_t increase = 100;
+//    if(tick_number % (int) (tick_period / tick_ms) == 0){
+//        printf("Increased node (%d|%d). State before %f, state now: %f.\n", x_node, y_node, state[x_node][y_node],
+//               state[x_node][y_node] + increase);
+//        state[x_node][y_node] = state[x_node][y_node] + increase;
+//    }
+//}

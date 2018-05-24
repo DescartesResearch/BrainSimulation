@@ -35,4 +35,21 @@ void init_start_time_state(const int number_nodes_x, const int number_nodes_y, n
                            const int num_start_levels, const nodeval_t *start_levels,
 						   const int *start_nodes_x, const int *start_nodes_y);
 
+/**
+ * Reads and parses the inputs defined as csv files to be added to the given nodes during the simulation.
+ *
+ * @param number_of_inputnodes The number of input nodes and files.
+ * @param x_indices An array of x-coordinates of the nodes. Defines, which node will be added the values written in
+ * the corresponding csv file. Length: number_of_inputnodes.
+ * @param y_indices An array of y-coordinates of the nodes. Defines, which node will be added the values written in
+ * the corresponding csv file. Length: number_of_inputnodes.
+ * @param inputnodefilenames The .csv filenames to read. Order must match the order of x_coordinates and y_coordinates.
+ * Length: number_of_inputnodes.
+ * @param number_of_elements Elements assigning each node the number of input elements in the corresponding file.
+ * Length: number_of_inputnodes.
+ * @return The array of input nodes as read from the given filepaths. Length: number_of_inputnodes.
+ */
+nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int *x_indices, const int *y_indices,
+									   const char **inputnodefilenames, const int *number_of_elements);
+
 #endif

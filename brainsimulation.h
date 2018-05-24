@@ -24,15 +24,20 @@
  * @param oberservationnodes The nodes to observe during simulation. x_index and y_index members
  * must be set. All other members will be overwritten with the simulation
  * results. Must have num_obervationnodes as length.
+ * @param number_inputs The number of input nodes to be changed during execution.
+ * @param inputs Contains information about the coordinates and the values of the input nodes to be changed during
+ * execution. All values must be set. Length: number_inputs.
  * @return Return-codes.
  */
-int simulate(double tick_ms,
-             int num_ticks,
-             int number_nodes_x,
-             int number_nodes_y,
-             nodeval_t **nodes,
-             int num_obervationnodes,
-             nodetimeseries_t *oberservationnodes);
+unsigned int simulate(double tick_ms,
+                      int num_ticks,
+                      int number_nodes_x,
+                      int number_nodes_y,
+                      nodeval_t **nodes,
+                      int num_obervationnodes,
+                      nodetimeseries_t *oberservationnodes,
+                      int number_inputs,
+                      nodeinputseries_t *inputs);
 
 /**
  * Executes one tick of the simulation.
@@ -55,9 +60,9 @@ int simulate(double tick_ms,
  * @return Return-codes.
  */
 unsigned int execute_tick(simulationexecutioncontext_t *simulationexecutioncontext,
-				double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-                 nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr,
-                 kernelfunc_t id_ptr);
+                          double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+                          nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr,
+                          kernelfunc_t id_ptr);
 
 /**
 * Executes a partial tick of the simulation, as defined by a partial tick context.
@@ -65,7 +70,7 @@ unsigned int execute_tick(simulationexecutioncontext_t *simulationexecutionconte
 * @param context The partial context to handle in this call.
 * @return Return-codes, usually 0.
 */
-unsigned int execute_partial_tick(partialtickcontext_t * context);
+unsigned int execute_partial_tick(partialtickcontext_t *context);
 
 /**
  * Extracts and stores/saves the information into the specified observation nodes.
@@ -79,6 +84,18 @@ unsigned int execute_partial_tick(partialtickcontext_t * context);
 void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
                               nodeval_t **state);
 
+///**
+// * Adds the influence of the defined input nodes to the current state.
+// *
+// * @param tick_number The current tick number.
+// * @param tick_ms Milliseconds in between each simulation tick.
+// * @param number_nodes_x The number of nodes in the first dimension of nodes.
+// * @param number_nodes_y The number of nodes in the second dimension of nodes.
+// * @param state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+// */
+//void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+//                         nodeval_t **state);
+
 /**
  * Adds the influence of the defined input nodes to the current state.
  *
@@ -87,8 +104,11 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimes
  * @param number_nodes_x The number of nodes in the first dimension of nodes.
  * @param number_nodes_y The number of nodes in the second dimension of nodes.
  * @param state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
+ * @param number_inputs The number of input nodes to be changed.
+ * @param inputs Contains information about the coordinates and the values of the input nodes to be changed.
+ * Length: number_inputs
  */
-void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
-                         nodeval_t **state);
+void process_inputs(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
+                    nodeval_t **state, int number_inputs, nodeinputseries_t *inputs);
 
 #endif

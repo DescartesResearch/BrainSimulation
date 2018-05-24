@@ -28,3 +28,17 @@ void init_start_time_state(const int number_nodes_x, const int number_nodes_y, n
 		nodes[start_nodes_x[i]][start_nodes_y[i]] = start_levels[i];
 	}
 }
+
+nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int *x_indices, const int *y_indices,
+									   const char **inputnodefilenames, const int *number_of_elements){
+	nodeinputseries_t *series = malloc(number_of_inputnodes * sizeof(nodeinputseries_t));
+	int i;
+	for (i = 0; i < number_of_inputnodes; ++i) {
+		series[i].x_index = x_indices[i];
+		series[i].y_index = y_indices[i];
+		series[i].timeseries = malloc(number_of_elements[i] * sizeof(nodeval_t));
+		series[i].timeseries_ticks = number_of_elements[i];
+		parse_file(series[i], inputnodefilenames[i]);
+	}
+	return series;
+}

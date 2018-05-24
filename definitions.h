@@ -54,6 +54,31 @@ typedef struct {
 nodetimeseries_t;
 
 /**
+ * Struct to store the input for the simulation for a single node.
+ * All members must be set when passing it to a simulation.
+ */
+typedef struct {
+    /**
+    * x index of the node.
+    */
+    int x_index;
+    /**
+    * y index of the node.
+    */
+    int y_index;
+    /**
+    * Series of energy levels to be added at the specified node at the given tick.
+    * Has #timeseries_ticks as length.
+    */
+    nodeval_t *timeseries;
+    /**
+    * Length of #timeseries.
+    */
+    int timeseries_ticks;
+}
+nodeinputseries_t;
+
+/**
  * Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
  */
 typedef struct {
