@@ -123,7 +123,12 @@ void process_inputs(int tick_number, double tick_ms, int number_nodes_x, int num
                     nodeval_t **state, int number_inputs, nodeinputseries_t *inputs){
 	int i;
 	for (i = 0; i < number_inputs; ++i) {
-		state[inputs[i].x_index][inputs[i].y_index] += inputs[i].timeseries[tick_number];
+		int x = inputs[i].x_index;
+		int y = inputs[i].y_index;
+		nodeval_t increase = inputs[i].timeseries[tick_number%number_inputs];
+		// printf("Increased node (%d|%d). State before %f, state now: %f.\n", x, y,
+		// 	   state[x][y], state[x][y] + increase);
+		state[x][x] = state[x][y] + increase;
 	}
 }
 

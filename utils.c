@@ -198,16 +198,7 @@ void parse_file(nodeinputseries_t timeseries, const char *filename) {
 }
 
 int get_field(char *line, int num) {
-    const char *tok;
-    for (tok = strtok(line, ",");
-         tok && *tok;
-         tok = strtok(NULL, ",\n")) {
-        if (!--num) {
-            // parsing to integer
-            int integer = atoi(tok);
-            return integer;
-        }
-    }
-    printf("Error while reading file. Reached end of line, less elements than the required %d. Returning -1.\n", num);
-    return -1;
+    // parsing to integer
+    int integer = atoi(line);
+    return integer;
 }

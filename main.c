@@ -24,7 +24,7 @@ const char *INPUTNODES_PATHS[] = { "./testinput/input10-10.csv", "./testinput/in
 
 int main(int argc, char *argv[]) {
     double tick_ms = 1;
-    int num_ticks = 500;
+    int num_ticks = 5000;
     nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
@@ -57,6 +57,6 @@ int main(int argc, char *argv[]) {
         printf("filename: %s\n", filename);
 	    output_to_csv(filename, observationnodes[j].timeseries_ticks, observationnodes[j].timeseries);
     }
-    printf("Finished:\n");
+    printf("Finished.\n");
 	return 0;
 }
