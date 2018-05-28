@@ -4,12 +4,10 @@
 #include "definitions.h"
 
 #ifdef _WIN32
-#include <Windows.h>
+	#include <Windows.h>
 #else
-
-#include <pthread.h>
-#include <sys/time.h>
-
+	#include <pthread.h>
+	#include <sys/time.h>
 #endif
 
 /**
@@ -17,14 +15,7 @@
  * Common helper functions.
  */
 
-/**
- * Platform-independent thread handle.
- */
-#ifdef _WIN32
-typedef HANDLE threadhandle_t;
-#else
-typedef pthread_t threadhandle_t;
-#endif
+
 
 /**
  * Struct to pass a simulation's technical execution information
@@ -44,9 +35,9 @@ typedef struct {
     /**
      * Array of contexts for the different threads. Has num_threads length.
      */
-    partialtickcontext_t *contexts;
+    partialsimulationcontext_t *contexts;
 }
-        simulationexecutioncontext_t;
+executioncontext_t;
 
 
 /**
@@ -93,7 +84,26 @@ int system_processor_online_count();
  * @return A handle for the running thread.
  */
 threadhandle_t *
-create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *), partialtickcontext_t *context);
+create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *), partialsimulationcontext_t *context);
+
+/**
+ * Initializes tread barrier.
+ * @param barrier Barrier to initialize.
+ * @param number_threads: The number of threads that the barrier should be configured to block.
+ */
+void init_thread_barrier(threadbarrier_t *barrier, const unsigned int number_threads);
+
+/**
+ * Destroys the thread barrier.
+ * @param barrier Barrier to destroy.
+ */
+void destroy_thread_barrier(threadbarrier_t *barrier);
+
+/**
+* Waits at the barrier. Returns 1 if for the management thread and 0 for all other threads.
+* @param barriers Barrier to wait at.
+*/
+unsigned int wait_at_barrier(threadbarrier_t *barrier);
 
 /**
  * Joins all threads and then closes them. Frees all thread handles.
@@ -103,11 +113,16 @@ create_and_run_simulation_thread(unsigned int(*callback)(partialtickcontext_t *)
 void join_and_close_simulation_threads(threadhandle_t **handles, const int num_threads);
 
 /**
- * Convenience function to pass all members to a partialtickcontext_t in a single line.
+ * Convenience function to pass all members to a partialsimulationcontext_t in a single line.
+ * Automatically derives \ref partialsimulationcontext_t.number_partial_inputs and
+ * \ref partialsimulationcontext_t.partial_inputs from the global inputs.
  * @param context Pointer to the context.
+ * @param num_ticks The number of ticks in the simulation.
  * @param tick_ms Milliseconds in between each simulation tick.
  * @param number_nodes_x The number of total nodes in the first dimension of nodes.
  * @param number_nodes_y The number of total nodes in the second dimension of nodes.
+ * @param num_obervationnodes The number of nodes to observe.
+ * @param observationnodes Pointers to the timeseries for the nodes to observe. Observations are written here.
  * @param old_state 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
  * @param new_state 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
  * number_nodes_y.
@@ -118,14 +133,22 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * number_nodes_y * 2 * 4.
  * @param d_ptr Function pointer pointing to the kernel function for the direct neighborhood.
  * @param id_ptr Function pointer pointing to the kernel function for the indirect neighborhood.
+ * @param number_global_inputs Number of all inputs on the entire node-grid inputs to be processed.
+ * @param global_inputs Inputs on the entire node-grid inputs to be processed. Length: number_partial_inputs.
+ * Partial inputs in the sub-grid (defined by thread_start_x and thread_end_x) are automatically derived
+ * from this global list. 
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
+ * @param The barrier for threads to wait at. May be NULL if not used.
  */
-void init_partial_tick_context(partialtickcontext_t *context, double tick_ms,
-                               int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
+void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
+                               int number_nodes_x, int number_nodes_y,
+							   int num_obervationnodes, nodetimeseries_t *observationnodes,
+							   nodeval_t **old_state,
                                nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
                                kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-                               int thread_start_x, int thread_end_x);
+							   int number_global_inputs, nodeinputseries_t *global_inputs,
+                               int thread_start_x, int thread_end_x, threadbarrier_t *barrier);
 
 /**
  * Initializes a simuatlionexecutioncontext.
@@ -133,7 +156,7 @@ void init_partial_tick_context(partialtickcontext_t *context, double tick_ms,
  * Allocates memory for the arrays in the context.
  * @param context The context to initialize.
  */
-void init_simulationexecutioncontext(simulationexecutioncontext_t *context);
+void init_executioncontext(executioncontext_t *context);
 
 /**
  * Writes the given array to a .csv with every entry in its own line.

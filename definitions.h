@@ -1,6 +1,12 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#ifdef _WIN32
+	#include <Windows.h>
+#else
+	#include <pthread.h>
+#endif
+
 /**
  * @file
  * Common definitions (mostly types).
@@ -22,6 +28,24 @@
 #endif
 
 //types
+
+/**
+ * Platform-independent thread handle.
+ */
+#ifdef _WIN32
+	typedef HANDLE threadhandle_t;
+#else
+	typedef pthread_t threadhandle_t;
+#endif
+
+/**
+ * Platform-independent thread barrier.
+ */
+#ifdef _WIN32
+	typedef SYNCHRONIZATION_BARRIER threadbarrier_t;
+#else
+	typedef pthread_barrier_t threadbarrier_t;
+#endif
 
 /**
  * Type that the nodes in the brainsimulation use to store their energy level.
@@ -103,6 +127,12 @@ typedef int(*kernelfunc_t)(nodeval_t *, int, int, nodeval_t **, int, int);
  * for executing a tick (or parts thereof).
  */
 typedef struct {
+
+	/**
+	 * Number of ticks in the simulation.
+	 */
+	int num_ticks;
+
 	/**
 	* Milliseconds in between each simulation tick.
 	*/
@@ -117,6 +147,16 @@ typedef struct {
 	* The number of total nodes in the second dimension of nodes.
 	*/
 	int number_nodes_y;
+
+	/**
+	 * The number of nodes to observe.
+	 */
+	int num_obervationnodes;
+
+	/**
+	 * Timeseries to write the observations into.
+	 */
+	nodetimeseries_t * observationnodes;
 
 	/**
 	* 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
@@ -161,7 +201,37 @@ typedef struct {
 	 * Function pointer pointing to the kernel function for the indirect neighborhood.
 	 */
 	kernelfunc_t id_ptr; 
+
+	/**
+	 * Number of inputs on the entire node grid.
+	 */
+	int number_global_inputs;
+
+	/**
+	 * Contains information about the coordinates and the values of all input nodes to be changed during
+	 * execution. All values must be set. Length: number_global_inputs.
+	 */
+	nodeinputseries_t *global_inputs;
+
+	/**
+	 * Number of inputs in the sub-grid of this partial simulation.
+	 * Sub-grid is defined by thread_start_x and thread_end_x.
+	 */
+	int number_partial_inputs;
+
+	/**
+	* Points the the inputs
+	* in the sub-grid of this partial simulation.
+	* Sub-grid is defined by thread_start_x and thread_end_x.
+	* Length: number_partial_inputs.
+	*/
+	nodeinputseries_t **partial_inputs;
+
+	/**
+	 * Barrier to wait at.
+	 */
+	threadbarrier_t *barrier;
 }
-partialtickcontext_t;
+partialsimulationcontext_t;
 
 #endif
