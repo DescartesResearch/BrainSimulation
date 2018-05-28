@@ -110,6 +110,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae0e7c22fbda8e1af706e22f433129c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#ae0e7c22fbda8e1af706e22f433129c5a">init_start_time_state</a> (const int number_nodes_x, const int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes, const int num_start_levels, const <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> *start_levels, const int *start_nodes_x, const int *start_nodes_y)</td></tr>
 <tr class="memdesc:ae0e7c22fbda8e1af706e22f433129c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a start time energy state for the node field.  <a href="#ae0e7c22fbda8e1af706e22f433129c5a">More...</a><br /></td></tr>
 <tr class="separator:ae0e7c22fbda8e1af706e22f433129c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf39094732f19ea2abaaa6b9e968651c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#adf39094732f19ea2abaaa6b9e968651c">read_input_behavior</a> (const int number_of_inputnodes, const int *x_indices, const int *y_indices, const char **inputnodefilenames, const int *number_of_elements)</td></tr>
+<tr class="memdesc:adf39094732f19ea2abaaa6b9e968651c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and parses the inputs defined as csv files to be added to the given nodes during the simulation.  <a href="#adf39094732f19ea2abaaa6b9e968651c">More...</a><br /></td></tr>
+<tr class="separator:adf39094732f19ea2abaaa6b9e968651c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Setup all node arrays to be passed to the brainsimulation. </p>
@@ -231,6 +234,63 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="adf39094732f19ea2abaaa6b9e968651c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>* read_input_behavior </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>number_of_inputnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>x_indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>y_indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>inputnodefilenames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>number_of_elements</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads and parses the inputs defined as csv files to be added to the given nodes during the simulation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number_of_inputnodes</td><td>The number of input nodes and files. </td></tr>
+    <tr><td class="paramname">x_indices</td><td>An array of x-coordinates of the nodes. Defines, which node will be added the values written in the corresponding csv file. Length: number_of_inputnodes. </td></tr>
+    <tr><td class="paramname">y_indices</td><td>An array of y-coordinates of the nodes. Defines, which node will be added the values written in the corresponding csv file. Length: number_of_inputnodes. </td></tr>
+    <tr><td class="paramname">inputnodefilenames</td><td>The .csv filenames to read. Order must match the order of x_coordinates and y_coordinates. Length: number_of_inputnodes. </td></tr>
+    <tr><td class="paramname">number_of_elements</td><td>Elements assigning each node the number of input elements in the corresponding file. Length: number_of_inputnodes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes as read from the given filepaths. Length: number_of_inputnodes. </dd></dl>
 
 </div>
 </div>

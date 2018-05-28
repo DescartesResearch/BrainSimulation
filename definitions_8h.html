@@ -92,7 +92,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Common definitions (mostly types).  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &lt;pthread.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for definitions.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="definitions_8h__incl.png" border="0" usemap="#definitions_8h" alt=""/></div>
+<map name="definitions_8h" id="definitions_8h">
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="definitions_8h__dep__incl.png" border="0" usemap="#definitions_8hdep" alt=""/></div>
@@ -112,11 +120,14 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to store the results of a simulation for a single observed node.  <a href="structnodetimeseries__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to store the input for the simulation for a single node.  <a href="structnodeinputseries__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnodestate__t.html">nodestate_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to store the status of one node.  <a href="structnodestate__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to pass all execution information to a new thread for executing a tick (or parts thereof).  <a href="structpartialtickcontext__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to pass all execution information to a new thread for executing a tick (or parts thereof).  <a href="structpartialsimulationcontext__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -132,6 +143,14 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:adccf7a00b00107b281dcbff9a352c623"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adccf7a00b00107b281dcbff9a352c623"></a>
+typedef pthread_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a></td></tr>
+<tr class="memdesc:adccf7a00b00107b281dcbff9a352c623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform-independent thread handle. <br /></td></tr>
+<tr class="separator:adccf7a00b00107b281dcbff9a352c623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e10807014559cc9c88059414191950d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e10807014559cc9c88059414191950d"></a>
+typedef pthread_barrier_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a></td></tr>
+<tr class="memdesc:a6e10807014559cc9c88059414191950d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform-independent thread barrier. <br /></td></tr>
+<tr class="separator:a6e10807014559cc9c88059414191950d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad42a277ca8bfba06ba03e5e696fa7fca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad42a277ca8bfba06ba03e5e696fa7fca"></a>
 typedef double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a></td></tr>
 <tr class="memdesc:ad42a277ca8bfba06ba03e5e696fa7fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type that the nodes in the brainsimulation use to store their energy level. <br /></td></tr>

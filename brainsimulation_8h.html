@@ -98,7 +98,7 @@ Include dependency graph for brainsimulation.h:</div>
 <div class="center"><img src="brainsimulation_8h__incl.png" border="0" usemap="#brainsimulation_8h" alt=""/></div>
 <map name="brainsimulation_8h" id="brainsimulation_8h">
 <area shape="rect" id="node2" href="definitions_8h.html" title="Common definitions (mostly types). " alt="" coords="5,155,104,181"/>
-<area shape="rect" id="node3" href="utils_8h.html" title="Common helper functions. " alt="" coords="129,80,189,107"/>
+<area shape="rect" id="node4" href="utils_8h.html" title="Common helper functions. " alt="" coords="106,80,166,107"/>
 </map>
 </div>
 </div>
@@ -106,96 +106,77 @@ Include dependency graph for brainsimulation.h:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adfe9546f5fcb2a0d38f33aacd6b5fc8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#adfe9546f5fcb2a0d38f33aacd6b5fc8c">simulate</a> (double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *oberservationnodes)</td></tr>
-<tr class="memdesc:adfe9546f5fcb2a0d38f33aacd6b5fc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates the brain.  <a href="#adfe9546f5fcb2a0d38f33aacd6b5fc8c">More...</a><br /></td></tr>
-<tr class="separator:adfe9546f5fcb2a0d38f33aacd6b5fc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a607b64ec22103f6ca5c241edcadc5254"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a607b64ec22103f6ca5c241edcadc5254">execute_tick</a> (<a class="el" href="structsimulationexecutioncontext__t.html">simulationexecutioncontext_t</a> *simulationexecutioncontext, double tick_ms, int number_nodes_x, int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr)</td></tr>
-<tr class="memdesc:a607b64ec22103f6ca5c241edcadc5254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes one tick of the simulation.  <a href="#a607b64ec22103f6ca5c241edcadc5254">More...</a><br /></td></tr>
-<tr class="separator:a607b64ec22103f6ca5c241edcadc5254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3726680fb76058cd578a6bc203768b88"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a3726680fb76058cd578a6bc203768b88">execute_partial_tick</a> (<a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *context)</td></tr>
-<tr class="memdesc:a3726680fb76058cd578a6bc203768b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a partial tick of the simulation, as defined by a partial tick context.  <a href="#a3726680fb76058cd578a6bc203768b88">More...</a><br /></td></tr>
-<tr class="separator:a3726680fb76058cd578a6bc203768b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3b183d3f862780693d62b8defb7fc9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a4c3b183d3f862780693d62b8defb7fc9">simulate</a> (double tick_ms, int num_ticks, int number_nodes_x, int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *oberservationnodes, int number_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *inputs)</td></tr>
+<tr class="memdesc:a4c3b183d3f862780693d62b8defb7fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates the brain.  <a href="#a4c3b183d3f862780693d62b8defb7fc9">More...</a><br /></td></tr>
+<tr class="separator:a4c3b183d3f862780693d62b8defb7fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c1b37917ff4274a53d9b720685dcabb"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a1c1b37917ff4274a53d9b720685dcabb">execute_simulation_multithreaded</a> (<a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *executioncontext, int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *observationnodes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr, int number_global_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *global_inputs)</td></tr>
+<tr class="memdesc:a1c1b37917ff4274a53d9b720685dcabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the inner simulation in a multithreaded fashion.  <a href="#a1c1b37917ff4274a53d9b720685dcabb">More...</a><br /></td></tr>
+<tr class="separator:a1c1b37917ff4274a53d9b720685dcabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853a9f3a2313dedbf7d5cf59f0776e36"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a853a9f3a2313dedbf7d5cf59f0776e36">execute_simulation_singlethreaded</a> (<a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *executioncontext, int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *observationnodes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr, int number_global_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *global_inputs)</td></tr>
+<tr class="memdesc:a853a9f3a2313dedbf7d5cf59f0776e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the inner simulation in a singlethreaded fashion.  <a href="#a853a9f3a2313dedbf7d5cf59f0776e36">More...</a><br /></td></tr>
+<tr class="separator:a853a9f3a2313dedbf7d5cf59f0776e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0b574ef63bd6aa6a346d8ac366d4c6e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#ac0b574ef63bd6aa6a346d8ac366d4c6e">execute_partial_simulation</a> (<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context)</td></tr>
+<tr class="memdesc:ac0b574ef63bd6aa6a346d8ac366d4c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a partial simulation, as defined by a partial simulation context.  <a href="#ac0b574ef63bd6aa6a346d8ac366d4c6e">More...</a><br /></td></tr>
+<tr class="separator:ac0b574ef63bd6aa6a346d8ac366d4c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a075c33ee5fb3f40dd9ac00f21f50f7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a0a075c33ee5fb3f40dd9ac00f21f50f7">execute_partial_tick</a> (<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context)</td></tr>
+<tr class="memdesc:a0a075c33ee5fb3f40dd9ac00f21f50f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a partial tick of the simulation.  <a href="#a0a075c33ee5fb3f40dd9ac00f21f50f7">More...</a><br /></td></tr>
+<tr class="separator:a0a075c33ee5fb3f40dd9ac00f21f50f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcf7ee8d27a3e0896da694363fc7ca78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#afcf7ee8d27a3e0896da694363fc7ca78">extract_observationnodes</a> (int ticknumber, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *observationnodes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **state)</td></tr>
 <tr class="memdesc:afcf7ee8d27a3e0896da694363fc7ca78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts and stores/saves the information into the specified observation nodes.  <a href="#afcf7ee8d27a3e0896da694363fc7ca78">More...</a><br /></td></tr>
 <tr class="separator:afcf7ee8d27a3e0896da694363fc7ca78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aca963550f3b4aed5838dc88caedc91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a7aca963550f3b4aed5838dc88caedc91">add_input_influence</a> (int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **state)</td></tr>
-<tr class="memdesc:a7aca963550f3b4aed5838dc88caedc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the influence of the defined input nodes to the current state.  <a href="#a7aca963550f3b4aed5838dc88caedc91">More...</a><br /></td></tr>
-<tr class="separator:a7aca963550f3b4aed5838dc88caedc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77ddadb37f6893fde712f3b6f87f7f01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a77ddadb37f6893fde712f3b6f87f7f01">process_global_inputs</a> (int tick_number, double tick_ms, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **state, int number_global_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *global_inputs)</td></tr>
+<tr class="memdesc:a77ddadb37f6893fde712f3b6f87f7f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the influence of the defined input nodes to the current state.  <a href="#a77ddadb37f6893fde712f3b6f87f7f01">More...</a><br /></td></tr>
+<tr class="separator:a77ddadb37f6893fde712f3b6f87f7f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817c15a5b44e80cda5903b4afa62a6c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a817c15a5b44e80cda5903b4afa62a6c0">process_partial_inputs</a> (int tick_number, double tick_ms, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **state, int number_partial_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> **partial_inputs)</td></tr>
+<tr class="memdesc:a817c15a5b44e80cda5903b4afa62a6c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the influence of the defined input nodes to the current state.  <a href="#a817c15a5b44e80cda5903b4afa62a6c0">More...</a><br /></td></tr>
+<tr class="separator:a817c15a5b44e80cda5903b4afa62a6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86c1fe6f069ffcce730a3babb9be6f83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsimulation_8h.html#a86c1fe6f069ffcce730a3babb9be6f83">process_input</a> (int tick_number, double tick_ms, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **state, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *input)</td></tr>
+<tr class="memdesc:a86c1fe6f069ffcce730a3babb9be6f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the influence of the defined input node to the current state.  <a href="#a86c1fe6f069ffcce730a3babb9be6f83">More...</a><br /></td></tr>
+<tr class="separator:a86c1fe6f069ffcce730a3babb9be6f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main entry points for the brainsimultion. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a7aca963550f3b4aed5838dc88caedc91"></a>
+<a class="anchor" id="ac0b574ef63bd6aa6a346d8ac366d4c6e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void add_input_influence </td>
+          <td class="memname">unsigned int execute_partial_simulation </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>tick_number</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>tick_ms</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>number_nodes_x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>number_nodes_y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
-          <td class="paramname"><em>state</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds the influence of the defined input nodes to the current state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tick_number</td><td>The current tick number. </td></tr>
-    <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
-    <tr><td class="paramname">number_nodes_x</td><td>The number of nodes in the first dimension of nodes. </td></tr>
-    <tr><td class="paramname">number_nodes_y</td><td>The number of nodes in the second dimension of nodes. </td></tr>
-    <tr><td class="paramname">state</td><td>2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a3726680fb76058cd578a6bc203768b88"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int execute_partial_tick </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *&#160;</td>
           <td class="paramname"><em>context</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Executes a partial tick of the simulation, as defined by a partial tick context. </p>
+<p>Executes a partial simulation, as defined by a partial simulation context. </p>
+<p>Usually executed in a separate thread. Executes the entire simulation on a bounded subset of the node-field. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>The partial context to handle in this call. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return-codes, usually 0. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0a075c33ee5fb3f40dd9ac00f21f50f7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int execute_partial_tick </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes a partial tick of the simulation. </p>
 <p>Usually executed in a separate thread. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>The partial context to handle in this call. </td></tr>
@@ -206,15 +187,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a607b64ec22103f6ca5c241edcadc5254"></a>
+<a class="anchor" id="a1c1b37917ff4274a53d9b720685dcabb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int execute_tick </td>
+          <td class="memname">unsigned int execute_simulation_multithreaded </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structsimulationexecutioncontext__t.html">simulationexecutioncontext_t</a> *&#160;</td>
-          <td class="paramname"><em>simulationexecutioncontext</em>, </td>
+          <td class="paramtype"><a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *&#160;</td>
+          <td class="paramname"><em>executioncontext</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ticks</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -233,6 +220,18 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>number_nodes_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_obervationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td>
+          <td class="paramname"><em>observationnodes</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -268,7 +267,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a>&#160;</td>
-          <td class="paramname"><em>id_ptr</em>&#160;</td>
+          <td class="paramname"><em>id_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_global_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>global_inputs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -278,19 +289,153 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Executes one tick of the simulation. </p>
+<p>Executes the inner simulation in a multithreaded fashion. </p>
+<p>Called after setup of nodes, inputs, etc.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">simulationexecutioncontext</td><td>The technical gobal context of the simulation. Contains information on threading settings, etc. </td></tr>
+    <tr><td class="paramname">executioncontext</td><td>The technical gobal context of the simulation. Contains information on threading settings, etc. </td></tr>
+    <tr><td class="paramname">num_ticks</td><td>The number of ticks in the simulation. </td></tr>
     <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
     <tr><td class="paramname">number_nodes_x</td><td>The number of nodes in the first dimension of nodes. </td></tr>
     <tr><td class="paramname">number_nodes_y</td><td>The number of nodes in the second dimension of nodes. </td></tr>
+    <tr><td class="paramname">num_obervationnodes</td><td>The number of nodes to observe. </td></tr>
+    <tr><td class="paramname">observationnodes</td><td>Pointers to the timeseries for the nodes to observe. Observations are written here. </td></tr>
     <tr><td class="paramname">old_state</td><td>2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">new_state</td><td>2D array of nodes with the new energy level. Values will be overwritten. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">slopes</td><td>2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">kernels</td><td>4D array containing the kernels of each node at each index. Each index node points to an array containing (currently) two kernels, each (currently) containing 4 neighbouring noides. Dimensions: number_nodes_x * number_nodes_y * 2 * 4. </td></tr>
     <tr><td class="paramname">d_ptr</td><td>Function pointer pointing to the kernel function for the direct neighborhood. </td></tr>
     <tr><td class="paramname">id_ptr</td><td>Function pointer pointing to the kernel function for the indirect neighborhood. </td></tr>
+    <tr><td class="paramname">number_global_inputs</td><td>Number of global inputs. </td></tr>
+    <tr><td class="paramname">global_inputs</td><td>Inputs on the entire node field. Length: number_global_inputs </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return-codes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a853a9f3a2313dedbf7d5cf59f0776e36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int execute_simulation_singlethreaded </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *&#160;</td>
+          <td class="paramname"><em>executioncontext</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ticks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_nodes_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_nodes_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_obervationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td>
+          <td class="paramname"><em>observationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>old_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>new_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>slopes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****&#160;</td>
+          <td class="paramname"><em>kernels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a>&#160;</td>
+          <td class="paramname"><em>d_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a>&#160;</td>
+          <td class="paramname"><em>id_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_global_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>global_inputs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the inner simulation in a singlethreaded fashion. </p>
+<p>Called after setup of nodes, inputs, etc.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">executioncontext</td><td>The technical gobal context of the simulation. Contains information on threading settings, etc. </td></tr>
+    <tr><td class="paramname">num_ticks</td><td>The number of ticks in the simulation. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
+    <tr><td class="paramname">number_nodes_x</td><td>The number of nodes in the first dimension of nodes. </td></tr>
+    <tr><td class="paramname">number_nodes_y</td><td>The number of nodes in the second dimension of nodes. </td></tr>
+    <tr><td class="paramname">num_obervationnodes</td><td>The number of nodes to observe. </td></tr>
+    <tr><td class="paramname">observationnodes</td><td>Pointers to the timeseries for the nodes to observe. Observations are written here. </td></tr>
+    <tr><td class="paramname">old_state</td><td>2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">new_state</td><td>2D array of nodes with the new energy level. Values will be overwritten. Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">slopes</td><td>2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">kernels</td><td>4D array containing the kernels of each node at each index. Each index node points to an array containing (currently) two kernels, each (currently) containing 4 neighbouring noides. Dimensions: number_nodes_x * number_nodes_y * 2 * 4. </td></tr>
+    <tr><td class="paramname">d_ptr</td><td>Function pointer pointing to the kernel function for the direct neighborhood. </td></tr>
+    <tr><td class="paramname">id_ptr</td><td>Function pointer pointing to the kernel function for the indirect neighborhood. </td></tr>
+    <tr><td class="paramname">number_global_inputs</td><td>Number of global inputs. </td></tr>
+    <tr><td class="paramname">global_inputs</td><td>Inputs on the entire node field. Length: number_global_inputs </td></tr>
   </table>
   </dd>
 </dl>
@@ -347,12 +492,173 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adfe9546f5fcb2a0d38f33aacd6b5fc8c"></a>
+<a class="anchor" id="a77ddadb37f6893fde712f3b6f87f7f01"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int simulate </td>
+          <td class="memname">void process_global_inputs </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tick_number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_global_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>global_inputs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the influence of the defined input nodes to the current state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tick_number</td><td>The current tick number. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
+    <tr><td class="paramname">state</td><td>2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">number_global_inputs</td><td>The number of input nodes to be changed. </td></tr>
+    <tr><td class="paramname">global_inputs</td><td>Contains information about the coordinates and the values of the input nodes to be changed. Length: number_inputs </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a86c1fe6f069ffcce730a3babb9be6f83"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void process_input </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tick_number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the influence of the defined input node to the current state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tick_number</td><td>The current tick number. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
+    <tr><td class="paramname">state</td><td>2D array of nodes with their current energy level. </td></tr>
+    <tr><td class="paramname">input</td><td>The single input to be updated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a817c15a5b44e80cda5903b4afa62a6c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void process_partial_inputs </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tick_number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_partial_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> **&#160;</td>
+          <td class="paramname"><em>partial_inputs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the influence of the defined input nodes to the current state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tick_number</td><td>The current tick number. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
+    <tr><td class="paramname">state</td><td>2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">number_partial_inputs</td><td>The number of input nodes to be changed. </td></tr>
+    <tr><td class="paramname">partial_inputs</td><td>Contains pointers to the input nodes to be changed. Length: number_partial_inputs </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4c3b183d3f862780693d62b8defb7fc9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int simulate </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>tick_ms</em>, </td>
@@ -391,7 +697,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td>
-          <td class="paramname"><em>oberservationnodes</em>&#160;</td>
+          <td class="paramname"><em>oberservationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>inputs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -411,6 +729,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">nodes</td><td>2D array of nodes with their starting energy level. </td></tr>
     <tr><td class="paramname">num_obervationnodes</td><td>The number of nodes to observe during simulation. </td></tr>
     <tr><td class="paramname">oberservationnodes</td><td>The nodes to observe during simulation. x_index and y_index members must be set. All other members will be overwritten with the simulation results. Must have num_obervationnodes as length. </td></tr>
+    <tr><td class="paramname">number_inputs</td><td>The number of input nodes to be changed during execution. </td></tr>
+    <tr><td class="paramname">inputs</td><td>Contains information about the coordinates and the values of the input nodes to be changed during execution. All values must be set. Length: number_inputs. </td></tr>
   </table>
   </dd>
 </dl>

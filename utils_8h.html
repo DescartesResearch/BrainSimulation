@@ -83,7 +83,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">utils.h File Reference</div>  </div>
@@ -116,16 +115,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsimulationexecutioncontext__t.html">simulationexecutioncontext_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to pass a simulation's technical execution information to the ticks.  <a href="structsimulationexecutioncontext__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structexecutioncontext__t.html">executioncontext_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to pass a simulation's technical execution information to the ticks.  <a href="structexecutioncontext__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:adccf7a00b00107b281dcbff9a352c623"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adccf7a00b00107b281dcbff9a352c623"></a>
-typedef pthread_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a></td></tr>
-<tr class="memdesc:adccf7a00b00107b281dcbff9a352c623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform-independent thread handle. <br /></td></tr>
-<tr class="separator:adccf7a00b00107b281dcbff9a352c623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -141,24 +133,39 @@ Functions</h2></td></tr>
 <tr class="memitem:acaa3336bdafbc71f583ef8bac017a5c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acaa3336bdafbc71f583ef8bac017a5c6">system_processor_online_count</a> ()</td></tr>
 <tr class="memdesc:acaa3336bdafbc71f583ef8bac017a5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of processor cores online in the system.  <a href="#acaa3336bdafbc71f583ef8bac017a5c6">More...</a><br /></td></tr>
 <tr class="separator:acaa3336bdafbc71f583ef8bac017a5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f3f832df0dec1542199edc706bbc854"><td class="memItemLeft" align="right" valign="top"><a class="el" href="utils_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a8f3f832df0dec1542199edc706bbc854">create_and_run_simulation_thread</a> (unsigned int(*callback)(<a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *), <a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *context)</td></tr>
-<tr class="memdesc:a8f3f832df0dec1542199edc706bbc854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new platform-specific thread with the context and starts it.  <a href="#a8f3f832df0dec1542199edc706bbc854">More...</a><br /></td></tr>
-<tr class="separator:a8f3f832df0dec1542199edc706bbc854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a063375bb8d8c95841fb602d1bcba993c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a063375bb8d8c95841fb602d1bcba993c">join_and_close_simulation_threads</a> (<a class="el" href="utils_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> **handles, const int num_threads)</td></tr>
+<tr class="memitem:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a1f15d3b0447f23c1eba7bf59f8b17b0d">create_and_run_simulation_thread</a> (unsigned int(*callback)(<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *), <a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context)</td></tr>
+<tr class="memdesc:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new platform-specific thread with the context and starts it.  <a href="#a1f15d3b0447f23c1eba7bf59f8b17b0d">More...</a><br /></td></tr>
+<tr class="separator:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d13fb9e5e62440bdadcffe35f10829"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a72d13fb9e5e62440bdadcffe35f10829">init_thread_barrier</a> (<a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier, const unsigned int number_threads)</td></tr>
+<tr class="memdesc:a72d13fb9e5e62440bdadcffe35f10829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes tread barrier.  <a href="#a72d13fb9e5e62440bdadcffe35f10829">More...</a><br /></td></tr>
+<tr class="separator:a72d13fb9e5e62440bdadcffe35f10829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11843b46cd2c5dbb39a8e599993e10e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ab11843b46cd2c5dbb39a8e599993e10e">destroy_thread_barrier</a> (<a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier)</td></tr>
+<tr class="memdesc:ab11843b46cd2c5dbb39a8e599993e10e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the thread barrier.  <a href="#ab11843b46cd2c5dbb39a8e599993e10e">More...</a><br /></td></tr>
+<tr class="separator:ab11843b46cd2c5dbb39a8e599993e10e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac45166099def10483854f249229c6b67"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac45166099def10483854f249229c6b67">wait_at_barrier</a> (<a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier)</td></tr>
+<tr class="memdesc:ac45166099def10483854f249229c6b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits at the barrier.  <a href="#ac45166099def10483854f249229c6b67">More...</a><br /></td></tr>
+<tr class="separator:ac45166099def10483854f249229c6b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063375bb8d8c95841fb602d1bcba993c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a063375bb8d8c95841fb602d1bcba993c">join_and_close_simulation_threads</a> (<a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> **handles, const int num_threads)</td></tr>
 <tr class="memdesc:a063375bb8d8c95841fb602d1bcba993c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins all threads and then closes them.  <a href="#a063375bb8d8c95841fb602d1bcba993c">More...</a><br /></td></tr>
 <tr class="separator:a063375bb8d8c95841fb602d1bcba993c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac93fc905869099fc3c44898a1831ba48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac93fc905869099fc3c44898a1831ba48">init_partial_tick_context</a> (<a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *context, double tick_ms, int number_nodes_x, int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr, int thread_start_x, int thread_end_x)</td></tr>
-<tr class="memdesc:ac93fc905869099fc3c44898a1831ba48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to pass all members to a <a class="el" href="structpartialtickcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialtickcontext_t</a> in a single line.  <a href="#ac93fc905869099fc3c44898a1831ba48">More...</a><br /></td></tr>
-<tr class="separator:ac93fc905869099fc3c44898a1831ba48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9624d89a8cd5122354dcc547ab017e5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a9624d89a8cd5122354dcc547ab017e5e">init_simulationexecutioncontext</a> (<a class="el" href="structsimulationexecutioncontext__t.html">simulationexecutioncontext_t</a> *context)</td></tr>
-<tr class="memdesc:a9624d89a8cd5122354dcc547ab017e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a simuatlionexecutioncontext.  <a href="#a9624d89a8cd5122354dcc547ab017e5e">More...</a><br /></td></tr>
-<tr class="separator:a9624d89a8cd5122354dcc547ab017e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6401ddbf033b41689722232ceae3510c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a6401ddbf033b41689722232ceae3510c">init_partial_simulation_context</a> (<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context, int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *observationnodes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr, int number_global_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *global_inputs, int thread_start_x, int thread_end_x, <a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier)</td></tr>
+<tr class="memdesc:a6401ddbf033b41689722232ceae3510c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to pass all members to a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line.  <a href="#a6401ddbf033b41689722232ceae3510c">More...</a><br /></td></tr>
+<tr class="separator:a6401ddbf033b41689722232ceae3510c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ae3fb4d357b7fda6d6659ec27fd56dfb4">init_executioncontext</a> (<a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *context)</td></tr>
+<tr class="memdesc:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a simuatlionexecutioncontext.  <a href="#ae3fb4d357b7fda6d6659ec27fd56dfb4">More...</a><br /></td></tr>
+<tr class="separator:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684971239ca25ec082b8ab46028c9fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a684971239ca25ec082b8ab46028c9fbb">output_to_csv</a> (char *filename, int length, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> *values)</td></tr>
 <tr class="memdesc:a684971239ca25ec082b8ab46028c9fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given array to a .csv with every entry in its own line.  <a href="#a684971239ca25ec082b8ab46028c9fbb">More...</a><br /></td></tr>
 <tr class="separator:a684971239ca25ec082b8ab46028c9fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3110e6a036389c049f02438901ac0a8a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a3110e6a036389c049f02438901ac0a8a">getdaytime</a> (struct timeval *tp)</td></tr>
-<tr class="memdesc:a3110e6a036389c049f02438901ac0a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the time of day.  <a href="#a3110e6a036389c049f02438901ac0a8a">More...</a><br /></td></tr>
-<tr class="separator:a3110e6a036389c049f02438901ac0a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7baac010be66697a53d0902c8e0edd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a5b7baac010be66697a53d0902c8e0edd">get_daytime</a> (struct timeval *tp)</td></tr>
+<tr class="memdesc:a5b7baac010be66697a53d0902c8e0edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the time of day.  <a href="#a5b7baac010be66697a53d0902c8e0edd">More...</a><br /></td></tr>
+<tr class="separator:a5b7baac010be66697a53d0902c8e0edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac46ea56153aa493d2a2712d9871bb49d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac46ea56153aa493d2a2712d9871bb49d">parse_file</a> (<a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> timeseries, const char *filename)</td></tr>
+<tr class="memdesc:ac46ea56153aa493d2a2712d9871bb49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the .csv file, given by the specific filename and writes its contents into the given timeseries of the <a class="el" href="structnodeinputseries__t.html" title="Struct to store the input for the simulation for a single node. ">nodeinputseries_t</a>.  <a href="#ac46ea56153aa493d2a2712d9871bb49d">More...</a><br /></td></tr>
+<tr class="separator:ac46ea56153aa493d2a2712d9871bb49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31f8b379b93efc17c1c8233df1c699b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac31f8b379b93efc17c1c8233df1c699b">get_field</a> (char *line, int num)</td></tr>
+<tr class="memdesc:ac31f8b379b93efc17c1c8233df1c699b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the n-th integer value of a comma-separated (.csv) line.  <a href="#ac31f8b379b93efc17c1c8233df1c699b">More...</a><br /></td></tr>
+<tr class="separator:ac31f8b379b93efc17c1c8233df1c699b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common helper functions. </p>
@@ -249,20 +256,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8f3f832df0dec1542199edc706bbc854"></a>
+<a class="anchor" id="a1f15d3b0447f23c1eba7bf59f8b17b0d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="utils_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a>* create_and_run_simulation_thread </td>
+          <td class="memname"><a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a>* create_and_run_simulation_thread </td>
           <td>(</td>
-          <td class="paramtype">unsigned int(*)(<a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *)&#160;</td>
+          <td class="paramtype">unsigned int(*)(<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *)&#160;</td>
           <td class="paramname"><em>callback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *&#160;</td>
           <td class="paramname"><em>context</em>&#160;</td>
         </tr>
         <tr>
@@ -285,12 +292,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3110e6a036389c049f02438901ac0a8a"></a>
+<a class="anchor" id="ab11843b46cd2c5dbb39a8e599993e10e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int getdaytime </td>
+          <td class="memname">void destroy_thread_barrier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *&#160;</td>
+          <td class="paramname"><em>barrier</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys the thread barrier. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">barrier</td><td>Barrier to destroy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5b7baac010be66697a53d0902c8e0edd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int get_daytime </td>
           <td>(</td>
           <td class="paramtype">struct timeval *&#160;</td>
           <td class="paramname"><em>tp</em></td><td>)</td>
@@ -310,15 +341,81 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac93fc905869099fc3c44898a1831ba48"></a>
+<a class="anchor" id="ac31f8b379b93efc17c1c8233df1c699b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void init_partial_tick_context </td>
+          <td class="memname">int get_field </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structpartialtickcontext__t.html">partialtickcontext_t</a> *&#160;</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the n-th integer value of a comma-separated (.csv) line. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line</td><td>The line to parse. </td></tr>
+    <tr><td class="paramname">num</td><td>The index of the column to get, i.e. n. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The parsed integer. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae3fb4d357b7fda6d6659ec27fd56dfb4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_executioncontext </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a simuatlionexecutioncontext. </p>
+<p>Derives the number of threads for execution and writes the result to context-&gt;num_threads. Allocates memory for the arrays in the context. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>The context to initialize. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6401ddbf033b41689722232ceae3510c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_partial_simulation_context </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *&#160;</td>
           <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ticks</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -337,6 +434,18 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>number_nodes_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_obervationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td>
+          <td class="paramname"><em>observationnodes</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -378,13 +487,31 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_global_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td>
+          <td class="paramname"><em>global_inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>thread_start_x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>thread_end_x</em>&#160;</td>
+          <td class="paramname"><em>thread_end_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *&#160;</td>
+          <td class="paramname"><em>barrier</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -394,45 +521,62 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convenience function to pass all members to a <a class="el" href="structpartialtickcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialtickcontext_t</a> in a single line. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Convenience function to pass all members to a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line. </p>
+<p>Automatically derives <a class="el" href="structpartialsimulationcontext__t.html#a705752493d637738aec37f53a5fa3bfa">partialsimulationcontext_t::number_partial_inputs</a> and <a class="el" href="structpartialsimulationcontext__t.html#adfc8e0d99154cebcccacb6526e65ca86">partialsimulationcontext_t::partial_inputs</a> from the global inputs. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>Pointer to the context. </td></tr>
+    <tr><td class="paramname">num_ticks</td><td>The number of ticks in the simulation. </td></tr>
     <tr><td class="paramname">tick_ms</td><td>Milliseconds in between each simulation tick. </td></tr>
     <tr><td class="paramname">number_nodes_x</td><td>The number of total nodes in the first dimension of nodes. </td></tr>
     <tr><td class="paramname">number_nodes_y</td><td>The number of total nodes in the second dimension of nodes. </td></tr>
+    <tr><td class="paramname">num_obervationnodes</td><td>The number of nodes to observe. </td></tr>
+    <tr><td class="paramname">observationnodes</td><td>Pointers to the timeseries for the nodes to observe. Observations are written here. </td></tr>
     <tr><td class="paramname">old_state</td><td>2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">new_state</td><td>2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">slopes</td><td>2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">kernels</td><td>2D array containing the kernels of each node at each index.Each index node points to an array containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x * number_nodes_y * 2 * 4. </td></tr>
     <tr><td class="paramname">d_ptr</td><td>Function pointer pointing to the kernel function for the direct neighborhood. </td></tr>
     <tr><td class="paramname">id_ptr</td><td>Function pointer pointing to the kernel function for the indirect neighborhood. </td></tr>
+    <tr><td class="paramname">number_global_inputs</td><td>Number of all inputs on the entire node-grid inputs to be processed. </td></tr>
+    <tr><td class="paramname">global_inputs</td><td>Inputs on the entire node-grid inputs to be processed. Length: number_partial_inputs. Partial inputs in the sub-grid (defined by thread_start_x and thread_end_x) are automatically derived from this global list. </td></tr>
     <tr><td class="paramname">thread_start_x</td><td>Node x index at which to start working in this thread (inclusive). </td></tr>
     <tr><td class="paramname">thread_end_x</td><td>Node x index at which to stop working in this thread (exclusive). </td></tr>
+    <tr><td class="paramname">barrier</td><td>The barrier for threads to wait at. May be NULL if not used. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a9624d89a8cd5122354dcc547ab017e5e"></a>
+<a class="anchor" id="a72d13fb9e5e62440bdadcffe35f10829"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void init_simulationexecutioncontext </td>
+          <td class="memname">void init_thread_barrier </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structsimulationexecutioncontext__t.html">simulationexecutioncontext_t</a> *&#160;</td>
-          <td class="paramname"><em>context</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *&#160;</td>
+          <td class="paramname"><em>barrier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>number_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a simuatlionexecutioncontext. </p>
-<p>Derives the number of threads for execution and writes the result to context-&gt;num_threads. Allocates memory for the arrays in the context. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initializes tread barrier. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td>The context to initialize. </td></tr>
+    <tr><td class="paramname">barrier</td><td>Barrier to initialize. </td></tr>
+    <tr><td class="paramname">number_threads</td><td>The number of threads that the barrier should be configured to block. </td></tr>
   </table>
   </dd>
 </dl>
@@ -488,7 +632,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void join_and_close_simulation_threads </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="utils_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> **&#160;</td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> **&#160;</td>
           <td class="paramname"><em>handles</em>, </td>
         </tr>
         <tr>
@@ -558,6 +702,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac46ea56153aa493d2a2712d9871bb49d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parse_file </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>&#160;</td>
+          <td class="paramname"><em>timeseries</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parses the .csv file, given by the specific filename and writes its contents into the given timeseries of the <a class="el" href="structnodeinputseries__t.html" title="Struct to store the input for the simulation for a single node. ">nodeinputseries_t</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeseries</td><td>The <a class="el" href="structnodeinputseries__t.html" title="Struct to store the input for the simulation for a single node. ">nodeinputseries_t</a> struct to write the parsed file into. </td></tr>
+    <tr><td class="paramname">filename</td><td>The filename of the .csv file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="acaa3336bdafbc71f583ef8bac017a5c6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -573,6 +752,30 @@ Functions</h2></td></tr>
 
 <p>Returns the number of processor cores online in the system. </p>
 <dl class="section return"><dt>Returns</dt><dd>The number of processors online in the system. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac45166099def10483854f249229c6b67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int wait_at_barrier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *&#160;</td>
+          <td class="paramname"><em>barrier</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Waits at the barrier. </p>
+<p>Returns 1 if for the management thread and 0 for all other threads. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">barrier</td><td>Barrier to wait at. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

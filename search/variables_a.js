@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_5findex',['x_index',['../structnodetimeseries__t.html#a278bdd94d612fd02afe10bf7636baccc',1,'nodetimeseries_t']]]
+  ['partial_5finputs',['partial_inputs',['../structpartialsimulationcontext__t.html#adfc8e0d99154cebcccacb6526e65ca86',1,'partialsimulationcontext_t']]]
 ];

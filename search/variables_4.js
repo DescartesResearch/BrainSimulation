@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['id_5fptr',['id_ptr',['../structpartialtickcontext__t.html#aa0aa6499c4ac7cecaf6aa8ac610e2b2a',1,'partialtickcontext_t']]]
+  ['global_5finputs',['global_inputs',['../structpartialsimulationcontext__t.html#a7fb503120d34e1b8c5e6045c984d08bf',1,'partialsimulationcontext_t']]]
 ];
