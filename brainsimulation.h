@@ -42,7 +42,7 @@ unsigned int simulate(double tick_ms,
 /**
 * Executes the inner simulation in a multithreaded fashion. Called after setup of nodes, inputs, etc.
 *
-* @param simulationexecutioncontext The technical gobal context of the simulation.
+* @param executioncontext The technical gobal context of the simulation.
 * Contains information on threading settings, etc.
 * @param num_ticks The number of ticks in the simulation.
 * @param tick_ms Milliseconds in between each simulation tick.
@@ -73,7 +73,7 @@ unsigned int execute_simulation_multithreaded(executioncontext_t *executionconte
 /**
 * Executes the inner simulation in a singlethreaded fashion. Called after setup of nodes, inputs, etc.
 *
-* @param simulationexecutioncontext The technical gobal context of the simulation.
+* @param executioncontext The technical gobal context of the simulation.
 * Contains information on threading settings, etc.
 * @param num_ticks The number of ticks in the simulation.
 * @param tick_ms Milliseconds in between each simulation tick.
@@ -129,18 +129,6 @@ unsigned int execute_partial_tick(partialsimulationcontext_t *context);
  */
 void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
                               nodeval_t **state);
-
-///**
-// * Adds the influence of the defined input nodes to the current state.
-// *
-// * @param tick_number The current tick number.
-// * @param tick_ms Milliseconds in between each simulation tick.
-// * @param number_nodes_x The number of nodes in the first dimension of nodes.
-// * @param number_nodes_y The number of nodes in the second dimension of nodes.
-// * @param state 2D array of nodes with their current energy level. Size number_nodes_x * number_nodes_y.
-// */
-//void add_input_influence(int tick_number, double tick_ms, int number_nodes_x, int number_nodes_y,
-//                         nodeval_t **state);
 
 /**
  * Adds the influence of the defined input nodes to the current state.

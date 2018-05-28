@@ -106,7 +106,7 @@ void destroy_thread_barrier(threadbarrier_t *barrier);
 
 /**
 * Waits at the barrier. Returns 1 if for the management thread and 0 for all other threads.
-* @param barriers Barrier to wait at.
+* @param barrier Barrier to wait at.
 */
 unsigned int wait_at_barrier(threadbarrier_t *barrier);
 
@@ -144,7 +144,7 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * from this global list. 
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
- * @param The barrier for threads to wait at. May be NULL if not used.
+ * @param barrier The barrier for threads to wait at. May be NULL if not used.
  */
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
                                int number_nodes_x, int number_nodes_y,
