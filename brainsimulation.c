@@ -41,27 +41,10 @@ unsigned int simulate(double tick_ms, int num_ticks, int number_nodes_x, int num
 		old_state, new_state, slopes, kernels,
 		d_kernel, id_kernel, number_inputs, inputs);
 	#else
-	//TODO: execute partial simulation with entire simulation as node subset
-    for (int j = 0; j < num_ticks; ++j) {
-		int returncode = execute_tick_singlethreaded(&executioncontext,
-			tick_ms, number_nodes_x, number_nodes_y, old_state, new_state, slopes, kernels,
-            d_kernel, id_kernel);
-		if (!(j % 100)) {
-			printf("Executed tick %d.\n", j);
-		}
-        if (returncode != 0) {
-            printf("Executing tick %d failed with return code %d. Aborting simulation.\n", j, returncode);
-            return returncode;
-        }
-        // add the input signals AFTER the actual computation takes place.
-        // Change location?
-        process_global_inputs(j, tick_ms, new_state, number_inputs, inputs);
-        extract_observationnodes(j, num_obervationnodes, observationnodes, new_state);
-        // swap array states -> the new_state becomes the old_state, old_state can be overwritten
-        nodeval_t **tmp = old_state;
-        old_state = new_state;
-        new_state = tmp;
-    }
+	execute_simulation_singlethreaded(&executioncontext, num_ticks,
+		tick_ms, number_nodes_x, number_nodes_y, num_obervationnodes, observationnodes,
+		old_state, new_state, slopes, kernels,
+		d_kernel, id_kernel, number_inputs, inputs);
 	#endif
     printf("Simulation finished succesfully!\n");
 	get_daytime(&tv2);
@@ -71,18 +54,6 @@ unsigned int simulate(double tick_ms, int num_ticks, int number_nodes_x, int num
     return 0;
 }
 
-//TODO: remove
-unsigned int execute_tick_singlethreaded(executioncontext_t *executioncontext, 
-	double tick_ms, int number_nodes_x, int number_nodes_y, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr)
-{
-	init_partial_simulation_context(executioncontext->contexts,
-			0, tick_ms, number_nodes_x, number_nodes_y, 0, NULL, old_state,
-			new_state, slopes, kernels, d_ptr, id_ptr, 0, NULL,  0, number_nodes_x, NULL);
-	execute_partial_tick(executioncontext->contexts);
-	return 0;
-}
-
 unsigned int execute_simulation_multithreaded(executioncontext_t *executioncontext,
 	int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
 	int num_obervationnodes, nodetimeseries_t *observationnodes, nodeval_t **old_state,
@@ -90,8 +61,7 @@ unsigned int execute_simulation_multithreaded(executioncontext_t *executionconte
 	int number_global_inputs, nodeinputseries_t *global_inputs)
 {
 	//initialize barrier
-	threadbarrier_t barrier;
-	init_thread_barrier(&barrier, executioncontext->num_threads);
+	init_thread_barrier(&executioncontext->barrier, executioncontext->num_threads);
 	//spawn threads
 	for (int i = 0; i < executioncontext->num_threads; i++)
 	{
@@ -101,14 +71,28 @@ unsigned int execute_simulation_multithreaded(executioncontext_t *executionconte
 			num_ticks, tick_ms, number_nodes_x, number_nodes_y,
 			num_obervationnodes, observationnodes, old_state,
 			new_state, slopes, kernels, d_ptr, id_ptr, number_global_inputs, global_inputs,
-			thread_start_x, thread_end_x, &barrier);
+			thread_start_x, thread_end_x, &executioncontext->barrier);
 		executioncontext->handles[i] =
 			create_and_run_simulation_thread(execute_partial_simulation, &executioncontext->contexts[i]);
 	}
 	//wait for threads to finish
 	join_and_close_simulation_threads(executioncontext->handles, executioncontext->num_threads);
-	destroy_thread_barrier(&barrier);
+	destroy_thread_barrier(&executioncontext->barrier);
 	return 0;
+}
+
+unsigned int execute_simulation_singlethreaded(executioncontext_t *executioncontext,
+	int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
+	int num_obervationnodes, nodetimeseries_t *observationnodes, nodeval_t **old_state,
+	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+	int number_global_inputs, nodeinputseries_t *global_inputs)
+{
+	init_partial_simulation_context(executioncontext->contexts,
+		num_ticks, tick_ms, number_nodes_x, number_nodes_y,
+		num_obervationnodes, observationnodes, old_state,
+		new_state, slopes, kernels, d_ptr, id_ptr, number_global_inputs, global_inputs,
+		0, number_nodes_x, &executioncontext->barrier);
+	return execute_partial_simulation(executioncontext->contexts);
 }
 
 unsigned int execute_partial_simulation(partialsimulationcontext_t * context)
@@ -120,17 +104,25 @@ unsigned int execute_partial_simulation(partialsimulationcontext_t * context)
 			return returncode;
 		}
 		//waiting at barrier, this returns 1 only if this thread has been selected as the "management" thread
+		#if MULTITHREADING
 		if (wait_at_barrier(context->barrier)) {
+		#endif
 			if (!(j % 100)) {
 				printf("Executed tick %d.\n", j);
 			}
+		#if MULTITHREADING
 		}
+		#endif
 		// add the input signals AFTER the actual computation takes place.
 		process_partial_inputs(j, context->tick_ms, context->new_state, context->number_partial_inputs, context->partial_inputs);
 		//only the management thread extracts observations
+		#if MULTITHREADING
 		if (wait_at_barrier(context->barrier)) {
+		#endif
 			extract_observationnodes(j, context->num_obervationnodes, context->observationnodes, context->new_state);
+		#if MULTITHREADING
 		}
+		#endif
 		//everyone swaps their own pointers
 		// swap array states -> the new_state becomes the old_state, old_state can be overwritten
 		nodeval_t **tmp = context->old_state;
@@ -138,7 +130,9 @@ unsigned int execute_partial_simulation(partialsimulationcontext_t * context)
 		context->new_state = tmp;
 
 		//wait at the barrier again before starting the next cycle, this makes sure that no one writes during observation extraction
+		#if MULTITHREADING
 		wait_at_barrier(context->barrier);
+		#endif
 	}
 	return 0;
 }

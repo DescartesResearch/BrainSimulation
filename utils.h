@@ -36,6 +36,11 @@ typedef struct {
      * Array of contexts for the different threads. Has num_threads length.
      */
     partialsimulationcontext_t *contexts;
+
+	/**
+	 * Synchronization barrier to be used by all threads that run in this execution.
+	 */
+	threadbarrier_t barrier;
 }
 executioncontext_t;
 
