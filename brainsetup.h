@@ -52,4 +52,13 @@ void init_start_time_state(const int number_nodes_x, const int number_nodes_y, n
 nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int *x_indices, const int *y_indices,
 									   const char **inputnodefilenames, const int *number_of_elements);
 
+/**
+ * Generates a dicretized sinoidal timeseries with the specified frequency and returns it.
+ * @param hz The desired frequency in Hz.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * @param number_of_samples The number of samples to generate.
+ * @return A series of doubles. Length: number_of_samples.
+ */
+double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
+
 #endif

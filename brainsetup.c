@@ -3,6 +3,10 @@
 #include "utils.h"
 
 #include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
+
+#define PI 3.14159265
 
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes, 
 	const int *x_indices, const int *y_indices, const int num_timeseries_elements)
@@ -39,6 +43,17 @@ nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int
 		series[i].timeseries = malloc(number_of_elements[i] * sizeof(nodeval_t));
 		series[i].timeseries_ticks = number_of_elements[i];
 		parse_file(series[i], inputnodefilenames[i]);
+	}
+	return series;
+}
+
+double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples){
+	double* series = malloc(number_of_samples * sizeof(double));
+	int i;
+	for (i = 0; i < number_of_samples; ++i) {
+		double arg = PI*hz*2*tick_ms*((double)i)/(1000);
+		series[i] = sin(arg);
+		printf("Arg: %f, sin(arg): %f\n", arg, series[i]);
 	}
 	return series;
 }

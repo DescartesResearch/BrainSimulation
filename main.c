@@ -25,6 +25,8 @@ const char *INPUTNODES_PATHS[] = { "./testinput/input10-10.csv", "./testinput/in
 int main(int argc, char *argv[]) {
     double tick_ms = 1;
     int num_ticks = 5000;
+    // generate_sin_time_series(250,10,40);
+
     nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
