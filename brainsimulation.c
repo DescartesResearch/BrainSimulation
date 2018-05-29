@@ -13,6 +13,8 @@ unsigned int simulate(double tick_ms, int num_ticks, int number_nodes_x, int num
 	executioncontext_t executioncontext;
 	init_executioncontext(&executioncontext);
 	printf("Starting simulation.\n");
+	printf("Grid size: %d x %d => %d simulated nodes.\n", number_nodes_x, number_nodes_y, number_nodes_x *
+																						  number_nodes_y);
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %f\n", tick_ms);
     printf("Number of observation nodes: %d\n", num_obervationnodes);
