@@ -50,7 +50,7 @@ void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y) {
 }
 
 
-int system_processor_online_count() {
+const unsigned int system_processor_online_count() {
 #ifdef _WIN32
     SYSTEM_INFO info;
     GetSystemInfo(&info);

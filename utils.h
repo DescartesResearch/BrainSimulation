@@ -79,7 +79,7 @@ void init_zeros_2d(nodeval_t **nodes, int number_nodes_x, int number_nodes_y);
  * Returns the number of processor cores online in the system.
  * @return The number of processors online in the system.
  */
-int system_processor_online_count();
+const unsigned int system_processor_online_count();
 
 /**
  * Creates a new platform-specific thread with the context and starts it.
@@ -92,7 +92,7 @@ threadhandle_t *
 create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *), partialsimulationcontext_t *context);
 
 /**
- * Initializes tread barrier.
+ * Initializes thread barrier.
  * @param barrier Barrier to initialize.
  * @param number_threads: The number of threads that the barrier should be configured to block.
  */
@@ -105,7 +105,7 @@ void init_thread_barrier(threadbarrier_t *barrier, const unsigned int number_thr
 void destroy_thread_barrier(threadbarrier_t *barrier);
 
 /**
-* Waits at the barrier. Returns 1 if for the management thread and 0 for all other threads.
+* Waits at the barrier. Returns 1 for the management thread and 0 for all other threads.
 * @param barrier Barrier to wait at.
 */
 unsigned int wait_at_barrier(threadbarrier_t *barrier);
@@ -118,8 +118,8 @@ unsigned int wait_at_barrier(threadbarrier_t *barrier);
 void join_and_close_simulation_threads(threadhandle_t **handles, const int num_threads);
 
 /**
- * Convenience function to pass all members to a partialsimulationcontext_t in a single line.
- * Automatically derives \ref partialsimulationcontext_t.number_partial_inputs and
+ * Convenience function to initialize a partialsimulationcontext_t in a single line.
+ * Passes most members and automatically derives \ref partialsimulationcontext_t.number_partial_inputs and
  * \ref partialsimulationcontext_t.partial_inputs from the global inputs.
  * @param context Pointer to the context.
  * @param num_ticks The number of ticks in the simulation.
@@ -127,9 +127,10 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * @param number_nodes_x The number of total nodes in the first dimension of nodes.
  * @param number_nodes_y The number of total nodes in the second dimension of nodes.
  * @param num_obervationnodes The number of nodes to observe.
- * @param observationnodes Pointers to the timeseries for the nodes to observe. Observations are written here.
+ * @param observationnodes Pointers to the timeseries for the nodes to observe.
+ * Observations are to be written here.
  * @param old_state 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
- * @param new_state 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
+ * @param new_state 2D array of nodes with the new energy level.Values will be overwritten. Size number_nodes_x *
  * number_nodes_y.
  * @param slopes 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
  * number_nodes_y.
@@ -144,7 +145,7 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * from this global list. 
  * @param thread_start_x Node x index at which to start working in this thread (inclusive).
  * @param thread_end_x Node x index at which to stop working in this thread (exclusive).
- * @param barrier The barrier for threads to wait at. May be NULL if not used.
+ * @param barrier The barrier for threads to wait at. May be uninitialized in if MULTITHREADING is disabled.
  */
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
                                int number_nodes_x, int number_nodes_y,
@@ -156,7 +157,7 @@ void init_partial_simulation_context(partialsimulationcontext_t *context, int nu
                                int thread_start_x, int thread_end_x, threadbarrier_t *barrier);
 
 /**
- * Initializes a simuatlionexecutioncontext.
+ * Initializes the simulation's technical execution context.
  * Derives the number of threads for execution and writes the result to context->num_threads.
  * Allocates memory for the arrays in the context.
  * @param context The context to initialize.
