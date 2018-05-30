@@ -53,12 +53,34 @@ nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int
 									   const char **inputnodefilenames, const int *number_of_elements);
 
 /**
- * Generates a dicretized sinoidal timeseries with the specified frequency and returns it.
+ * Generates a specified number of samples of a discretized sinoidal timeseries with the specified frequency and
+ * returns it.
+ *
  * @param hz The desired frequency in Hz.
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
  * @param number_of_samples The number of samples to generate.
  * @return A series of doubles. Length: number_of_samples.
  */
 double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
+
+/**
+ * Generates a discretized sinoidal timeseries with the specified frequency and returns it. Automatically detects the
+ * period, and returns exactly only period. Should be preferred way to generate the time-series.
+ *
+ * @param hz The desired frequency in Hz.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * @return A series of doubles. Length: Period of the frequency.
+ */
+double* generate_sin_frequency(int hz, double tick_ms);
+
+/**
+ * Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to
+ * generate, until the period is reached.
+ *
+ * @param hz The desired frequency in Hz.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * @return The number of samples of one period.
+ */
+double calculate_period_length(int hz, double tick_ms);
 
 #endif

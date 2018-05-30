@@ -7,6 +7,8 @@
 #include <stdio.h>
 
 #define PI 3.14159265
+// we are working at a millisecond scale, hence the 1000.
+#define SCALE 1000.0
 
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes, 
 	const int *x_indices, const int *y_indices, const int num_timeseries_elements)
@@ -51,9 +53,24 @@ double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples){
 	double* series = malloc(number_of_samples * sizeof(double));
 	int i;
 	for (i = 0; i < number_of_samples; ++i) {
-		double arg = PI*hz*2*tick_ms*((double)i)/(1000);
+		double arg = PI*hz*2*tick_ms*((double)i)/(SCALE);
 		series[i] = sin(arg);
 		printf("Arg: %f, sin(arg): %f\n", arg, series[i]);
 	}
 	return series;
+}
+
+double* generate_sin_frequency(int hz, double tick_ms){
+	double samples = calculate_period_length(hz, tick_ms);
+	if (samples <= 2){
+		printf("Warning: Frequency of %d Hz can not be realized at a resolution of %f ms per tick. Increase tick "
+		 "granularity or reduce frequency.\n", hz, tick_ms);
+	}
+	return generate_sin_time_series(hz, tick_ms, samples);
+}
+
+double calculate_period_length(int hz, double tick_ms){
+	double period = SCALE/(hz*tick_ms);
+	printf("Period: %f\n", period);
+	return period;
 }
