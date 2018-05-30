@@ -9,7 +9,9 @@
 #include <Windows.h>
 #include <process.h>
 #else
+
 #include <unistd.h>
+
 #endif
 
 #ifdef _WIN32
@@ -61,7 +63,8 @@ const unsigned int system_processor_online_count() {
 }
 
 threadhandle_t *
-create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *), partialsimulationcontext_t *context) {
+create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *),
+                                 partialsimulationcontext_t *context) {
     threadhandle_t *handle = malloc(sizeof(threadhandle_t));
 #ifdef _WIN32
     *handle = (threadhandle_t) _beginthreadex(0, 0, callback, context, 0, 0);
@@ -91,83 +94,80 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
     }
 }
 
-void init_thread_barrier(threadbarrier_t *barrier, const unsigned int number_threads)
-{
-	#ifdef _WIN32
-		InitializeSynchronizationBarrier(barrier, number_threads, -1);
-	#else
-		pthread_barrier_init(barrier, NULL, number_threads);
-	#endif
+void init_thread_barrier(threadbarrier_t *barrier, const unsigned int number_threads) {
+#ifdef _WIN32
+    InitializeSynchronizationBarrier(barrier, number_threads, -1);
+#else
+    pthread_barrier_init(barrier, NULL, number_threads);
+#endif
 }
 
-void destroy_thread_barrier(threadbarrier_t *barrier)
-{
-	#ifdef _WIN32
-		DeleteSynchronizationBarrier(barrier);
-	#else
-		pthread_barrier_destroy(barrier);
-	#endif
+void destroy_thread_barrier(threadbarrier_t *barrier) {
+#ifdef _WIN32
+    DeleteSynchronizationBarrier(barrier);
+#else
+    pthread_barrier_destroy(barrier);
+#endif
 }
 
-unsigned int wait_at_barrier(threadbarrier_t *barrier)
-{
-	#ifdef _WIN32
-		return EnterSynchronizationBarrier(barrier, 0);
-	#else
-	if (pthread_barrier_wait(barrier) == PTHREAD_BARRIER_SERIAL_THREAD) {
-		return 1;
-	} else {
-		return 0;
-	}
-	#endif
+unsigned int wait_at_barrier(threadbarrier_t *barrier) {
+#ifdef _WIN32
+    return EnterSynchronizationBarrier(barrier, 0);
+#else
+    if (pthread_barrier_wait(barrier) == PTHREAD_BARRIER_SERIAL_THREAD) {
+        return 1;
+    } else {
+        return 0;
+    }
+#endif
 }
 
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
-                               int number_nodes_x, int number_nodes_y,
-							   int num_obervationnodes, nodetimeseries_t *observationnodes,
-							   nodeval_t **old_state,
-                               nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
-                               kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-							   int number_global_inputs, nodeinputseries_t *global_inputs,
-                               int thread_start_x, int thread_end_x, threadbarrier_t *barrier) {
-	context->num_ticks = num_ticks;
-	context->tick_ms = tick_ms;
+                                     int number_nodes_x, int number_nodes_y,
+                                     int num_obervationnodes, nodetimeseries_t *observationnodes,
+                                     nodeval_t **old_state,
+                                     nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+                                     kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+                                     int number_global_inputs, nodeinputseries_t *global_inputs,
+                                     int thread_start_x, int thread_end_x, threadbarrier_t *barrier) {
+    context->num_ticks = num_ticks;
+    context->tick_ms = tick_ms;
     context->number_nodes_x = number_nodes_x;
     context->number_nodes_y = number_nodes_y;
-	context->num_obervationnodes = num_obervationnodes;
-	context->observationnodes = observationnodes;
+    context->num_obervationnodes = num_obervationnodes;
+    context->observationnodes = observationnodes;
     context->old_state = old_state;
     context->new_state = new_state;
     context->slopes = slopes;
     context->kernels = kernels;
     context->d_ptr = d_ptr;
     context->id_ptr = id_ptr;
-	context->number_global_inputs = number_global_inputs;
-	context->global_inputs = global_inputs;
+    context->number_global_inputs = number_global_inputs;
+    context->global_inputs = global_inputs;
     context->thread_start_x = thread_start_x;
     context->thread_end_x = thread_end_x;
-	context->barrier = barrier;
+    context->barrier = barrier;
 
-	//derive the partial inputs
-	context->number_partial_inputs = 0;
-	//count partial inputs
-	for (int i = 0; i < number_global_inputs; i++) {
-		if (global_inputs != NULL
-			&& global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
-			context->number_partial_inputs++;
-		}
-	}
-	//allocate partial input array; we never free this,
-	//as partial contexts survive for the entire duration of the simulation
-	context->partial_inputs = malloc(context->number_partial_inputs * sizeof(nodeinputseries_t*));
-	int j = 0;
-	for (int i = 0; i < number_global_inputs; i++) {
-		if (global_inputs != NULL
-			&& global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
-			context->partial_inputs[j] = &(context->global_inputs[i]);
-			j++;
-		}
-	}
+    //derive the partial inputs
+    context->number_partial_inputs = 0;
+    //count partial inputs
+    for (int i = 0; i < number_global_inputs; i++) {
+        if (global_inputs != NULL
+            && global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
+            context->number_partial_inputs++;
+        }
+    }
+    //allocate partial input array; we never free this,
+    //as partial contexts survive for the entire duration of the simulation
+    context->partial_inputs = malloc(context->number_partial_inputs * sizeof(nodeinputseries_t *));
+    int j = 0;
+    for (int i = 0; i < number_global_inputs; i++) {
+        if (global_inputs != NULL
+            && global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
+            context->partial_inputs[j] = &(context->global_inputs[i]);
+            j++;
+        }
+    }
 }
 
 void init_executioncontext(executioncontext_t *context) {

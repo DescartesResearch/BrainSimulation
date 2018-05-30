@@ -4,20 +4,20 @@
 #include "nodefunc.h"
 
 nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbors, nodeval_t *d_neighbors,
-                  int number_id_neighbors, nodeval_t *id_neighbors){
+                    int number_id_neighbors, nodeval_t *id_neighbors) {
     // calculate mean over all madn nodes
     nodeval_t madn = 0;
     for (int i = 0; i < number_d_neighbors; ++i) {
         madn = madn + d_neighbors[i];
     }
-    madn = madn/number_d_neighbors;
+    madn = madn / number_d_neighbors;
 
     // calculate mean over all maidn nodes
     nodeval_t maidn = 0;
     for (int i = 0; i < number_id_neighbors; ++i) {
         maidn = maidn + id_neighbors[i];
     }
-    maidn = maidn/number_id_neighbors;
+    maidn = maidn / number_id_neighbors;
 
 
     // rest of the algorithm
@@ -29,7 +29,7 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
 
     // physical damping, default 0.001
     double damping = 0.001;
-    act_new = act_new/(1+damping);
+    act_new = act_new / (1 + damping);
 
     nodestate_t res;
     res.act = act_new;

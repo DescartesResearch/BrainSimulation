@@ -19,7 +19,7 @@
  */
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
                                               const int *x_indices, const int *y_indices,
-											  const int num_timeseries_elements);
+                                              const int num_timeseries_elements);
 
 /**
  * Sets a start time energy state for the node field. All unspecified nodes start with 0.
@@ -33,7 +33,7 @@ nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
  */
 void init_start_time_state(const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes,
                            const int num_start_levels, const nodeval_t *start_levels,
-						   const int *start_nodes_x, const int *start_nodes_y);
+                           const int *start_nodes_x, const int *start_nodes_y);
 
 /**
  * Reads and parses the inputs defined as csv files to be added to the given nodes during the simulation.
@@ -49,8 +49,8 @@ void init_start_time_state(const int number_nodes_x, const int number_nodes_y, n
  * Length: number_of_inputnodes.
  * @return The array of input nodes as read from the given filepaths. Length: number_of_inputnodes.
  */
-nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int *x_indices, const int *y_indices,
-									   const char **inputnodefilenames, const int *number_of_elements);
+nodeinputseries_t *read_input_behavior(const int number_of_inputnodes, const int *x_indices, const int *y_indices,
+                                       const char **inputnodefilenames, const int *number_of_elements);
 
 /**
  * Generates a specified number of samples of a discretized sinoidal timeseries with the specified frequency and
@@ -61,7 +61,7 @@ nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int
  * @param number_of_samples The number of samples to generate.
  * @return A series of doubles. Length: number_of_samples.
  */
-double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
+double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
 
 /**
  * Generates a discretized sinoidal timeseries with the specified frequency and returns it. Automatically detects the
@@ -71,7 +71,7 @@ double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
  * @return A series of doubles. Length: Period of the frequency.
  */
-double* generate_sin_frequency(int hz, double tick_ms);
+double *generate_sin_frequency(int hz, double tick_ms);
 
 /**
  * Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to
@@ -98,7 +98,7 @@ int calculate_period_length(int hz, double tick_ms);
  * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
  * @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.
  */
-nodeinputseries_t* generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
-											  const int *y_indices, const int *frequencies, double tick_ms);
+nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
+                                              const int *y_indices, const int *frequencies, double tick_ms);
 
 #endif

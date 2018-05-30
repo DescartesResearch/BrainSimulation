@@ -10,19 +10,22 @@ const int OBSERVATION_X_INDICES_DEFAULT[] = {20, 21, 22, 100};
 const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
 const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
 
-const int START_NODES_X_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
-const int START_NODES_Y_INDICES_DEFAULT[] = { 20, 40, 50, 100 };
+const int START_NODES_X_INDICES_DEFAULT[] = {20, 40, 50, 100};
+const int START_NODES_Y_INDICES_DEFAULT[] = {20, 40, 50, 100};
 const int NUM_START_NODES_DEFAULT = 4;
-const nodeval_t START_NODE_LEVELS_DEFAULT[] = { 304, 12, 3, 100 };
+const nodeval_t START_NODE_LEVELS_DEFAULT[] = {304, 12, 3, 100};
 
 // for frequency input
 const int NUM_INPUTNODES_DEFAULT = 40;
-const int INPUT_NODES_X_INDICES_DEFAULT[] = {10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,
-                                             35,36,37,38,39,40,41,42,43,44,45,46,47,48,49};
-const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,
-                                             35,36,37,38,39,40,41,42,43,44,45,46,47,48,49};
-const int INPUT_FREQUENCIES_DEFAULT[] = {2, 3, 5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,
-                                         103,107,109,113,127,131,137,139,149,151,157,163,167,173};
+const int INPUT_NODES_X_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                                             29, 30, 31, 32, 33, 34,
+                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                                             29, 30, 31, 32, 33, 34,
+                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+const int INPUT_FREQUENCIES_DEFAULT[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
+                                         79, 83, 89, 97, 101,
+                                         103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
 
 
 // for file input
@@ -30,8 +33,9 @@ const int FILE_NUM_INPUTNODES_DEFAULT = 4;
 const int FILE_INPUT_NODES_X_INDICES_DEFAULT[] = {10, 20, 30, 100};
 const int FILE_INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 20, 30, 100};
 const int FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT[] = {50, 50, 50, 63};
-const char *FILE_INPUTNODES_PATHS[] = { "./testinput/input10-10.csv", "./testinput/input20-20.csv", "./testinput/input30-30.csv",
-                                   "./testinput/input100-100.csv"};
+const char *FILE_INPUTNODES_PATHS[] = {"./testinput/input10-10.csv", "./testinput/input20-20.csv",
+                                       "./testinput/input30-30.csv",
+                                       "./testinput/input100-100.csv"};
 
 int main(int argc, char *argv[]) {
     double tick_ms = 1;
@@ -41,38 +45,39 @@ int main(int argc, char *argv[]) {
     nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
                                                                      OBSERVATION_X_INDICES_DEFAULT,
                                                                      OBSERVATION_Y_INDICES_DEFAULT,
-																	 num_ticks);
+                                                                     num_ticks);
     int number_nodes_x = 200;
     int number_nodes_y = 200;
     nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
-	init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
-		NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
-		START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
+    init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
+                          NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
+                          START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
     nodeinputseries_t *inputs = generate_input_frequencies(NUM_INPUTNODES_DEFAULT, INPUT_NODES_X_INDICES_DEFAULT,
-            INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT, tick_ms);
+                                                           INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT,
+                                                           tick_ms);
 //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
 //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
 //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
     simulate(tick_ms, num_ticks, number_nodes_x, number_nodes_y, nodegrid,
              NUM_OBERSERVATIONNODES_DEFAULT, observationnodes, NUM_INPUTNODES_DEFAULT, inputs);
     printf("Output:\n");
-	for (int j = 0; j < NUM_OBERSERVATIONNODES_DEFAULT; ++j) {
+    for (int j = 0; j < NUM_OBERSERVATIONNODES_DEFAULT; ++j) {
         //printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);
         //int i;
         //for (i = 0; i < num_ticks; ++i) {
         //    printf("    Time: %d, Energy-Value: %f.\n", i, observationnodes[j].timeseries[i]);
         //}
         char str[12] = {""};
-	    char filename[100] = "./testoutput/output";
+        char filename[100] = "./testoutput/output";
         sprintf(str, "%d", observationnodes[j].x_index);
-        strcat(filename,str);
-        strcat(filename,"-");
+        strcat(filename, str);
+        strcat(filename, "-");
         sprintf(str, "%d", observationnodes[j].y_index);
-        strcat(filename,str);
-        strcat(filename,".csv");
+        strcat(filename, str);
+        strcat(filename, ".csv");
         printf("filename: %s\n", filename);
-	    output_to_csv(filename, observationnodes[j].timeseries_ticks, observationnodes[j].timeseries);
+        output_to_csv(filename, observationnodes[j].timeseries_ticks, observationnodes[j].timeseries);
     }
     printf("Finished.\n");
-	return 0;
+    return 0;
 }

@@ -50,7 +50,8 @@ int d_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_
     return 4;
 }
 
-int id_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
+int
+id_kernel_4neighbors(nodeval_t *result, int number_nodes_x, int number_nodes_y, nodeval_t **nodegrid, int x, int y) {
     // we require 4 elements in the given array
     if (x - 1 >= 0 && y - 1 >= 0) {
         result[0] = nodegrid[x - 1][y - 1];

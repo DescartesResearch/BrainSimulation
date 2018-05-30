@@ -22,6 +22,6 @@
 * @returns The new resulting energy level.
 */
 nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbors, nodeval_t *d_neighbors,
-                  int number_id_neighbors, nodeval_t *id_neighbors);
+                    int number_id_neighbors, nodeval_t *id_neighbors);
 
 #endif

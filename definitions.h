@@ -2,9 +2,11 @@
 #define DEFINITIONS_H
 
 #ifdef _WIN32
-	#include <Windows.h>
+#include <Windows.h>
 #else
-	#include <pthread.h>
+
+#include <pthread.h>
+
 #endif
 
 /**
@@ -33,18 +35,18 @@
  * Platform-independent thread handle.
  */
 #ifdef _WIN32
-	typedef HANDLE threadhandle_t;
+typedef HANDLE threadhandle_t;
 #else
-	typedef pthread_t threadhandle_t;
+typedef pthread_t threadhandle_t;
 #endif
 
 /**
  * Platform-independent thread barrier.
  */
 #ifdef _WIN32
-	typedef SYNCHRONIZATION_BARRIER threadbarrier_t;
+typedef SYNCHRONIZATION_BARRIER threadbarrier_t;
 #else
-	typedef pthread_barrier_t threadbarrier_t;
+typedef pthread_barrier_t threadbarrier_t;
 #endif
 
 /**
@@ -57,25 +59,25 @@ typedef double nodeval_t;
  * x_index and y_index members must be set when passing it to a simulation.
  */
 typedef struct {
-	/**
-	* x index of the node.
-	*/
-	int x_index;
-	/**
-	* y index of the node.
-	*/
-	int y_index;
-	/**
-	* Series of observed node energy levels. One element per tick.
-	* Has #timeseries_ticks as length.
-	*/
-	nodeval_t *timeseries;
-	/**
-	* Length of #timeseries.
-	*/
-	int timeseries_ticks;
+    /**
+    * x index of the node.
+    */
+    int x_index;
+    /**
+    * y index of the node.
+    */
+    int y_index;
+    /**
+    * Series of observed node energy levels. One element per tick.
+    * Has #timeseries_ticks as length.
+    */
+    nodeval_t *timeseries;
+    /**
+    * Length of #timeseries.
+    */
+    int timeseries_ticks;
 }
-nodetimeseries_t;
+        nodetimeseries_t;
 
 /**
  * Struct to store the input for the simulation for a single node.
@@ -100,22 +102,22 @@ typedef struct {
     */
     int timeseries_ticks;
 }
-nodeinputseries_t;
+        nodeinputseries_t;
 
 /**
  * Struct to store the status of one node. Includes the energy-level of the node, as well as the slope.
  */
 typedef struct {
-	/**
-	* Energy-level of node
-	*/
-	nodeval_t act;
-	/**
-	* Slope of node.
-	*/
-	nodeval_t slope;
+    /**
+    * Energy-level of node
+    */
+    nodeval_t act;
+    /**
+    * Slope of node.
+    */
+    nodeval_t slope;
 }
-nodestate_t;
+        nodestate_t;
 
 /**
 * Definition of the kernel-function interface.
@@ -128,110 +130,110 @@ typedef int(*kernelfunc_t)(nodeval_t *, int, int, nodeval_t **, int, int);
  */
 typedef struct {
 
-	/**
-	 * Number of ticks in the simulation.
-	 */
-	int num_ticks;
+    /**
+     * Number of ticks in the simulation.
+     */
+    int num_ticks;
 
-	/**
-	* Milliseconds in between each simulation tick.
-	*/
-	double tick_ms;
+    /**
+    * Milliseconds in between each simulation tick.
+    */
+    double tick_ms;
 
-	/**
-	* The number of total nodes in the first dimension of nodes.
-	*/
-	int number_nodes_x;
+    /**
+    * The number of total nodes in the first dimension of nodes.
+    */
+    int number_nodes_x;
 
-	/**
-	* The number of total nodes in the second dimension of nodes.
-	*/
-	int number_nodes_y;
+    /**
+    * The number of total nodes in the second dimension of nodes.
+    */
+    int number_nodes_y;
 
-	/**
-	 * The number of nodes to observe.
-	 */
-	int num_obervationnodes;
+    /**
+     * The number of nodes to observe.
+     */
+    int num_obervationnodes;
 
-	/**
-	 * Timeseries to write the observations into.
-	 */
-	nodetimeseries_t * observationnodes;
+    /**
+     * Timeseries to write the observations into.
+     */
+    nodetimeseries_t *observationnodes;
 
-	/**
-	* 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
-	*/
-	nodeval_t **old_state;
+    /**
+    * 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
+    */
+    nodeval_t **old_state;
 
-	/**
-	* 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
-	* number_nodes_y.
-	*/
-	nodeval_t **new_state;
+    /**
+    * 2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x *
+    * number_nodes_y.
+    */
+    nodeval_t **new_state;
 
-	/**
-	 * 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
-	 * number_nodes_y.
-	 */
-	nodeval_t **slopes;
+    /**
+     * 2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x *
+     * number_nodes_y.
+     */
+    nodeval_t **slopes;
 
-	/**
-	* 2D array containing the kernels of each node at each index.Each index node points to an array
-	* containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
-	* number_nodes_y * 2 * 4.
-	*/
-	nodeval_t ****kernels;
+    /**
+    * 2D array containing the kernels of each node at each index.Each index node points to an array
+    * containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x *
+    * number_nodes_y * 2 * 4.
+    */
+    nodeval_t ****kernels;
 
-	/**
-	* Node x index at which to start working in this thread (inclusive).
-	*/
-	int thread_start_x;
+    /**
+    * Node x index at which to start working in this thread (inclusive).
+    */
+    int thread_start_x;
 
-	/**
-	* Node x index at which to stop working in this thread (exclusive).
-	*/
-	int thread_end_x;
+    /**
+    * Node x index at which to stop working in this thread (exclusive).
+    */
+    int thread_end_x;
 
-	/**
-	 * Function pointer pointing to the kernel function for the direct neighborhood.
-	 */
-	kernelfunc_t d_ptr; 
+    /**
+     * Function pointer pointing to the kernel function for the direct neighborhood.
+     */
+    kernelfunc_t d_ptr;
 
-	/**
-	 * Function pointer pointing to the kernel function for the indirect neighborhood.
-	 */
-	kernelfunc_t id_ptr; 
+    /**
+     * Function pointer pointing to the kernel function for the indirect neighborhood.
+     */
+    kernelfunc_t id_ptr;
 
-	/**
-	 * Number of inputs on the entire node grid.
-	 */
-	int number_global_inputs;
+    /**
+     * Number of inputs on the entire node grid.
+     */
+    int number_global_inputs;
 
-	/**
-	 * Contains information about the coordinates and the values of all input nodes to be changed during
-	 * execution. All values must be set. Length: number_global_inputs.
-	 */
-	nodeinputseries_t *global_inputs;
+    /**
+     * Contains information about the coordinates and the values of all input nodes to be changed during
+     * execution. All values must be set. Length: number_global_inputs.
+     */
+    nodeinputseries_t *global_inputs;
 
-	/**
-	 * Number of inputs in the sub-grid of this partial simulation.
-	 * Sub-grid is defined by thread_start_x and thread_end_x.
-	 */
-	int number_partial_inputs;
+    /**
+     * Number of inputs in the sub-grid of this partial simulation.
+     * Sub-grid is defined by thread_start_x and thread_end_x.
+     */
+    int number_partial_inputs;
 
-	/**
-	* Points the the inputs
-	* in the sub-grid of this partial simulation.
-	* Sub-grid is defined by thread_start_x and thread_end_x.
-	* Length: number_partial_inputs.
-	*/
-	nodeinputseries_t **partial_inputs;
+    /**
+    * Points the the inputs
+    * in the sub-grid of this partial simulation.
+    * Sub-grid is defined by thread_start_x and thread_end_x.
+    * Length: number_partial_inputs.
+    */
+    nodeinputseries_t **partial_inputs;
 
-	/**
-	 * Barrier to wait at.
-	 */
-	threadbarrier_t *barrier;
+    /**
+     * Barrier to wait at.
+     */
+    threadbarrier_t *barrier;
 }
-partialsimulationcontext_t;
+        partialsimulationcontext_t;
 
 #endif

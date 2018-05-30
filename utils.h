@@ -4,10 +4,12 @@
 #include "definitions.h"
 
 #ifdef _WIN32
-	#include <Windows.h>
+#include <Windows.h>
 #else
-	#include <pthread.h>
-	#include <sys/time.h>
+
+#include <pthread.h>
+#include <sys/time.h>
+
 #endif
 
 /**
@@ -37,12 +39,12 @@ typedef struct {
      */
     partialsimulationcontext_t *contexts;
 
-	/**
-	 * Synchronization barrier to be used by all threads that run in this execution.
-	 */
-	threadbarrier_t barrier;
+    /**
+     * Synchronization barrier to be used by all threads that run in this execution.
+     */
+    threadbarrier_t barrier;
 }
-executioncontext_t;
+        executioncontext_t;
 
 
 /**
@@ -89,7 +91,8 @@ const unsigned int system_processor_online_count();
  * @return A handle for the running thread.
  */
 threadhandle_t *
-create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *), partialsimulationcontext_t *context);
+create_and_run_simulation_thread(unsigned int(*callback)(partialsimulationcontext_t *),
+                                 partialsimulationcontext_t *context);
 
 /**
  * Initializes thread barrier.
@@ -148,13 +151,13 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * @param barrier The barrier for threads to wait at. May be uninitialized in if MULTITHREADING is disabled.
  */
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
-                               int number_nodes_x, int number_nodes_y,
-							   int num_obervationnodes, nodetimeseries_t *observationnodes,
-							   nodeval_t **old_state,
-                               nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
-                               kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-							   int number_global_inputs, nodeinputseries_t *global_inputs,
-                               int thread_start_x, int thread_end_x, threadbarrier_t *barrier);
+                                     int number_nodes_x, int number_nodes_y,
+                                     int num_obervationnodes, nodetimeseries_t *observationnodes,
+                                     nodeval_t **old_state,
+                                     nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+                                     kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+                                     int number_global_inputs, nodeinputseries_t *global_inputs,
+                                     int thread_start_x, int thread_end_x, threadbarrier_t *barrier);
 
 /**
  * Initializes the simulation's technical execution context.

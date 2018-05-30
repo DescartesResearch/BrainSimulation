@@ -65,10 +65,12 @@ unsigned int simulate(double tick_ms,
 * @return Return-codes.
 */
 unsigned int execute_simulation_multithreaded(executioncontext_t *executioncontext,
-	int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
-	int num_obervationnodes, nodetimeseries_t *observationnodes, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-	int number_global_inputs, nodeinputseries_t *global_inputs);
+                                              int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
+                                              int num_obervationnodes, nodetimeseries_t *observationnodes,
+                                              nodeval_t **old_state,
+                                              nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+                                              kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+                                              int number_global_inputs, nodeinputseries_t *global_inputs);
 
 /**
 * Executes the inner simulation in a singlethreaded fashion. Called after setup of nodes, inputs, etc.
@@ -96,10 +98,12 @@ unsigned int execute_simulation_multithreaded(executioncontext_t *executionconte
 * @return Return-codes.
 */
 unsigned int execute_simulation_singlethreaded(executioncontext_t *executioncontext,
-	int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
-	int num_obervationnodes, nodetimeseries_t *observationnodes, nodeval_t **old_state,
-	nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels, kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-	int number_global_inputs, nodeinputseries_t *global_inputs);
+                                               int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y,
+                                               int num_obervationnodes, nodetimeseries_t *observationnodes,
+                                               nodeval_t **old_state,
+                                               nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+                                               kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+                                               int number_global_inputs, nodeinputseries_t *global_inputs);
 
 /**
  * Executes a partial simulation, as defined by a partial simulation context.
@@ -108,7 +112,7 @@ unsigned int execute_simulation_singlethreaded(executioncontext_t *executioncont
  * @param context The partial context to handle in this call.
  * @return Return-codes, usually 0.
  */
-unsigned int execute_partial_simulation(partialsimulationcontext_t * context);
+unsigned int execute_partial_simulation(partialsimulationcontext_t *context);
 
 /**
 * Executes a partial tick of the simulation.
@@ -141,7 +145,7 @@ void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimes
  * Length: number_inputs
  */
 void process_global_inputs(int tick_number, double tick_ms,
-                    nodeval_t **state, int number_global_inputs, nodeinputseries_t *global_inputs);
+                           nodeval_t **state, int number_global_inputs, nodeinputseries_t *global_inputs);
 
 /**
 * Adds the influence of the defined input nodes to the current state.
@@ -154,7 +158,7 @@ void process_global_inputs(int tick_number, double tick_ms,
 * Length: number_partial_inputs
 */
 void process_partial_inputs(int tick_number, double tick_ms,
-	nodeval_t **state, int number_partial_inputs, nodeinputseries_t **partial_inputs);
+                            nodeval_t **state, int number_partial_inputs, nodeinputseries_t **partial_inputs);
 
 /**
 * Adds the influence of the defined input node to the current state.
@@ -165,6 +169,6 @@ void process_partial_inputs(int tick_number, double tick_ms,
 * @param input The single input to be updated.
 */
 void process_input(int tick_number, double tick_ms,
-	nodeval_t **state, nodeinputseries_t *input);
+                   nodeval_t **state, nodeinputseries_t *input);
 
 #endif
