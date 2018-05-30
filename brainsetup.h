@@ -79,8 +79,26 @@ double* generate_sin_frequency(int hz, double tick_ms);
  *
  * @param hz The desired frequency in Hz.
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
- * @return The number of samples of one period.
+ * @return The number of samples required for one period.
  */
-double calculate_period_length(int hz, double tick_ms);
+int calculate_period_length(int hz, double tick_ms);
+
+
+/**
+ * Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
+ * the minimal period length is detected.
+ * @param number_of_inputnodes The number of input nodes and frequencies to generate.
+ * @param x_indices An array of x-coordinates of the nodes. Defines which node will be modified with the defined
+ * frequency. Length: number_of_inputnodes.
+ * @param y_indices An array of y-coordinates of the nodes. Defines which node will be modified with the defined
+ * frequency. Length: number_of_inputnodes.
+ * @param frequencies An array describing the desired frequencies to generate for each node. Length:
+ * number_of_inputnodes.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
+ * @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.
+ */
+nodeinputseries_t* generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
+											  const int *y_indices, const int *frequencies, double tick_ms);
 
 #endif

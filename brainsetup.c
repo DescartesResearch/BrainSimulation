@@ -49,28 +49,45 @@ nodeinputseries_t* read_input_behavior(const int number_of_inputnodes, const int
 	return series;
 }
 
+
+nodeinputseries_t* generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
+											  const int *y_indices, const int *frequencies, double tick_ms){
+	nodeinputseries_t *series = malloc(number_of_inputnodes * sizeof(nodeinputseries_t));
+	int i;
+	for (i = 0; i < number_of_inputnodes; ++i) {
+		series[i].x_index = x_indices[i];
+		series[i].y_index = y_indices[i];
+		series[i].timeseries = generate_sin_frequency(frequencies[i], tick_ms);
+		series[i].timeseries_ticks = calculate_period_length(frequencies[i], tick_ms);
+	}
+	return series;
+}
+
+
 double* generate_sin_time_series(int hz, double tick_ms, int number_of_samples){
 	double* series = malloc(number_of_samples * sizeof(double));
 	int i;
 	for (i = 0; i < number_of_samples; ++i) {
 		double arg = PI*hz*2*tick_ms*((double)i)/(SCALE);
 		series[i] = sin(arg);
-		printf("Arg: %f, sin(arg): %f\n", arg, series[i]);
 	}
 	return series;
 }
 
 double* generate_sin_frequency(int hz, double tick_ms){
-	double samples = calculate_period_length(hz, tick_ms);
+	int samples = calculate_period_length(hz, tick_ms);
+	printf("Generating %d Hz frequency at at a resolution of %f ms per tick.\n", hz, tick_ms);
+	printf("Detected period of %d samples.\n", samples);
 	if (samples <= 2){
-		printf("Warning: Frequency of %d Hz can not be realized at a resolution of %f ms per tick. Increase tick "
+		printf("----------------------------------");
+		printf("WARNING: Frequency of %d Hz can not be realized at a resolution of %f ms per tick. Increase tick "
 		 "granularity or reduce frequency.\n", hz, tick_ms);
+		printf("----------------------------------");
 	}
 	return generate_sin_time_series(hz, tick_ms, samples);
 }
 
-double calculate_period_length(int hz, double tick_ms){
+int calculate_period_length(int hz, double tick_ms){
 	double period = SCALE/(hz*tick_ms);
-	printf("Period: %f\n", period);
 	return period;
 }
