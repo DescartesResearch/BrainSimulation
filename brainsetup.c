@@ -76,6 +76,15 @@ static int min_val(int a, int b, int c) {
 	return min;
 }
 
+unsigned int contains_flag(const int argc, const char * argv[], const char * flag) {
+	for (int i = 0; i < argc; i++) {
+		if (str_equals(flag, argv[i])) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
 int parse_int_arg(const int argc, const char * argv[], const char * flag) {
 	const char ** readArgStrings = malloc(argc * sizeof(char *));
 	unsigned int count = parse_args(argc, argv, flag, readArgStrings);

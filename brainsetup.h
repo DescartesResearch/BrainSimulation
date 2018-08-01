@@ -31,6 +31,15 @@
  * Setup all node arrays to be passed to the brainsimulation.
  */
 
+ /**
+ * Checks if the command line contains a flag.
+ * @param argc Number of command line arguments.
+ * @param argv Command line arguments.
+ * @param flag The command line flag.
+ * @return 1 if it contains, 0 if not.
+ */
+unsigned int contains_flag(const int argc, const char * argv[], const char * flag);
+
 /**
 * Parses an integer argument from the command line for a specified flag.
 * @param argc Number of command line arguments.

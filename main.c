@@ -6,26 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//const int OBSERVATION_X_INDICES_DEFAULT[] = {20, 21, 22, 100};
-//const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
-//const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
-
-//const int START_NODES_X_INDICES_DEFAULT[] = {20, 40, 50, 100};
-//const int START_NODES_Y_INDICES_DEFAULT[] = {20, 40, 50, 100};
-//const int NUM_START_NODES_DEFAULT = 4;
-//const nodeval_t START_NODE_LEVELS_DEFAULT[] = {304, 12, 3, 100};
-
-// for frequency input
-//const int NUM_INPUTNODES_DEFAULT = 40;
-//const int INPUT_NODES_X_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-//                                             29, 30, 31, 32, 33, 34,
-//                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
-//const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-//                                             29, 30, 31, 32, 33, 34,
-//                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
-//const int INPUT_FREQUENCIES_DEFAULT[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
-//                                         79, 83, 89, 97, 101,
-//                                         103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
+/** Command line flag for y indices of frequency generating nodes (multiple integer paramters).*/
+#define FLAG_HELP "--help"
 
 
 // for file input
@@ -37,7 +19,54 @@ const char *FILE_INPUTNODES_PATHS[] = {"./testinput/input10-10.csv", "./testinpu
                                        "./testinput/input30-30.csv",
                                        "./testinput/input100-100.csv"};
 
+static void print_help() {
+	printf("Brainsimulation. Simulates the energy transfer over time between nodes in the human brain.\n");
+	printf("\tRun with: brainsimulation %s X_NODES %s Y_NODES %s SIMULATION_TICKS [OPTIONAL PARAMETERS]\n",
+		FLAG_X_NODES, FLAG_Y_NODES, FLAG_TICKS);
+	printf("Mandatory parameters:\n");
+	printf("\t%s X_NODES: Size of the simulated node grid on the X axis. Single integer parameter.\n",
+		FLAG_X_NODES);
+	printf("\t%s Y_NODES: Size of the simulated node grid on the Y axis. Single integer parameter.\n",
+		FLAG_Y_NODES);
+	printf("\t%s SIMULATION_TICKS: Number of time ticks to simulate. Single integer parameter.\n",
+		FLAG_TICKS);
+	printf("Recommended parameters (technically optional, but doesn't really make sense not to use them):\n");
+	printf("\t%s OBS_X_INDICES: X indices of the observed nodes. One or multiple integer parameters.\n",
+		FLAG_X_OBSERVATIONNODES);
+	printf("\t%s OBS_Y_INDICES: Y indices of the observed nodes. One or multiple integer parameters.\n",
+		FLAG_Y_OBSERVATIONNODES);
+	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_X_OBSERVATIONNODES);
+	printf("Optional parameters:\n");
+	printf("\t%s STARTING_ENERGY_LEVELS: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.\n",
+		FLAG_START_LEVELS);
+	printf("\t%s STARTING_ENERGY_X_INDICES: X indices of nodes with starting energy. One or multiple integer parameters.\n",
+		FLAG_START_NODES_X);
+	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_START_LEVELS);
+	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes with starting energy. One or multiple integer parameters.\n",
+		FLAG_START_NODES_Y);
+	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_START_LEVELS);
+	printf("\t%s FREQUENCIES: Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters.\n",
+		FLAG_FREQUENCIES);
+	printf("\t%s FREQUENCY_NODES_X_INDICES: X indices of nodes generating energy using frequencies. One or multiple integer parameters.\n",
+		FLAG_FREQ_NODES_X);
+	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_FREQUENCIES);
+	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes generating energy using frequencies. One or multiple integer parameters.\n",
+		FLAG_FREQ_NODES_Y);
+	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_FREQUENCIES);
+	printf("\n");
+	printf("Example:\nbrainsimulation %s 200 %s 200 %s 5000 %s 50 51 %s 50 51 %s 10 11 %s 10 11 %s 10 11 %s 3 5 %s 25 26 %s 25 26\n",
+		FLAG_X_NODES, FLAG_Y_NODES, FLAG_TICKS, FLAG_X_OBSERVATIONNODES, FLAG_Y_OBSERVATIONNODES, FLAG_START_LEVELS,
+		FLAG_START_NODES_X, FLAG_START_NODES_Y, FLAG_FREQUENCIES, FLAG_FREQ_NODES_X, FLAG_FREQ_NODES_Y);
+	printf("\n");
+}
+
 int main(const int argc, const char *argv[]) {
+	if (contains_flag(argc, argv, FLAG_HELP)) {
+		print_help();
+		return 0;
+	} else {
+		printf("Brainsimulation: Run with --help for help.\n");
+	}
     double tick_ms = 1;
     //int num_ticks = 5000;
 	int num_observationnodes = 0;
@@ -52,13 +81,7 @@ int main(const int argc, const char *argv[]) {
 	int number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
     nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
 	init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
-    //init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
-    //                      NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
-    //                      START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
 	nodeinputseries_t *inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
-	//nodeinputseries_t *inputs = generate_input_frequencies(NUM_INPUTNODES_DEFAULT, INPUT_NODES_X_INDICES_DEFAULT,
-    //                                                       INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT,
-    //                                                       tick_ms);
 //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
 //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
 //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
