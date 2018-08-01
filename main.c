@@ -10,22 +10,22 @@
 //const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
 //const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
 
-const int START_NODES_X_INDICES_DEFAULT[] = {20, 40, 50, 100};
-const int START_NODES_Y_INDICES_DEFAULT[] = {20, 40, 50, 100};
-const int NUM_START_NODES_DEFAULT = 4;
-const nodeval_t START_NODE_LEVELS_DEFAULT[] = {304, 12, 3, 100};
+//const int START_NODES_X_INDICES_DEFAULT[] = {20, 40, 50, 100};
+//const int START_NODES_Y_INDICES_DEFAULT[] = {20, 40, 50, 100};
+//const int NUM_START_NODES_DEFAULT = 4;
+//const nodeval_t START_NODE_LEVELS_DEFAULT[] = {304, 12, 3, 100};
 
 // for frequency input
-const int NUM_INPUTNODES_DEFAULT = 40;
-const int INPUT_NODES_X_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-                                             29, 30, 31, 32, 33, 34,
-                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
-const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-                                             29, 30, 31, 32, 33, 34,
-                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
-const int INPUT_FREQUENCIES_DEFAULT[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
-                                         79, 83, 89, 97, 101,
-                                         103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
+//const int NUM_INPUTNODES_DEFAULT = 40;
+//const int INPUT_NODES_X_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+//                                             29, 30, 31, 32, 33, 34,
+//                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+//const int INPUT_NODES_Y_INDICES_DEFAULT[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+//                                             29, 30, 31, 32, 33, 34,
+//                                             35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+//const int INPUT_FREQUENCIES_DEFAULT[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
+//                                         79, 83, 89, 97, 101,
+//                                         103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
 
 
 // for file input
@@ -41,6 +41,7 @@ int main(const int argc, const char *argv[]) {
     double tick_ms = 1;
     //int num_ticks = 5000;
 	int num_observationnodes = 0;
+	int num_inputnodes = 0;
 	nodetimeseries_t *observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
 
     //nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
@@ -54,14 +55,15 @@ int main(const int argc, const char *argv[]) {
     //init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
     //                      NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
     //                      START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
-    nodeinputseries_t *inputs = generate_input_frequencies(NUM_INPUTNODES_DEFAULT, INPUT_NODES_X_INDICES_DEFAULT,
-                                                           INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT,
-                                                           tick_ms);
+	nodeinputseries_t *inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
+	//nodeinputseries_t *inputs = generate_input_frequencies(NUM_INPUTNODES_DEFAULT, INPUT_NODES_X_INDICES_DEFAULT,
+    //                                                       INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT,
+    //                                                       tick_ms);
 //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
 //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
 //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
     simulate(tick_ms, observationnodes->timeseries_ticks, number_nodes_x, number_nodes_y, nodegrid,
-		num_observationnodes, observationnodes, NUM_INPUTNODES_DEFAULT, inputs);
+		num_observationnodes, observationnodes, num_inputnodes, inputs);
     printf("Output:\n");
 	for (int j = 0; j < num_observationnodes; ++j) {
         //printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);

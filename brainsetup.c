@@ -65,6 +65,17 @@ static unsigned int parse_nodeval_args(const int argc, const char * argv[], cons
 	return count;
 }
 
+static int min_val(int a, int b, int c) {
+	int min = a;
+	if (b < min) {
+		min = b;
+	}
+	if (c < min) {
+		min = c;
+	}
+	return min;
+}
+
 int parse_int_arg(const int argc, const char * argv[], const char * flag) {
 	const char ** readArgStrings = malloc(argc * sizeof(char *));
 	unsigned int count = parse_args(argc, argv, flag, readArgStrings);
@@ -138,12 +149,7 @@ void init_start_time_state_from_sh(const int argc, const char * argv[],
 		parse_int_args(argc, argv, FLAG_START_NODES_X, start_nodes_x);
 	unsigned int startnodecount_y =
 		parse_int_args(argc, argv, FLAG_START_NODES_Y, start_nodes_y);
-	if (startnodecount_x < startnodecount) {
-		startnodecount = startnodecount_x;
-	}
-	if (startnodecount_y < startnodecount) {
-		startnodecount = startnodecount_y;
-	}
+	startnodecount = min_val(startnodecount, startnodecount_x, startnodecount_y);
 	init_start_time_state(number_nodes_x, number_nodes_y, nodes,
 		startnodecount, start_levels,
 		start_nodes_x, start_nodes_y);
@@ -177,6 +183,20 @@ nodeinputseries_t *read_input_behavior(const int number_of_inputnodes, const int
     return series;
 }
 
+nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms) {
+	int * frequencies = malloc(argc * sizeof(int));
+	int *x_indices = malloc(argc * sizeof(int));
+	int *y_indices = malloc(argc * sizeof(int));
+	*num_inputnodes = parse_int_args(argc, argv, FLAG_FREQUENCIES, frequencies);
+	int num_inputnodes_x = parse_int_args(argc, argv, FLAG_FREQ_NODES_X, x_indices);
+	int num_inputnodes_y = parse_int_args(argc, argv, FLAG_FREQ_NODES_Y, y_indices);
+	*num_inputnodes = min_val(*num_inputnodes, num_inputnodes_x, num_inputnodes_y);
+	nodeinputseries_t *series = generate_input_frequencies(*num_inputnodes, x_indices, y_indices, frequencies, tick_ms);
+	free(frequencies);
+	free(x_indices);
+	free(y_indices);
+	return series;
+}
 
 nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
                                               const int *y_indices, const int *frequencies, double tick_ms) {

@@ -19,6 +19,12 @@
 #define FLAG_START_NODES_X "--startx"
 /** Command line flag for y indices of start nodes (multiple integer paramters).*/
 #define FLAG_START_NODES_Y "--starty"
+/** Command line flag for frequencies of frequency generating nodes (multiple intger paramters).*/
+#define FLAG_FREQUENCIES "--freqs"
+/** Command line flag for x indices of frequency generating nodes (multiple integer paramters).*/
+#define FLAG_FREQ_NODES_X "--freqx"
+/** Command line flag for y indices of frequency generating nodes (multiple integer paramters).*/
+#define FLAG_FREQ_NODES_Y "--freqy"
 
 /**
  * @file
@@ -132,6 +138,17 @@ double *generate_sin_frequency(int hz, double tick_ms);
  */
 int calculate_period_length(int hz, double tick_ms);
 
+/**
+* Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
+* the minimal period length is detected. Uses command line arguments.
+* @param argc Number of command line arguments.
+* @param argv Command line arguments.
+* @param num_inputnodes The number of frequency generating nodes is written to this pointer.
+* @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+* This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
+* @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.
+*/
+nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms);
 
 /**
  * Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
