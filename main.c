@@ -47,12 +47,13 @@ int main(const int argc, const char *argv[]) {
     //                                                                 OBSERVATION_X_INDICES_DEFAULT,
     //                                                                 OBSERVATION_Y_INDICES_DEFAULT,
     //                                                                 num_ticks);
-    int number_nodes_x = 200;
-    int number_nodes_y = 200;
+    int number_nodes_x = parse_int_arg(argc, argv, FLAG_X_NODES);
+	int number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
     nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
-    init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
-                          NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
-                          START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
+	init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
+    //init_start_time_state(number_nodes_x, number_nodes_y, nodegrid,
+    //                      NUM_START_NODES_DEFAULT, START_NODE_LEVELS_DEFAULT,
+    //                      START_NODES_X_INDICES_DEFAULT, START_NODES_Y_INDICES_DEFAULT);
     nodeinputseries_t *inputs = generate_input_frequencies(NUM_INPUTNODES_DEFAULT, INPUT_NODES_X_INDICES_DEFAULT,
                                                            INPUT_NODES_Y_INDICES_DEFAULT, INPUT_FREQUENCIES_DEFAULT,
                                                            tick_ms);

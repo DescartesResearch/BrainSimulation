@@ -7,30 +7,26 @@
 #include <stdio.h>
 #include <string.h>
 
-#define FLAG_TICKS "--ticks"
-#define FLAG_X_OBSERVATIONNODES "--xobs"
-#define FLAG_Y_OBSERVATIONNODES "--yobs"
-
 #define PI 3.14159265
 // we are working at a millisecond scale, hence the 1000.
 #define SCALE 1000.0
 
-static unsigned int startsWithMinus(const char * str) {
+static unsigned int starts_with_minus(const char * str) {
 	size_t lenstr = strlen(str);
 	return lenstr < 1 ? 0 : strncmp("-", str, 1) == 0;
 }
 
-static unsigned int strEquals(const char * str0, const char * str1) {
+static unsigned int str_equals(const char * str0, const char * str1) {
 	if (strlen(str0) != strlen(str1)) {
 		return 0;
 	}
 	return strcmp(str0, str1) == 0;
 }
 
-static unsigned int parsePositionalArgs(const int argc, const char * argv[], const int flagPos, const char * readArgs[]) {
+static unsigned int parse_positional_args(const int argc, const char * argv[], const int flagPos, const char * readArgs[]) {
 	unsigned int count = 0;
 	for (int i = flagPos + 1; i < argc; i++) {
-		if (startsWithMinus(argv[i])) {
+		if (starts_with_minus(argv[i])) {
 			break;
 		} else {
 			readArgs[count] = argv[i];
@@ -40,23 +36,47 @@ static unsigned int parsePositionalArgs(const int argc, const char * argv[], con
 	return count;
 }
 
-static unsigned int parseArgs(const int argc, const char * argv[], const char * flag, const char * readArgs[]) {
+static unsigned int parse_args(const int argc, const char * argv[], const char * flag, const char * readArgs[]) {
 	for (int i = 0; i < argc; i++) {
-		if (strEquals(flag, argv[i])) {
-			return parsePositionalArgs(argc, argv, i, readArgs);
+		if (str_equals(flag, argv[i])) {
+			return parse_positional_args(argc, argv, i, readArgs);
 		}
 	}
 	return 0;
 }
 
-static unsigned int parseIntArgs(const int argc, const char * argv[], const char * flag, int * readArgs) {
+static unsigned int parse_int_args(const int argc, const char * argv[], const char * flag, int * readArgs) {
 	const char ** readArgStrings = malloc(argc * sizeof(char *));
-	unsigned int count = parseArgs(argc, argv, flag, readArgStrings);
+	unsigned int count = parse_args(argc, argv, flag, readArgStrings);
 	for (int i = 0; i < count; i++) {
 		readArgs[i] = atoi(readArgStrings[i]);
 	}
 	free(readArgStrings);
 	return count;
+}
+
+static unsigned int parse_nodeval_args(const int argc, const char * argv[], const char * flag, nodeval_t * readArgs) {
+	const char ** readArgStrings = malloc(argc * sizeof(char *));
+	unsigned int count = parse_args(argc, argv, flag, readArgStrings);
+	for (int i = 0; i < count; i++) {
+		readArgs[i] = atof(readArgStrings[i]);
+	}
+	free(readArgStrings);
+	return count;
+}
+
+int parse_int_arg(const int argc, const char * argv[], const char * flag) {
+	const char ** readArgStrings = malloc(argc * sizeof(char *));
+	unsigned int count = parse_args(argc, argv, flag, readArgStrings);
+	if (count != 1) {
+		printf("No argument with single integer parameter found for: ");
+		printf("%s", flag);
+		printf("\n");
+		return 0;
+	}
+	int result = atoi(readArgStrings[0]);
+	free(readArgStrings);
+	return result;
 }
 
 nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char *argv[],
@@ -65,8 +85,8 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 	int * x_indices = malloc(argc * sizeof(int));
 	int * y_indices = malloc(argc * sizeof(int));
 	int * ticks = malloc(argc * sizeof(int));
-	*num_observationnodes = parseIntArgs(argc, argv, FLAG_X_OBSERVATIONNODES, x_indices);
-	int num_y_observationnodes = parseIntArgs(argc, argv, FLAG_Y_OBSERVATIONNODES, y_indices);
+	*num_observationnodes = parse_int_args(argc, argv, FLAG_X_OBSERVATIONNODES, x_indices);
+	int num_y_observationnodes = parse_int_args(argc, argv, FLAG_Y_OBSERVATIONNODES, y_indices);
 	if (num_y_observationnodes < *num_observationnodes) {
 		*num_observationnodes = num_y_observationnodes;
 	}
@@ -78,7 +98,7 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 		printf(" to specify the x and y coordinates to observe.\n");
 		return NULL;
 	}
-	int num_tickargs = parseIntArgs(argc, argv, FLAG_TICKS, ticks);
+	int num_tickargs = parse_int_args(argc, argv, FLAG_TICKS, ticks);
 	if (num_tickargs != 1) {
 		printf("Must specify the number of ticks to simulate (exactly one argument). Use ");
 		printf(FLAG_TICKS);
@@ -105,6 +125,31 @@ nodetimeseries_t *init_observation_timeseries(const int num_observationnodes,
         series[i].timeseries_ticks = num_timeseries_elements;
     }
     return series;
+}
+
+void init_start_time_state_from_sh(const int argc, const char * argv[],
+	const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes) {
+	nodeval_t * start_levels = malloc(argc * sizeof(nodeval_t));
+	int *start_nodes_x = malloc(argc * sizeof(int));
+	int *start_nodes_y = malloc(argc * sizeof(int));
+	unsigned int startnodecount =
+		parse_nodeval_args(argc, argv, FLAG_START_LEVELS, start_levels);
+	unsigned int startnodecount_x =
+		parse_int_args(argc, argv, FLAG_START_NODES_X, start_nodes_x);
+	unsigned int startnodecount_y =
+		parse_int_args(argc, argv, FLAG_START_NODES_Y, start_nodes_y);
+	if (startnodecount_x < startnodecount) {
+		startnodecount = startnodecount_x;
+	}
+	if (startnodecount_y < startnodecount) {
+		startnodecount = startnodecount_y;
+	}
+	init_start_time_state(number_nodes_x, number_nodes_y, nodes,
+		startnodecount, start_levels,
+		start_nodes_x, start_nodes_y);
+	free(start_levels);
+	free(start_nodes_x);
+	free(start_nodes_y);
 }
 
 void init_start_time_state(const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes,

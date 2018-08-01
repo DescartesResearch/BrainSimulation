@@ -3,10 +3,36 @@
 
 #include "definitions.h"
 
+/** Command line flag for number of ticks (single integer paramter).*/
+#define FLAG_TICKS "--ticks"
+/** Command line flag for x indices of observation nodes (multiple integer paramters).*/
+#define FLAG_X_OBSERVATIONNODES "--xobs"
+/** Command line flag for y indices of observation nodes (multiple integer paramters).*/
+#define FLAG_Y_OBSERVATIONNODES "--yobs"
+/** Command line flag for node grid size on the x axis (single integer paramter).*/
+#define FLAG_X_NODES "-x"
+/** Command line flag for node grid size on the y axis (single integer paramter).*/
+#define FLAG_Y_NODES "-y"
+/** Command line flag for starting energy levels of start nodes (multiple double paramters).*/
+#define FLAG_START_LEVELS "--startlevels"
+/** Command line flag for x indices of start nodes (multiple integer paramters).*/
+#define FLAG_START_NODES_X "--startx"
+/** Command line flag for y indices of start nodes (multiple integer paramters).*/
+#define FLAG_START_NODES_Y "--starty"
+
 /**
  * @file
  * Setup all node arrays to be passed to the brainsimulation.
  */
+
+/**
+* Parses an integer argument from the command line for a specified flag.
+* @param argc Number of command line arguments.
+* @param argv Command line arguments.
+* @param flag The command line flag.
+* @return The parsed integer argument for the flag.
+*/
+int parse_int_arg(const int argc, const char * argv[], const char * flag);
 
 /**
  * Initializes num_oberservationnodes timeseries structs and returns them in an array
@@ -31,6 +57,18 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
                                               const int *x_indices, const int *y_indices,
                                               const int num_timeseries_elements);
+
+/**
+ * Sets a start time energy state for the node field. All unspecified nodes start with 0
+ * using settings from the command line.
+ * @param argc Number of command line arguments.
+ * @param argv Command line arguments.
+ * @param number_nodes_x The x dimension of the node field.
+ * @param number_nodes_y The y dimension of the node field.
+ * @param nodes The 2D node field to initialize.
+ */
+void init_start_time_state_from_sh(const int argc, const char * argv[], 
+	const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes);
 
 /**
  * Sets a start time energy state for the node field. All unspecified nodes start with 0.
