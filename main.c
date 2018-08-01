@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int OBSERVATION_X_INDICES_DEFAULT[] = {20, 21, 22, 100};
-const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
-const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
+//const int OBSERVATION_X_INDICES_DEFAULT[] = {20, 21, 22, 100};
+//const int OBSERVATION_Y_INDICES_DEFAULT[] = {20, 20, 20, 100};
+//const int NUM_OBERSERVATIONNODES_DEFAULT = 4;
 
 const int START_NODES_X_INDICES_DEFAULT[] = {20, 40, 50, 100};
 const int START_NODES_Y_INDICES_DEFAULT[] = {20, 40, 50, 100};
@@ -37,15 +37,16 @@ const char *FILE_INPUTNODES_PATHS[] = {"./testinput/input10-10.csv", "./testinpu
                                        "./testinput/input30-30.csv",
                                        "./testinput/input100-100.csv"};
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *argv[]) {
     double tick_ms = 1;
-    int num_ticks = 5000;
+    //int num_ticks = 5000;
+	int num_observationnodes = 0;
+	nodetimeseries_t *observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
 
-
-    nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
-                                                                     OBSERVATION_X_INDICES_DEFAULT,
-                                                                     OBSERVATION_Y_INDICES_DEFAULT,
-                                                                     num_ticks);
+    //nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
+    //                                                                 OBSERVATION_X_INDICES_DEFAULT,
+    //                                                                 OBSERVATION_Y_INDICES_DEFAULT,
+    //                                                                 num_ticks);
     int number_nodes_x = 200;
     int number_nodes_y = 200;
     nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
@@ -58,10 +59,10 @@ int main(int argc, char *argv[]) {
 //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
 //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
 //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
-    simulate(tick_ms, num_ticks, number_nodes_x, number_nodes_y, nodegrid,
-             NUM_OBERSERVATIONNODES_DEFAULT, observationnodes, NUM_INPUTNODES_DEFAULT, inputs);
+    simulate(tick_ms, observationnodes->timeseries_ticks, number_nodes_x, number_nodes_y, nodegrid,
+		num_observationnodes, observationnodes, NUM_INPUTNODES_DEFAULT, inputs);
     printf("Output:\n");
-    for (int j = 0; j < NUM_OBERSERVATIONNODES_DEFAULT; ++j) {
+	for (int j = 0; j < num_observationnodes; ++j) {
         //printf("    Node %d: (%d|%d):\n", j, observationnodes[j].x_index, observationnodes[j].y_index);
         //int i;
         //for (i = 0; i < num_ticks; ++i) {

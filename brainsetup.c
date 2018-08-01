@@ -5,16 +5,100 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
+
+#define FLAG_TICKS "--ticks"
+#define FLAG_X_OBSERVATIONNODES "--xobs"
+#define FLAG_Y_OBSERVATIONNODES "--yobs"
 
 #define PI 3.14159265
 // we are working at a millisecond scale, hence the 1000.
 #define SCALE 1000.0
 
-nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
+static unsigned int startsWithMinus(const char * str) {
+	size_t lenstr = strlen(str);
+	return lenstr < 1 ? 0 : strncmp("-", str, 1) == 0;
+}
+
+static unsigned int strEquals(const char * str0, const char * str1) {
+	if (strlen(str0) != strlen(str1)) {
+		return 0;
+	}
+	return strcmp(str0, str1) == 0;
+}
+
+static unsigned int parsePositionalArgs(const int argc, const char * argv[], const int flagPos, const char * readArgs[]) {
+	unsigned int count = 0;
+	for (int i = flagPos + 1; i < argc; i++) {
+		if (startsWithMinus(argv[i])) {
+			break;
+		} else {
+			readArgs[count] = argv[i];
+		}
+		count++;
+	}
+	return count;
+}
+
+static unsigned int parseArgs(const int argc, const char * argv[], const char * flag, const char * readArgs[]) {
+	for (int i = 0; i < argc; i++) {
+		if (strEquals(flag, argv[i])) {
+			return parsePositionalArgs(argc, argv, i, readArgs);
+		}
+	}
+	return 0;
+}
+
+static unsigned int parseIntArgs(const int argc, const char * argv[], const char * flag, int * readArgs) {
+	const char ** readArgStrings = malloc(argc * sizeof(char *));
+	unsigned int count = parseArgs(argc, argv, flag, readArgStrings);
+	for (int i = 0; i < count; i++) {
+		readArgs[i] = atoi(readArgStrings[i]);
+	}
+	free(readArgStrings);
+	return count;
+}
+
+nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char *argv[],
+	int * num_observationnodes) {
+	
+	int * x_indices = malloc(argc * sizeof(int));
+	int * y_indices = malloc(argc * sizeof(int));
+	int * ticks = malloc(argc * sizeof(int));
+	*num_observationnodes = parseIntArgs(argc, argv, FLAG_X_OBSERVATIONNODES, x_indices);
+	int num_y_observationnodes = parseIntArgs(argc, argv, FLAG_Y_OBSERVATIONNODES, y_indices);
+	if (num_y_observationnodes < *num_observationnodes) {
+		*num_observationnodes = num_y_observationnodes;
+	}
+	if (*num_observationnodes < 1) {
+		printf("No nodes specified for observation. Use ");
+		printf(FLAG_X_OBSERVATIONNODES);
+		printf(" and ");
+		printf(FLAG_Y_OBSERVATIONNODES);
+		printf(" to specify the x and y coordinates to observe.\n");
+		return NULL;
+	}
+	int num_tickargs = parseIntArgs(argc, argv, FLAG_TICKS, ticks);
+	if (num_tickargs != 1) {
+		printf("Must specify the number of ticks to simulate (exactly one argument). Use ");
+		printf(FLAG_TICKS);
+		printf(" to specify the ticks.\n");
+		return NULL;
+	}
+	int num_timeseries_elements = ticks[0];
+	nodetimeseries_t *series = init_observation_timeseries(*num_observationnodes,
+		x_indices, y_indices, num_timeseries_elements);
+	free(x_indices);
+	free(y_indices);
+	free(ticks);
+	return series;
+}
+
+nodetimeseries_t *init_observation_timeseries(const int num_observationnodes,
                                               const int *x_indices, const int *y_indices,
                                               const int num_timeseries_elements) {
-    nodetimeseries_t *series = malloc(num_oberservationnodes * sizeof(nodetimeseries_t));
-    for (int i = 0; i < num_oberservationnodes; i++) {
+	nodetimeseries_t *series = malloc(num_observationnodes * sizeof(nodetimeseries_t));
+	for (int i = 0; i < num_observationnodes; i++) {
         series[i].x_index = x_indices[i];
         series[i].y_index = y_indices[i];
         series[i].timeseries = malloc(num_timeseries_elements * sizeof(nodeval_t));

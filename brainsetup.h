@@ -9,6 +9,17 @@
  */
 
 /**
+ * Initializes num_oberservationnodes timeseries structs and returns them in an array
+ * using settings from the command line.
+ * @param argc Number of command line arguments.
+ * @param argv Command line arguments.
+ * @param num_observationnodes Writes the number of timeseries to this pointer.
+ * @return Array of newly initialized timeseries structs. Array has num_oberservationnodes as length.
+ */
+nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char *argv[],
+	int * num_observationnodes);
+
+/**
  * Initializes num_oberservationnodes timeseries structs and returns them in an array.
  * @param num_oberservationnodes The number of timeseries to create.
  * @param x_indices The x indices of the nodes to observe. Must have num_obervationnodes as length.
