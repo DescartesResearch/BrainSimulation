@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['get_5fdaytime',['get_daytime',['../utils_8h.html#a5b7baac010be66697a53d0902c8e0edd',1,'utils.c']]],
-  ['get_5ffield',['get_field',['../utils_8h.html#ac31f8b379b93efc17c1c8233df1c699b',1,'utils.c']]],
-  ['global_5finputs',['global_inputs',['../structpartialsimulationcontext__t.html#a7fb503120d34e1b8c5e6045c984d08bf',1,'partialsimulationcontext_t']]]
+  ['flag_5fstart_5flevels',['FLAG_START_LEVELS',['../brainsetup_8h.html#a787033c19bcbdcf7a115fcb1ec8d421c',1,'brainsetup.h']]],
+  ['flag_5fstart_5fnodes_5fx',['FLAG_START_NODES_X',['../brainsetup_8h.html#af89f633fc03d6809840bde5ec180d6e3',1,'brainsetup.h']]],
+  ['flag_5fstart_5fnodes_5fy',['FLAG_START_NODES_Y',['../brainsetup_8h.html#aff86d0d2c01073fef40d53cfb1673949',1,'brainsetup.h']]],
+  ['flag_5fticks',['FLAG_TICKS',['../brainsetup_8h.html#a6a416e7ba70035c7668a438a301892cf',1,'brainsetup.h']]],
+  ['flag_5fx_5fnodes',['FLAG_X_NODES',['../brainsetup_8h.html#a376046b86afb260744a663edd971a458',1,'brainsetup.h']]],
+  ['flag_5fx_5fobservationnodes',['FLAG_X_OBSERVATIONNODES',['../brainsetup_8h.html#a5828c4f4fb01376780fe8dc1f812ab5e',1,'brainsetup.h']]],
+  ['flag_5fy_5fnodes',['FLAG_Y_NODES',['../brainsetup_8h.html#a977123d8a36d94277f6bc7998d2b5078',1,'brainsetup.h']]],
+  ['flag_5fy_5fobservationnodes',['FLAG_Y_OBSERVATIONNODES',['../brainsetup_8h.html#ae60d1a5a81d00fee803b6a6e3e969685',1,'brainsetup.h']]]
 ];

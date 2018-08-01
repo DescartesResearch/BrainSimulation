@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['simulate',['simulate',['../brainsimulation_8h.html#a4c3b183d3f862780693d62b8defb7fc9',1,'brainsimulation.c']]],
-  ['slope',['slope',['../structnodestate__t.html#a4bbc9c0b1cda9ca2c0b74db3d4d20ccd',1,'nodestate_t']]],
-  ['slopes',['slopes',['../structpartialsimulationcontext__t.html#ad743e705de1ad55716e391c1581a812a',1,'partialsimulationcontext_t']]],
-  ['system_5fprocessor_5fonline_5fcount',['system_processor_online_count',['../utils_8h.html#acaa3336bdafbc71f583ef8bac017a5c6',1,'utils.c']]]
+  ['read_5finput_5fbehavior',['read_input_behavior',['../brainsetup_8h.html#adf39094732f19ea2abaaa6b9e968651c',1,'brainsetup.c']]]
 ];

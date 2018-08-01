@@ -130,14 +130,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ad51c8d1bf2992c2560ccb3e16eebd2f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ad51c8d1bf2992c2560ccb3e16eebd2f3">init_zeros_2d</a> (<a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes, int number_nodes_x, int number_nodes_y)</td></tr>
 <tr class="memdesc:ad51c8d1bf2992c2560ccb3e16eebd2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all values of the given array to zero.  <a href="#ad51c8d1bf2992c2560ccb3e16eebd2f3">More...</a><br /></td></tr>
 <tr class="separator:ad51c8d1bf2992c2560ccb3e16eebd2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaa3336bdafbc71f583ef8bac017a5c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acaa3336bdafbc71f583ef8bac017a5c6">system_processor_online_count</a> ()</td></tr>
-<tr class="memdesc:acaa3336bdafbc71f583ef8bac017a5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of processor cores online in the system.  <a href="#acaa3336bdafbc71f583ef8bac017a5c6">More...</a><br /></td></tr>
-<tr class="separator:acaa3336bdafbc71f583ef8bac017a5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afee26132484f2db7b24c37de8beda147"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#afee26132484f2db7b24c37de8beda147">system_processor_online_count</a> ()</td></tr>
+<tr class="memdesc:afee26132484f2db7b24c37de8beda147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of processor cores online in the system.  <a href="#afee26132484f2db7b24c37de8beda147">More...</a><br /></td></tr>
+<tr class="separator:afee26132484f2db7b24c37de8beda147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="definitions_8h.html#adccf7a00b00107b281dcbff9a352c623">threadhandle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a1f15d3b0447f23c1eba7bf59f8b17b0d">create_and_run_simulation_thread</a> (unsigned int(*callback)(<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *), <a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context)</td></tr>
 <tr class="memdesc:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new platform-specific thread with the context and starts it.  <a href="#a1f15d3b0447f23c1eba7bf59f8b17b0d">More...</a><br /></td></tr>
 <tr class="separator:a1f15d3b0447f23c1eba7bf59f8b17b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72d13fb9e5e62440bdadcffe35f10829"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a72d13fb9e5e62440bdadcffe35f10829">init_thread_barrier</a> (<a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier, const unsigned int number_threads)</td></tr>
-<tr class="memdesc:a72d13fb9e5e62440bdadcffe35f10829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes tread barrier.  <a href="#a72d13fb9e5e62440bdadcffe35f10829">More...</a><br /></td></tr>
+<tr class="memdesc:a72d13fb9e5e62440bdadcffe35f10829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes thread barrier.  <a href="#a72d13fb9e5e62440bdadcffe35f10829">More...</a><br /></td></tr>
 <tr class="separator:a72d13fb9e5e62440bdadcffe35f10829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab11843b46cd2c5dbb39a8e599993e10e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ab11843b46cd2c5dbb39a8e599993e10e">destroy_thread_barrier</a> (<a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier)</td></tr>
 <tr class="memdesc:ab11843b46cd2c5dbb39a8e599993e10e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the thread barrier.  <a href="#ab11843b46cd2c5dbb39a8e599993e10e">More...</a><br /></td></tr>
@@ -149,10 +149,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a063375bb8d8c95841fb602d1bcba993c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins all threads and then closes them.  <a href="#a063375bb8d8c95841fb602d1bcba993c">More...</a><br /></td></tr>
 <tr class="separator:a063375bb8d8c95841fb602d1bcba993c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6401ddbf033b41689722232ceae3510c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a6401ddbf033b41689722232ceae3510c">init_partial_simulation_context</a> (<a class="el" href="structpartialsimulationcontext__t.html">partialsimulationcontext_t</a> *context, int num_ticks, double tick_ms, int number_nodes_x, int number_nodes_y, int num_obervationnodes, <a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *observationnodes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **old_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **new_state, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **slopes, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> ****kernels, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> d_ptr, <a class="el" href="definitions_8h.html#af70bb780436018a93f57eeab03dd7f80">kernelfunc_t</a> id_ptr, int number_global_inputs, <a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *global_inputs, int thread_start_x, int thread_end_x, <a class="el" href="definitions_8h.html#a6e10807014559cc9c88059414191950d">threadbarrier_t</a> *barrier)</td></tr>
-<tr class="memdesc:a6401ddbf033b41689722232ceae3510c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to pass all members to a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line.  <a href="#a6401ddbf033b41689722232ceae3510c">More...</a><br /></td></tr>
+<tr class="memdesc:a6401ddbf033b41689722232ceae3510c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to initialize a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line.  <a href="#a6401ddbf033b41689722232ceae3510c">More...</a><br /></td></tr>
 <tr class="separator:a6401ddbf033b41689722232ceae3510c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ae3fb4d357b7fda6d6659ec27fd56dfb4">init_executioncontext</a> (<a class="el" href="structexecutioncontext__t.html">executioncontext_t</a> *context)</td></tr>
-<tr class="memdesc:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a simuatlionexecutioncontext.  <a href="#ae3fb4d357b7fda6d6659ec27fd56dfb4">More...</a><br /></td></tr>
+<tr class="memdesc:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the simulation's technical execution context.  <a href="#ae3fb4d357b7fda6d6659ec27fd56dfb4">More...</a><br /></td></tr>
 <tr class="separator:ae3fb4d357b7fda6d6659ec27fd56dfb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684971239ca25ec082b8ab46028c9fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a684971239ca25ec082b8ab46028c9fbb">output_to_csv</a> (char *filename, int length, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> *values)</td></tr>
 <tr class="memdesc:a684971239ca25ec082b8ab46028c9fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given array to a .csv with every entry in its own line.  <a href="#a684971239ca25ec082b8ab46028c9fbb">More...</a><br /></td></tr>
@@ -391,7 +391,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a simuatlionexecutioncontext. </p>
+<p>Initializes the simulation's technical execution context. </p>
 <p>Derives the number of threads for execution and writes the result to context-&gt;num_threads. Allocates memory for the arrays in the context. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>The context to initialize. </td></tr>
@@ -521,8 +521,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convenience function to pass all members to a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line. </p>
-<p>Automatically derives <a class="el" href="structpartialsimulationcontext__t.html#a705752493d637738aec37f53a5fa3bfa">partialsimulationcontext_t::number_partial_inputs</a> and <a class="el" href="structpartialsimulationcontext__t.html#adfc8e0d99154cebcccacb6526e65ca86">partialsimulationcontext_t::partial_inputs</a> from the global inputs. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Convenience function to initialize a <a class="el" href="structpartialsimulationcontext__t.html" title="Struct to pass all execution information to a new thread for executing a tick (or parts thereof)...">partialsimulationcontext_t</a> in a single line. </p>
+<p>Passes most members and automatically derives <a class="el" href="structpartialsimulationcontext__t.html#a705752493d637738aec37f53a5fa3bfa">partialsimulationcontext_t::number_partial_inputs</a> and <a class="el" href="structpartialsimulationcontext__t.html#adfc8e0d99154cebcccacb6526e65ca86">partialsimulationcontext_t::partial_inputs</a> from the global inputs. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>Pointer to the context. </td></tr>
     <tr><td class="paramname">num_ticks</td><td>The number of ticks in the simulation. </td></tr>
@@ -530,9 +530,9 @@ Functions</h2></td></tr>
     <tr><td class="paramname">number_nodes_x</td><td>The number of total nodes in the first dimension of nodes. </td></tr>
     <tr><td class="paramname">number_nodes_y</td><td>The number of total nodes in the second dimension of nodes. </td></tr>
     <tr><td class="paramname">num_obervationnodes</td><td>The number of nodes to observe. </td></tr>
-    <tr><td class="paramname">observationnodes</td><td>Pointers to the timeseries for the nodes to observe. Observations are written here. </td></tr>
+    <tr><td class="paramname">observationnodes</td><td>Pointers to the timeseries for the nodes to observe. Observations are to be written here. </td></tr>
     <tr><td class="paramname">old_state</td><td>2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y. </td></tr>
-    <tr><td class="paramname">new_state</td><td>2D array of nodes with the new energy level.Values will be overwritten.Size number_nodes_x * number_nodes_y. </td></tr>
+    <tr><td class="paramname">new_state</td><td>2D array of nodes with the new energy level.Values will be overwritten. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">slopes</td><td>2D array of nodes with their slope from the last tick iteration level. Size number_nodes_x * number_nodes_y. </td></tr>
     <tr><td class="paramname">kernels</td><td>2D array containing the kernels of each node at each index.Each index node points to an array containing(currently) two kernels, each(currently) containing 4 neighbouring noides.Dimensions: number_nodes_x * number_nodes_y * 2 * 4. </td></tr>
     <tr><td class="paramname">d_ptr</td><td>Function pointer pointing to the kernel function for the direct neighborhood. </td></tr>
@@ -541,7 +541,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">global_inputs</td><td>Inputs on the entire node-grid inputs to be processed. Length: number_partial_inputs. Partial inputs in the sub-grid (defined by thread_start_x and thread_end_x) are automatically derived from this global list. </td></tr>
     <tr><td class="paramname">thread_start_x</td><td>Node x index at which to start working in this thread (inclusive). </td></tr>
     <tr><td class="paramname">thread_end_x</td><td>Node x index at which to stop working in this thread (exclusive). </td></tr>
-    <tr><td class="paramname">barrier</td><td>The barrier for threads to wait at. May be NULL if not used. </td></tr>
+    <tr><td class="paramname">barrier</td><td>The barrier for threads to wait at. May be uninitialized in if MULTITHREADING is disabled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -572,7 +572,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes tread barrier. </p>
+<p>Initializes thread barrier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">barrier</td><td>Barrier to initialize. </td></tr>
@@ -737,12 +737,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acaa3336bdafbc71f583ef8bac017a5c6"></a>
+<a class="anchor" id="afee26132484f2db7b24c37de8beda147"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int system_processor_online_count </td>
+          <td class="memname">const unsigned int system_processor_online_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -770,7 +770,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Waits at the barrier. </p>
-<p>Returns 1 if for the management thread and 0 for all other threads. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Returns 1 for the management thread and 0 for all other threads. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">barrier</td><td>Barrier to wait at. </td></tr>
   </table>

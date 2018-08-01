@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_5findex',['x_index',['../structnodetimeseries__t.html#a278bdd94d612fd02afe10bf7636baccc',1,'nodetimeseries_t::x_index()'],['../structnodeinputseries__t.html#a3e62ca7a3c0afb4780544e3bad78ea78',1,'nodeinputseries_t::x_index()']]]
+  ['wait_5fat_5fbarrier',['wait_at_barrier',['../utils_8h.html#ac45166099def10483854f249229c6b67',1,'utils.c']]]
 ];
