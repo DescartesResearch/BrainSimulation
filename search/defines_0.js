@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['flag_5ffreq_5fnodes_5fx',['FLAG_FREQ_NODES_X',['../brainsetup_8h.html#a75b69e92339e4d20d91602e7adf50b4a',1,'brainsetup.h']]],
+  ['flag_5ffreq_5fnodes_5fy',['FLAG_FREQ_NODES_Y',['../brainsetup_8h.html#aff010d9e3a4e85cc849ffd578caad808',1,'brainsetup.h']]],
+  ['flag_5ffrequencies',['FLAG_FREQUENCIES',['../brainsetup_8h.html#ab1b5735e7e18ffe6b2e33dc5a3fcd20c',1,'brainsetup.h']]],
   ['flag_5fstart_5flevels',['FLAG_START_LEVELS',['../brainsetup_8h.html#a787033c19bcbdcf7a115fcb1ec8d421c',1,'brainsetup.h']]],
   ['flag_5fstart_5fnodes_5fx',['FLAG_START_NODES_X',['../brainsetup_8h.html#af89f633fc03d6809840bde5ec180d6e3',1,'brainsetup.h']]],
   ['flag_5fstart_5fnodes_5fy',['FLAG_START_NODES_Y',['../brainsetup_8h.html#aff86d0d2c01073fef40d53cfb1673949',1,'brainsetup.h']]],

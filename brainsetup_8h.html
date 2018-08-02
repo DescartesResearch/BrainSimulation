@@ -129,9 +129,21 @@ Macros</h2></td></tr>
 <tr class="memitem:aff86d0d2c01073fef40d53cfb1673949"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#aff86d0d2c01073fef40d53cfb1673949">FLAG_START_NODES_Y</a>&#160;&#160;&#160;&quot;--starty&quot;</td></tr>
 <tr class="memdesc:aff86d0d2c01073fef40d53cfb1673949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for y indices of start nodes (multiple integer paramters).  <a href="#aff86d0d2c01073fef40d53cfb1673949">More...</a><br /></td></tr>
 <tr class="separator:aff86d0d2c01073fef40d53cfb1673949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b5735e7e18ffe6b2e33dc5a3fcd20c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#ab1b5735e7e18ffe6b2e33dc5a3fcd20c">FLAG_FREQUENCIES</a>&#160;&#160;&#160;&quot;--freqs&quot;</td></tr>
+<tr class="memdesc:ab1b5735e7e18ffe6b2e33dc5a3fcd20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for frequencies of frequency generating nodes (multiple intger paramters).  <a href="#ab1b5735e7e18ffe6b2e33dc5a3fcd20c">More...</a><br /></td></tr>
+<tr class="separator:ab1b5735e7e18ffe6b2e33dc5a3fcd20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75b69e92339e4d20d91602e7adf50b4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a75b69e92339e4d20d91602e7adf50b4a">FLAG_FREQ_NODES_X</a>&#160;&#160;&#160;&quot;--freqx&quot;</td></tr>
+<tr class="memdesc:a75b69e92339e4d20d91602e7adf50b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for x indices of frequency generating nodes (multiple integer paramters).  <a href="#a75b69e92339e4d20d91602e7adf50b4a">More...</a><br /></td></tr>
+<tr class="separator:a75b69e92339e4d20d91602e7adf50b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff010d9e3a4e85cc849ffd578caad808"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#aff010d9e3a4e85cc849ffd578caad808">FLAG_FREQ_NODES_Y</a>&#160;&#160;&#160;&quot;--freqy&quot;</td></tr>
+<tr class="memdesc:aff010d9e3a4e85cc849ffd578caad808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for y indices of frequency generating nodes (multiple integer paramters).  <a href="#aff010d9e3a4e85cc849ffd578caad808">More...</a><br /></td></tr>
+<tr class="separator:aff010d9e3a4e85cc849ffd578caad808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0b2f63f8d87901ea4b26deec275706b6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a0b2f63f8d87901ea4b26deec275706b6">contains_flag</a> (const int argc, const char *argv[], const char *flag)</td></tr>
+<tr class="memdesc:a0b2f63f8d87901ea4b26deec275706b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the command line contains a flag.  <a href="#a0b2f63f8d87901ea4b26deec275706b6">More...</a><br /></td></tr>
+<tr class="separator:a0b2f63f8d87901ea4b26deec275706b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32288cb47d2fc1a34aa3a2b6ae9ced7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a32288cb47d2fc1a34aa3a2b6ae9ced7d">parse_int_arg</a> (const int argc, const char *argv[], const char *flag)</td></tr>
 <tr class="memdesc:a32288cb47d2fc1a34aa3a2b6ae9ced7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an integer argument from the command line for a specified flag.  <a href="#a32288cb47d2fc1a34aa3a2b6ae9ced7d">More...</a><br /></td></tr>
 <tr class="separator:a32288cb47d2fc1a34aa3a2b6ae9ced7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,6 +171,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#af7c004ae5b7c3ca3f33c06630cb45f2a">calculate_period_length</a> (int hz, double tick_ms)</td></tr>
 <tr class="memdesc:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to generate, until the period is reached.  <a href="#af7c004ae5b7c3ca3f33c06630cb45f2a">More...</a><br /></td></tr>
 <tr class="separator:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a7aa82b3d289a3938d561ccdc9cd85d09">generate_input_frequencies_from_sh</a> (const int argc, const char *argv[], int *num_inputnodes, double tick_ms)</td></tr>
+<tr class="memdesc:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a7aa82b3d289a3938d561ccdc9cd85d09">More...</a><br /></td></tr>
+<tr class="separator:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e3d58ed5d72541a1446a01ce36abba6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a9e3d58ed5d72541a1446a01ce36abba6">generate_input_frequencies</a> (const int number_of_inputnodes, const int *x_indices, const int *y_indices, const int *frequencies, double tick_ms)</td></tr>
 <tr class="memdesc:a9e3d58ed5d72541a1446a01ce36abba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a9e3d58ed5d72541a1446a01ce36abba6">More...</a><br /></td></tr>
 <tr class="separator:a9e3d58ed5d72541a1446a01ce36abba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +181,48 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Setup all node arrays to be passed to the brainsimulation. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a75b69e92339e4d20d91602e7adf50b4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_FREQ_NODES_X&#160;&#160;&#160;&quot;--freqx&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for x indices of frequency generating nodes (multiple integer paramters). </p>
+
+</div>
+</div>
+<a class="anchor" id="aff010d9e3a4e85cc849ffd578caad808"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_FREQ_NODES_Y&#160;&#160;&#160;&quot;--freqy&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for y indices of frequency generating nodes (multiple integer paramters). </p>
+
+</div>
+</div>
+<a class="anchor" id="ab1b5735e7e18ffe6b2e33dc5a3fcd20c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_FREQUENCIES&#160;&#160;&#160;&quot;--freqs&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for frequencies of frequency generating nodes (multiple intger paramters). </p>
+
+</div>
+</div>
 <a class="anchor" id="a787033c19bcbdcf7a115fcb1ec8d421c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -315,6 +372,49 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0b2f63f8d87901ea4b26deec275706b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int contains_flag </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>flag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the command line contains a flag. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of command line arguments. </td></tr>
+    <tr><td class="paramname">argv</td><td>Command line arguments. </td></tr>
+    <tr><td class="paramname">flag</td><td>The command line flag. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if it contains, 0 if not. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9e3d58ed5d72541a1446a01ce36abba6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -364,6 +464,56 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x_indices</td><td>An array of x-coordinates of the nodes. Defines which node will be modified with the defined frequency. Length: number_of_inputnodes. </td></tr>
     <tr><td class="paramname">y_indices</td><td>An array of y-coordinates of the nodes. Defines which node will be modified with the defined frequency. Length: number_of_inputnodes. </td></tr>
     <tr><td class="paramname">frequencies</td><td>An array describing the desired frequencies to generate for each node. Length: number_of_inputnodes. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7aa82b3d289a3938d561ccdc9cd85d09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>* generate_input_frequencies_from_sh </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>num_inputnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates input timeseries for the given nodes with the specified frequency. </p>
+<p>The different time-series may vary as the minimal period length is detected. Uses command line arguments. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of command line arguments. </td></tr>
+    <tr><td class="paramname">argv</td><td>Command line arguments. </td></tr>
+    <tr><td class="paramname">num_inputnodes</td><td>The number of frequency generating nodes is written to this pointer. </td></tr>
     <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
   </table>
   </dd>

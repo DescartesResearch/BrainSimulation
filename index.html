@@ -104,20 +104,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h2>How to run</h2>
 <ol type="1">
 <li>Create a <code>./testoutput</code> directory in the directory from which you execute the brainsimulation. Results will be written to this directory.</li>
-<li>Configure inputs (WIP, using hardcoded inputs atm for testing)</li>
+<li>Configure inputs files (WIP, currently disabled by default)</li>
 <li>Execute the simulation in one of the following ways:<ul>
 <li><p class="startli">Linux, running from the build directory:</p>
-<p class="startli"><code>$ ./brainsimulation</code></p>
+<p class="startli"><code>$ ./brainsimulation -x X_NODES -y Y_NODES --ticks SIMULATION_TICKS [OPTIONAL PARAMETERS]</code></p>
 </li>
 <li><p class="startli">Linux, after compiling using <em>make install</em>:</p>
-<p class="startli"><code>$ brainsimulation</code></p>
+<p class="startli"><code>$ brainsimulation -x X_NODES -y Y_NODES --ticks SIMULATION_TICKS [OPTIONAL PARAMETERS]</code></p>
 </li>
 <li><p class="startli">Windows:</p>
-<p class="startli"><code>&gt; .\brainsimulation</code></p>
+<p class="startli"><code>&gt; .\brainsimulation -x X_NODES -y Y_NODES --ticks SIMULATION_TICKS [OPTIONAL PARAMETERS]</code></p>
 </li>
 </ul>
 </li>
 </ol>
+<h3>Command Line Parameters</h3>
+<p>Command line parameters are also shown when starting the brainsimulation with <code>brainsimulation --help</code>.</p>
+<p>Generally, run with: <code>brainsimulation -x X_NODES -y Y_NODES --ticks SIMULATION_TICKS [OPTIONAL PARAMETERS]</code></p>
+<p>Mandatory parameters:</p><ul>
+<li><code>-x X_NODES</code>: Size of the simulated node grid on the X axis. Single integer parameter.</li>
+<li><code>-y Y_NODES</code>: Size of the simulated node grid on the Y axis. Single integer parameter.</li>
+<li><code>--ticks SIMULATION_TICKS</code>: Number of time ticks to simulate. Single integer parameter.</li>
+</ul>
+<p>Recommended parameters (technically optional, but doesn't really make sense not to use them):</p><ul>
+<li><code>--xobs OBS_X_INDICES</code>: X indices of the observed nodes. One or multiple integer parameters.</li>
+<li><code>--yobs OBS_Y_INDICES</code>: Y indices of the observed nodes. One or multiple integer parameters. Must have the same number of parameters as <code>--xobs</code>.</li>
+</ul>
+<p>Optional parameters:</p><ul>
+<li><code>--startlevels STARTING_ENERGY_LEVELS</code>: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.</li>
+<li><code>--startx STARTING_ENERGY_X_INDICES</code>: X indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as <code>--startlevels</code>.</li>
+<li><code>--starty STARTING_ENERGY_Y_INDICES</code>: Y indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as <code>--startlevels</code>.</li>
+<li><code>--freqs FREQUENCIES</code> Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters.</li>
+<li><code>--freqx FREQUENCY_NODES_X_INDICES</code>: X indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as <code>--freqs</code>.</li>
+<li><code>--freqy STARTING_ENERGY_Y_INDICES</code>: Y indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as <code>--freqs</code>.</li>
+</ul>
+<p><b>Example:</b> <code>brainsimulation -x 200 -y 200 --ticks 5000 --xobs 50 51 --yobs 50 51 --startlevels 10 11 --startx 10 11 --starty 10 11 --freqs 3 5 --freqx 25 26 --freqy 25 26</code></p>
 <h2>Developing</h2>
 <p>Check out our code documentation at <a href="https://descartesresearch.github.io/BrainSimulation/">https://descartesresearch.github.io/BrainSimulation/</a> </p>
 </div></div><!-- contents -->
