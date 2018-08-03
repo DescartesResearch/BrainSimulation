@@ -134,11 +134,10 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 	return series;
 }
 
-nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes) {
+nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes, int num_ticks) {
     *num_observationnodes = 4;
     int observation_x_indices_default[] = {20, 21, 22, 100};
     int observation_y_indices_default[] = {20, 20, 20, 100};
-    int num_ticks = 5000;
     return init_observation_timeseries(*num_observationnodes, observation_x_indices_default,
                                        observation_y_indices_default, num_ticks);
 }

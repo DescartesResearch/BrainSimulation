@@ -63,9 +63,10 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 /**
  * Initializes num_oberservationnodes timeseries structs with default values and returns them in an array.
  * @param num_observationnodes Writes the number of timeseries to this pointer.
+ * @param num_ticks The number of ticks to simulate, as memory is reserved beforehand.
  * @return Array of newly initialized timeseries structs. Array has num_oberservationnodes as length.
  */
-nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes);
+nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes, int num_ticks);
 
 /**
  * Initializes num_oberservationnodes timeseries structs and returns them in an array.

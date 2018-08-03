@@ -66,6 +66,7 @@ int main(const int argc, const char *argv[]) {
 	double tick_ms = 1;
 	int number_nodes_x = 0;
 	int number_nodes_y = 0;
+	int num_ticks = 0;
 	nodetimeseries_t *observationnodes;
 	nodeval_t **nodegrid;
 	nodeinputseries_t *inputs;
@@ -76,8 +77,8 @@ int main(const int argc, const char *argv[]) {
 		// no arguments were given
 		printf("Brainsimulation: Run with --help for help.\n");
 		printf("No input parameters given. Using default values...\n");
-
-		observationnodes = init_observation_timeseries_default(&num_observationnodes);
+		num_ticks=5000;
+		observationnodes = init_observation_timeseries_default(&num_observationnodes, num_ticks);
 
 		nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
 
@@ -88,9 +89,19 @@ int main(const int argc, const char *argv[]) {
 		if(contains_flag(argc, argv, FLAG_X_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_Y_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_TICKS)){
             printf("Parsing observation input.\n");
             observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
+            num_ticks = observationnodes->timeseries_ticks;
 		} else {
             printf("No observation input found. Using default values.\n");
-            observationnodes = init_observation_timeseries_default(&num_observationnodes);
+			if (contains_flag(argc, argv, FLAG_TICKS)){
+				printf("Number of ticks defined.");
+				num_ticks = parse_int_arg(argc, argv, FLAG_TICKS);
+				printf("Parsing %d.\n", num_ticks);
+			} else {
+				printf("Number of ticks not defined. Using default values.\n");
+				num_ticks = 5000;
+			}
+            observationnodes = init_observation_timeseries_default(&num_observationnodes, num_ticks);
+
 		}
         if(contains_flag(argc, argv, FLAG_X_NODES) && contains_flag(argc, argv, FLAG_Y_NODES)) {
             printf("Parsing gridsize input.\n");
@@ -119,7 +130,7 @@ int main(const int argc, const char *argv[]) {
             inputs = generate_input_frequencies_default(&num_inputnodes, tick_ms);
 		}
 	}
-    simulate(tick_ms, observationnodes->timeseries_ticks, number_nodes_x, number_nodes_y, nodegrid,
+    simulate(tick_ms, num_ticks, number_nodes_x, number_nodes_y, nodegrid,
 		num_observationnodes, observationnodes, num_inputnodes, inputs);
     printf("Output:\n");
 	for (int j = 0; j < num_observationnodes; ++j) {
