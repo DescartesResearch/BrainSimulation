@@ -61,6 +61,13 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 	int * num_observationnodes);
 
 /**
+ * Initializes num_oberservationnodes timeseries structs with default values and returns them in an array.
+ * @param num_observationnodes Writes the number of timeseries to this pointer.
+ * @return Array of newly initialized timeseries structs. Array has num_oberservationnodes as length.
+ */
+nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes);
+
+/**
  * Initializes num_oberservationnodes timeseries structs and returns them in an array.
  * @param num_oberservationnodes The number of timeseries to create.
  * @param x_indices The x indices of the nodes to observe. Must have num_obervationnodes as length.
@@ -84,6 +91,14 @@ nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
  */
 void init_start_time_state_from_sh(const int argc, const char * argv[], 
 	const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes);
+
+/**
+ * Initializes a nodegrid with a default size and initializes it with zero.
+ * @param number_nodes_x Writes the number of nodes in the x-axis to this pointer.
+ * @param number_nodes_y Writes the number of nodes in the y-axis to this pointer.
+ * @return The initialized 2D node field. Size: number_nodes_x * number_nodes_y.
+ */
+nodeval_t **init_nodegrid_default(int *number_nodes_x, int *number_nodes_y);
 
 /**
  * Sets a start time energy state for the node field. All unspecified nodes start with 0.
@@ -155,9 +170,19 @@ int calculate_period_length(int hz, double tick_ms);
 * @param num_inputnodes The number of frequency generating nodes is written to this pointer.
 * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
 * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
-* @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.
+* @return The array of input nodes initialized with the specified frequencies. Length: num_inputnodes.
 */
 nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms);
+
+/**
+* Generates input timeseries for a set of default given nodes with default frequencies. The different time-series may
+* vary as the minimal period length is different.
+* @param num_inputnodes The number of frequency generating nodes is written to this pointer.
+* @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+* This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
+* @return The array of input nodes initialized with the frequencies. Length: num_inputnodes.
+*/
+nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, double tick_ms);
 
 /**
  * Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
@@ -167,8 +192,8 @@ nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char
  * frequency. Length: number_of_inputnodes.
  * @param y_indices An array of y-coordinates of the nodes. Defines which node will be modified with the defined
  * frequency. Length: number_of_inputnodes.
- * @param frequencies An array describing the desired frequencies to generate for each node. Length:
- * number_of_inputnodes.
+ * @param frequencies An array describing the desired frequencies in periods/second (Hz) to generate for each node.
+ * Length: number_of_inputnodes.
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
  * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
  * @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.

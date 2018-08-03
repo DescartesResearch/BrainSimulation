@@ -61,30 +61,43 @@ static void print_help() {
 }
 
 int main(const int argc, const char *argv[]) {
+	int num_observationnodes = 0;
+	int num_inputnodes = 0;
+	double tick_ms = 1;
+	int number_nodes_x = 0;
+	int number_nodes_y = 0;
+	nodetimeseries_t *observationnodes;
+	nodeval_t **nodegrid;
+	nodeinputseries_t *inputs;
 	if (contains_flag(argc, argv, FLAG_HELP)) {
 		print_help();
 		return 0;
+	} else if (argc == 1){
+		// no arguments were given
+		printf("Brainsimulation: Run with --help for help.\n");
+		printf("No input parameters given. Using default values...\n");
+
+		observationnodes = init_observation_timeseries_default(&num_observationnodes);
+
+		int number_nodes_x = 0;
+		int number_nodes_y = 0;
+		nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
+
+		inputs = generate_input_frequencies_default(&num_inputnodes, tick_ms);
 	} else {
 		printf("Brainsimulation: Run with --help for help.\n");
-	}
-    double tick_ms = 1;
-    //int num_ticks = 5000;
-	int num_observationnodes = 0;
-	int num_inputnodes = 0;
-	nodetimeseries_t *observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
+		printf("Parsing input parameters.\n");
+		observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
 
-    //nodetimeseries_t *observationnodes = init_observation_timeseries(NUM_OBERSERVATIONNODES_DEFAULT,
-    //                                                                 OBSERVATION_X_INDICES_DEFAULT,
-    //                                                                 OBSERVATION_Y_INDICES_DEFAULT,
-    //                                                                 num_ticks);
-    int number_nodes_x = parse_int_arg(argc, argv, FLAG_X_NODES);
-	int number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
-    nodeval_t **nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
-	init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
-	nodeinputseries_t *inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
-//    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
-//                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
-//                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
+		number_nodes_x = parse_int_arg(argc, argv, FLAG_X_NODES);
+		number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
+		nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
+		init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
+		inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
+		//    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
+		//                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
+		//                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
+	}
     simulate(tick_ms, observationnodes->timeseries_ticks, number_nodes_x, number_nodes_y, nodegrid,
 		num_observationnodes, observationnodes, num_inputnodes, inputs);
     printf("Output:\n");

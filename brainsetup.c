@@ -134,6 +134,15 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 	return series;
 }
 
+nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes) {
+    *num_observationnodes = 4;
+    int observation_x_indices_default[] = {20, 21, 22, 100};
+    int observation_y_indices_default[] = {20, 20, 20, 100};
+    int num_ticks = 5000;
+    return init_observation_timeseries(*num_observationnodes, observation_x_indices_default,
+                                       observation_y_indices_default, num_ticks);
+}
+
 nodetimeseries_t *init_observation_timeseries(const int num_observationnodes,
                                               const int *x_indices, const int *y_indices,
                                               const int num_timeseries_elements) {
@@ -167,6 +176,24 @@ void init_start_time_state_from_sh(const int argc, const char * argv[],
 	free(start_nodes_y);
 }
 
+nodeval_t **init_nodegrid_default(int *number_nodes_x, int *number_nodes_y){
+	*number_nodes_x = 200;
+	*number_nodes_y = 200;
+	nodeval_t **nodegrid = alloc_2d(*number_nodes_x, *number_nodes_y);
+
+
+	int start_nodes_x_indices_default[] = {20, 40, 50, 100};
+	int start_nodes_y_indices_default[] = {20, 40, 50, 100};
+	int num_start_nodes_default = 4;
+	nodeval_t start_nodes_levels_default[] = {304, 12, 3, 100};
+
+	init_start_time_state(*number_nodes_x, *number_nodes_y, nodegrid,
+						  num_start_nodes_default, start_nodes_levels_default,
+						  start_nodes_x_indices_default, start_nodes_y_indices_default);
+
+	return nodegrid;
+}
+
 void init_start_time_state(const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes,
                            const int num_start_levels, const nodeval_t *start_levels, const int *start_nodes_x,
                            const int *start_nodes_y) {
@@ -193,7 +220,7 @@ nodeinputseries_t *read_input_behavior(const int number_of_inputnodes, const int
 }
 
 nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms) {
-	int * frequencies = malloc(argc * sizeof(int));
+	int *frequencies = malloc(argc * sizeof(int));
 	int *x_indices = malloc(argc * sizeof(int));
 	int *y_indices = malloc(argc * sizeof(int));
 	*num_inputnodes = parse_int_args(argc, argv, FLAG_FREQUENCIES, frequencies);
@@ -205,6 +232,21 @@ nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char
 	free(x_indices);
 	free(y_indices);
 	return series;
+}
+
+nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, double tick_ms){
+	*num_inputnodes = 40;
+	int input_nodes_x_indices_default[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+										   29, 30, 31, 32, 33, 34,
+										   35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+	int input_nodes_y_indices_default[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+										   29, 30, 31, 32, 33, 34,
+										   35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49};
+	int input_frquencies_default[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
+									  79, 83, 89, 97, 101,
+									  103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
+	return generate_input_frequencies(*num_inputnodes,input_nodes_x_indices_default, input_nodes_y_indices_default,
+									  input_frquencies_default, tick_ms);
 }
 
 nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
