@@ -3,6 +3,7 @@
 import subprocess
 import re
 import csv
+import math
 
 # Prints the results to the given csv.
 def print_csv(pathname, values, measurements):
@@ -17,6 +18,7 @@ def execute_command(makecommand, runcommand):
     # remove previous compilation unit
     subprocess.run(["rm", "./brainsimulation"], check=False)
     print(subprocess.run(makecommand))
+    
     # execute simulation
     result = subprocess.run(runcommand, check=True, stdout=subprocess.PIPE)
     if result.stderr:
@@ -30,32 +32,31 @@ def execute_command(makecommand, runcommand):
 # Parses a given runtime parameter into the commands actually executed for the simulation
 def parse_runcommand(parameter, value):
     if parameter == "gridsize":
-        root = int(sqrt(float(value)))
-        return "-x "+str(root)+" -y "+str(root)+" "
-    elif parameter == "ticks"
-        return "--ticks "+str(value)+" " 
+        root = int(math.sqrt(float(value)))
+        return "-x "+str(root)+" -y "+str(root)
+    elif parameter == "ticks":
+        return "--ticks "+str(value) 
     else:
         print("Parameter "+str(parameter)+" is not known.")
-        return null
-
+        return 0
 
 # Prepares and runs one specific measurement run
 def execute_function(makeparameters, makevalues, runparameters, runvalues):
     # get makeparameters
-    string = "DFLAGS="
+    makestring = "DFLAGS="
     for i in range(len(makeparameters)):
-        string = string + str(makeparameters[i])+ "="+ str(makevalues[i])+ " "
-    print(string)
-    # compile
-    makecommand = ["make", string]
-    for i in range(len(runparameters)):
-        string = string + str(runparameters[i])+ "="+ str(runvalues[i])+ " "
+        makestring = makestring + str(makeparameters[i])+ "="+ str(makevalues[i])+ " "
+    makecommand = ["make", makestring]
+    if len(makeparameters) == 0:
+        makecommand = "make"
+    print(makecommand)
+
     # get runparameters
-    runcommand = "./brainsimulation"
+    options = ""
     for i in range(len(runparameters)):
-        string = string + parse_run_command(runparameters[i], value[i])
-    print(string)
-    # compile
+        options = options + parse_runcommand(runparameters[i], runvalues[i])
+    runcommand = ["./brainsimulation", options]
+    print(runcommand)
     
     # execute one run
     return execute_command(makecommand, runcommand)
@@ -69,8 +70,9 @@ def take_measurements(param_comp_dict, param_run_dict, output_stub):
             # for each measurement value
             times.append(execute_function([param], [val], [], []))
         print_csv(pathname=output_stub+param+".csv", values=values, measurements=times)
+    
     # for runtime all parameters
-    for param, values in param_comp_dict.items():
+    for param, values in param_run_dict.items():
         times = []
         for val in values:
             # for each measurement value
@@ -82,12 +84,12 @@ def take_measurements(param_comp_dict, param_run_dict, output_stub):
 if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_comp_dict = {
-                "-DTHREADFACTOR": [0.25,0.5,0.75,1,2,4,6,8,10],
+                "-DTHREADFACTOR": [1,2,4],
                 "-DMULTITHREADING": [0,1]
                  }
     param_run_dict = {
-        "gridsize": [20000, 50000, 100000, 200000],
-        "ticks": [50,500, 5000]
+        "gridsize": [20000, 50000, 100000, 200000, 500000],
+        "ticks": [50,500, 5000, 50000]
         }
     # The output directory
     output_stub = "./analyze/measurements/measurements"
