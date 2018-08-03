@@ -12,20 +12,13 @@ def print_csv(pathname, values, measurements):
             csvwriter.writerow([value, measurements[i]])
     return
 
-
-# Executes one specific measurement run
-def execute_function(parameters, values):
+# Executes one specific measurement runs
+def execute_command(makecommand, runcommand):
     # remove previous compilation unit
     subprocess.run(["rm", "./brainsimulation"], check=False)
-    # get runparameters
-    string = "DFLAGS="
-    for i in range(len(parameters)):
-        string = string + str(parameters[i])+ "="+ str(values[i])+ " "
-    print(string)
-    # compile
-    print(subprocess.run(["make", string]))
+    print(subprocess.run(makecommand))
     # execute simulation
-    result = subprocess.run("./brainsimulation", check=True, stdout=subprocess.PIPE)
+    result = subprocess.run(runcommand, check=True, stdout=subprocess.PIPE)
     if result.stderr:
         print(result.stderr)
     # extract time measurements from log
@@ -34,6 +27,24 @@ def execute_function(parameters, values):
     time = float(time.split("= ")[1].split(" seconds")[0])
     return time
 
+
+# Prepares and runs one specific measurement run
+def execute_function(makeparameters, makevalues, runparameters, runvalues):
+    # get makeparameters
+    string = "DFLAGS="
+    for i in range(len(makeparameters)):
+        string = string + str(makeparameters[i])+ "="+ str(makevalues[i])+ " "
+    print(string)
+    # compile
+    makecommand = ["make", string]
+    for i in range(len(runparameters)):
+        string = string + str(runparameters[i])+ "="+ str(runvalues[i])+ " "
+    # get runparameters
+    runcommand = "./brainsimulation"
+
+    
+    # execute one run
+    return execute_command(makecommand, runcommand)
 
 # Organizes and Executes the measurements
 def take_measurements(paramnames_dict, output_stub):
@@ -46,7 +57,6 @@ def take_measurements(paramnames_dict, output_stub):
         print_csv(pathname=output_stub+param+".csv", values=values, measurements=times)
     return
 
-
 if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_dict = {
@@ -54,5 +64,5 @@ if __name__ == "__main__":
                 "-DMULTITHREADING": [0,1]
                  }
     # The output directory
-    output_stub = "./measurements/measurements"
+    output_stub = "./analyze/measurements/measurements"
     take_measurements(param_dict, output_stub)

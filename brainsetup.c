@@ -275,7 +275,7 @@ double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples) 
 
 double *generate_sin_frequency(int hz, double tick_ms) {
     int samples = calculate_period_length(hz, tick_ms);
-    printf("Generating %d Hz frequency at at a resolution of %f ms per tick.\n", hz, tick_ms);
+    printf("Generating %d Hz frequency at at a resolution of %f ms per tick. ", hz, tick_ms);
     printf("Detected period of %d samples.\n", samples);
     if (samples <= 2) {
         printf("----------------------------------");

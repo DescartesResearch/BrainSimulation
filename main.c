@@ -85,16 +85,39 @@ int main(const int argc, const char *argv[]) {
 	} else {
 		printf("Brainsimulation: Run with --help for help.\n");
 		printf("Parsing input parameters.\n");
-		observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
-
-		number_nodes_x = parse_int_arg(argc, argv, FLAG_X_NODES);
-		number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
-		nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
-		init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
-		inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
-		//    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
-		//                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
-		//                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
+		if(contains_flag(argc, argv, FLAG_X_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_Y_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_TICKS)){
+            printf("Parsing observation input.\n");
+            observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
+		} else {
+            printf("No observation input found. Using default values.\n");
+            observationnodes = init_observation_timeseries_default(&num_observationnodes);
+		}
+        if(contains_flag(argc, argv, FLAG_X_NODES) && contains_flag(argc, argv, FLAG_Y_NODES)) {
+            printf("Parsing gridsize input.\n");
+            number_nodes_x = parse_int_arg(argc, argv, FLAG_X_NODES);
+            number_nodes_y = parse_int_arg(argc, argv, FLAG_Y_NODES);
+            nodegrid = alloc_2d(number_nodes_x, number_nodes_y);
+            if(contains_flag(argc, argv, FLAG_START_LEVELS) && contains_flag(argc, argv, FLAG_START_NODES_X) && contains_flag(argc, argv, FLAG_START_NODES_Y)){
+                printf("Parsing start-state input.\n");
+                init_start_time_state_from_sh(argc, argv, number_nodes_x, number_nodes_y, nodegrid);
+            } else {
+                printf("No information about start-state found. Using empty grid.\n");
+                init_zeros_2d(nodegrid,number_nodes_x, number_nodes_y);
+            }
+        } else {
+            printf("No input about Grid-size found. Using default values.\n");
+            nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
+		}
+		if(contains_flag(argc, argv, FLAG_FREQUENCIES) && contains_flag(argc, argv, FLAG_FREQ_NODES_X) && contains_flag(argc, argv, FLAG_FREQ_NODES_Y)) {
+            printf("Parsing input of frequency nodes.\n");
+            inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
+            //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
+            //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
+            //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
+        } else {
+            printf("No input about frequencies of nodes found. Using default values.\n");
+            inputs = generate_input_frequencies_default(&num_inputnodes, tick_ms);
+		}
 	}
     simulate(tick_ms, observationnodes->timeseries_ticks, number_nodes_x, number_nodes_y, nodegrid,
 		num_observationnodes, observationnodes, num_inputnodes, inputs);

@@ -4,3 +4,4 @@ CMakeLists.txt
 cmake-build-debug
 /testoutput
 /docs
+/analyze/measurements
