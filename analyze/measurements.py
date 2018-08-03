@@ -33,12 +33,12 @@ def execute_command(makecommand, runcommand):
 def parse_runcommand(parameter, value):
     if parameter == "gridsize":
         root = int(math.sqrt(float(value)))
-        return "-x "+str(root)+" -y "+str(root)
+        return ["-x",str(root),"-y",str(root)]
     elif parameter == "ticks":
-        return "--ticks "+str(value) 
+        return ["--ticks",str(value)] 
     else:
         print("Parameter "+str(parameter)+" is not known.")
-        return 0
+        return []
 
 # Prepares and runs one specific measurement run
 def execute_function(makeparameters, makevalues, runparameters, runvalues):
@@ -52,10 +52,10 @@ def execute_function(makeparameters, makevalues, runparameters, runvalues):
     print(makecommand)
 
     # get runparameters
-    options = ""
+    runcommand = ["./brainsimulation"]
     for i in range(len(runparameters)):
-        options = options + parse_runcommand(runparameters[i], runvalues[i])
-    runcommand = ["./brainsimulation", options]
+        for arg in parse_runcommand(runparameters[i], runvalues[i]):
+            runcommand.append(arg)
     print(runcommand)
     
     # execute one run
@@ -84,12 +84,12 @@ def take_measurements(param_comp_dict, param_run_dict, output_stub):
 if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_comp_dict = {
-                "-DTHREADFACTOR": [1,2,4],
+                "-DTHREADFACTOR": [0.25, 0.5, 0.75, 1, 2, 4, 8, 16],
                 "-DMULTITHREADING": [0,1]
                  }
     param_run_dict = {
-        "gridsize": [20000, 50000, 100000, 200000, 500000],
-        "ticks": [50,500, 5000, 50000]
+        "gridsize": [20000, 100000, 200000, 500000, 1000000, 2000000],
+        "ticks": [50, 500, 5000, 50000]
         }
     # The output directory
     output_stub = "./analyze/measurements/measurements"
