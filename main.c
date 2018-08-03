@@ -79,8 +79,6 @@ int main(const int argc, const char *argv[]) {
 
 		observationnodes = init_observation_timeseries_default(&num_observationnodes);
 
-		int number_nodes_x = 0;
-		int number_nodes_y = 0;
 		nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
 
 		inputs = generate_input_frequencies_default(&num_inputnodes, tick_ms);
