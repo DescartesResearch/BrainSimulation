@@ -4,6 +4,7 @@ import subprocess
 import re
 import csv
 import math
+import os
 
 # Prints the results to the given csv.
 def print_csv(pathname, values, measurements):
@@ -109,14 +110,16 @@ def execute_function(makeparameters, makevalues, runparameters, runvalues):
     return execute_command(makecommand, runcommand)
 
 # Organizes and Executes the measurements
-def take_measurements(param_comp_dict, param_run_dict, output_stub):
+def take_measurements(param_comp_dict, param_run_dict, output_dir):
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     # for compile parameters
     for param, values in param_comp_dict.items():
         times = []
         for val in values:
             # for each measurement value
             times.append(execute_function([param], [val], [], []))
-        print_csv(pathname=output_stub+param+".csv", values=values, measurements=times)
+        print_csv(pathname=output_dir+"/measurements-"+param+".csv", values=values, measurements=times)
     
     # for runtime all parameters
     for param, values in param_run_dict.items():
@@ -124,7 +127,7 @@ def take_measurements(param_comp_dict, param_run_dict, output_stub):
         for val in values:
             # for each measurement value
             times.append(execute_function([],[], [param], [val]))
-        print_csv(pathname=output_stub+param+".csv", values=values, measurements=times)
+        print_csv(pathname=output_dir+"/measurements-"+param+".csv", values=values, measurements=times)
     return
 
 # Main entry point
@@ -142,5 +145,5 @@ if __name__ == "__main__":
         "startnodes" : [1,2,3,4,5,6,7,8,9,10]
         }
     # The output directory
-    output_stub = "./analyze/measurements/measurements"
-    take_measurements(param_comp_dict, param_run_dict, output_stub)
+    output_dir = "./analyze/measurements"
+    take_measurements(param_comp_dict, param_run_dict, output_dir)
