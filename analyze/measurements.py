@@ -131,7 +131,7 @@ def take_measurements(param_comp_dict, param_run_dict, output_stub):
 if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_comp_dict = {
-                "-DTHREADFACTOR": 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 8, 16, 32, 64, 128],
+                "-DTHREADFACTOR": [0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 8, 16, 32, 64, 128],
                 "-DMULTITHREADING": [0,1]
                  }
     param_run_dict = {
