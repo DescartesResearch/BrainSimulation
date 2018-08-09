@@ -136,8 +136,8 @@ nodetimeseries_t *init_observation_timeseries_from_sh(const int argc, const char
 
 nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes, int num_ticks) {
     *num_observationnodes = 4;
-    int observation_x_indices_default[] = {20, 21, 22, 100};
-    int observation_y_indices_default[] = {20, 20, 20, 100};
+    int observation_x_indices_default[] = {20, 21, 22, 23};
+    int observation_y_indices_default[] = {20, 20, 20, 23};
     return init_observation_timeseries(*num_observationnodes, observation_x_indices_default,
                                        observation_y_indices_default, num_ticks);
 }
@@ -181,8 +181,8 @@ nodeval_t **init_nodegrid_default(int *number_nodes_x, int *number_nodes_y){
 	nodeval_t **nodegrid = alloc_2d(*number_nodes_x, *number_nodes_y);
 
 
-	int start_nodes_x_indices_default[] = {20, 40, 50, 100};
-	int start_nodes_y_indices_default[] = {20, 40, 50, 100};
+	int start_nodes_x_indices_default[] = {20, 30, 40, 50};
+	int start_nodes_y_indices_default[] = {20, 30, 40, 50};
 	int num_start_nodes_default = 4;
 	nodeval_t start_nodes_levels_default[] = {304, 12, 3, 100};
 
