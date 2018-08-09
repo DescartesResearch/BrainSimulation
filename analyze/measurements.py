@@ -5,29 +5,32 @@ import re
 import csv
 import math
 import os
+import io
 
 # Prints the results to the given csv.
-def print_csv(pathname, values, measurements):
+def print_csv(pathname, array):
     with open(pathname, "w+", newline='') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
-        for i, value in enumerate(values):
-            csvwriter.writerow([value, measurements[i]])
+        for i, value in enumerate(array):
+            csvwriter.writerow(value)
     return
 
 # Executes one specific measurement runs
 def execute_command(makecommand, runcommand):
     # remove previous compilation unit
     subprocess.run(["rm", "./brainsimulation"], check=False)
-    print(subprocess.run(makecommand))
+    print(subprocess.run(makecommand, check=True))
     
     # execute simulation
     result = subprocess.run(runcommand, check=True, stdout=subprocess.PIPE)
+    #print(result.stdout)
     if result.stderr:
         print(result.stderr)
     # extract time measurements from log
     time = re.search("Total time = .* seconds",str(result.stdout)).group()
     # remove rest of line and convert to float
     time = float(time.split("= ")[1].split(" seconds")[0])
+    print("Measured Time: "+str(time))
     return time
 
 # Parses a given runtime parameter into the commands actually executed for the simulation
@@ -68,6 +71,10 @@ def parse_runcommand(parameter, value):
         for i in range(value):
             startlist.append(get_node_y(i))
         return startlist
+    elif parameter == "num_x_nodes":
+        return ["-x",str(value)]
+    elif parameter == "num_y_nodes":
+        return ["-y",str(value)]
     else:
         print("Parameter "+str(parameter)+" is not known.")
         return []
@@ -109,8 +116,8 @@ def execute_function(makeparameters, makevalues, runparameters, runvalues):
     # execute one run
     return execute_command(makecommand, runcommand)
 
-# Organizes and Executes the measurements
-def take_measurements(param_comp_dict, param_run_dict, output_dir):
+# Organizes and executes the measurements of a set of one-dimensional measurements
+def take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     # for compile parameters
@@ -118,32 +125,50 @@ def take_measurements(param_comp_dict, param_run_dict, output_dir):
         times = []
         for val in values:
             # for each measurement value
-            times.append(execute_function([param], [val], [], []))
-        print_csv(pathname=output_dir+"/measurements-"+param+".csv", values=values, measurements=times)
+            times.append([str(val)] + [execute_function([param], [val], [], [])])
+        print_csv(pathname=output_dir+"/measurements-"+param+".csv", array=times)
     
     # for runtime all parameters
     for param, values in param_run_dict.items():
         times = []
         for val in values:
             # for each measurement value
-            times.append(execute_function([],[], [param], [val]))
-        print_csv(pathname=output_dir+"/measurements-"+param+".csv", values=values, measurements=times)
+            times.append([str(val)] + [execute_function([],[], [param], [val])])
+        print_csv(pathname=output_dir+"/measurements-"+param+".csv", array=times)
+    return
+
+# Executes a measurement run varying two runtime parameters
+def two_dimensional_measurements(param1_name, param1_values, param2_name, param2_values, output_dir):
+    results = []
+    results.append(["VALUES"] + param2_values)
+    for p1_val in param1_values:
+        p2_list = []
+        for p2_val in param2_values:
+            time = execute_function([],[], [param1_name, param2_name], [p1_val, p2_val])
+            p2_list.append(time)
+        results.append([str(p1_val)] + p2_list)
+    print_csv(pathname=output_dir+"/measurements-"+param1+"--"+param2+".csv", array=results)
     return
 
 # Main entry point
 if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_comp_dict = {
-                "-DTHREADFACTOR": [0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 8, 16, 32, 64, 128],
+                "-DTHREADFACTOR": [0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 8, 16, 32],
                 "-DMULTITHREADING": [0,1]
                  }
     param_run_dict = {
-        "gridsize": [15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 1000000, 2000000, 3000000, 4000000, 5000000],
+        #"gridsize": [15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 1000000, 2000000, 3000000, 4000000, 5000000],
         "ticks": [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000],
         "obsnodes" : [1,2,3,4,5,6,7,8,9,10],
         "inputnodes" : [1,2,3,4,5,6,7,8,9,10],
         "startnodes" : [1,2,3,4,5,6,7,8,9,10]
         }
+    param1 = "num_x_nodes"
+    param2 = "num_y_nodes"
+    param1_values = list(range(100, 1000, 10))
+    param2_values = list(range(100, 1000, 10))
     # The output directory
     output_dir = "./analyze/measurements"
-    take_measurements(param_comp_dict, param_run_dict, output_dir)
+    take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
+    two_dimensional_measurements(param1, param1_values, param2, param2_values, output_dir)
