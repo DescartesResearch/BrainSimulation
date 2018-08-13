@@ -11,6 +11,8 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
         madn = madn + d_neighbors[i];
     }
     madn = madn / number_d_neighbors;
+    // add direct neighbor factor
+    madn = madn * D_NEIGHBORFACTOR;
 
     // calculate mean over all maidn nodes
     nodeval_t maidn = 0;
@@ -18,6 +20,8 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
         maidn = maidn + id_neighbors[i];
     }
     maidn = maidn / number_id_neighbors;
+    // add indirect neighbor factor
+    maidn = maidn * ID_NEIGHBORFACTOR;
 
 
     // rest of the algorithm
@@ -27,9 +31,8 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
     nodeval_t slope_new = slope_old + slope_vector;
     nodeval_t act_new = act_old + slope_new;
 
-    // physical damping, default 0.001
-    double damping = 0.001;
-    act_new = act_new / (1 + damping);
+    // apply physical damping
+    act_new = act_new / (1 + DAMPING);
 
     nodestate_t res;
     res.act = act_new;

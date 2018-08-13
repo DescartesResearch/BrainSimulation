@@ -29,6 +29,31 @@
 #define THREADFACTOR 1
 #endif
 
+#ifndef D_NEIGHBORFACTOR
+/**
+ * How much the direct neighbors influence the energy state of any node. Usually a number in (0,1], however numbers > 1
+ * are possible. Default is 1.
+ */
+#define D_NEIGHBORFACTOR 1
+#endif
+
+#ifndef ID_NEIGHBORFACTOR
+/**
+ * How much the indirect neighbors influence the energy state of any node. Usually a number in (0,1], however numbers
+ * > 1 are possible. Default is 1.
+ */
+#define ID_NEIGHBORFACTOR 1
+#endif
+
+#ifndef DAMPING
+/**
+ * The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss
+ * per simulation tick. The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING).
+ * Default: 0.001.
+ */
+#define DAMPING 0.001
+#endif
+
 //types
 
 /**
