@@ -138,6 +138,19 @@ Macros</h2></td></tr>
 <tr class="memitem:aff010d9e3a4e85cc849ffd578caad808"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#aff010d9e3a4e85cc849ffd578caad808">FLAG_FREQ_NODES_Y</a>&#160;&#160;&#160;&quot;--freqy&quot;</td></tr>
 <tr class="memdesc:aff010d9e3a4e85cc849ffd578caad808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for y indices of frequency generating nodes (multiple integer paramters).  <a href="#aff010d9e3a4e85cc849ffd578caad808">More...</a><br /></td></tr>
 <tr class="separator:aff010d9e3a4e85cc849ffd578caad808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33b8990aff9fc0b1ea7ae9182fae4304"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a33b8990aff9fc0b1ea7ae9182fae4304">FLAG_FREQ_BITMAPS</a>&#160;&#160;&#160;&quot;--freqbitmaps&quot;</td></tr>
+<tr class="memdesc:a33b8990aff9fc0b1ea7ae9182fae4304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for bitmap image paths, interpreted as frequencies (multiple string paramters).  <a href="#a33b8990aff9fc0b1ea7ae9182fae4304">More...</a><br /></td></tr>
+<tr class="separator:a33b8990aff9fc0b1ea7ae9182fae4304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc95da5469eff31f0010d022ae4d8de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#acfc95da5469eff31f0010d022ae4d8de">FLAG_MIN_BITMAP_FREQ</a>&#160;&#160;&#160;&quot;--minbitmapfreq&quot;</td></tr>
+<tr class="memdesc:acfc95da5469eff31f0010d022ae4d8de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for the frequency to be used for the min non-0 bitmap value (1) (single integer paramter).  <a href="#acfc95da5469eff31f0010d022ae4d8de">More...</a><br /></td></tr>
+<tr class="separator:acfc95da5469eff31f0010d022ae4d8de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d636b755f4895288057bc9fa85a1d4c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a9d636b755f4895288057bc9fa85a1d4c">FLAG_MAX_BITMAP_FREQ</a>&#160;&#160;&#160;&quot;--maxbitmapfreq&quot;</td></tr>
+<tr class="memdesc:a9d636b755f4895288057bc9fa85a1d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for the frequency to be used for the max bitmap value (assumes 24-bit: 765) (single integer paramter).  <a href="#a9d636b755f4895288057bc9fa85a1d4c">More...</a><br /></td></tr>
+<tr class="separator:a9d636b755f4895288057bc9fa85a1d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e29db929bde5e062896dad36392e2b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e29db929bde5e062896dad36392e2b7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a8e29db929bde5e062896dad36392e2b7">FLAG_BITMAP_DURATION</a>&#160;&#160;&#160;&quot;--bitmapduration&quot;</td></tr>
+<tr class="memdesc:a8e29db929bde5e062896dad36392e2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line flag for the duration (in ticks) a bitmap is to be used for input before it is followed by the next bitmap (single integer paramter). <br /></td></tr>
+<tr class="separator:a8e29db929bde5e062896dad36392e2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -150,37 +163,69 @@ Functions</h2></td></tr>
 <tr class="memitem:a24e50e0adc773ddaa9c8be2d74e063ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a24e50e0adc773ddaa9c8be2d74e063ad">init_observation_timeseries_from_sh</a> (const int argc, const char *argv[], int *num_observationnodes)</td></tr>
 <tr class="memdesc:a24e50e0adc773ddaa9c8be2d74e063ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes num_oberservationnodes timeseries structs and returns them in an array using settings from the command line.  <a href="#a24e50e0adc773ddaa9c8be2d74e063ad">More...</a><br /></td></tr>
 <tr class="separator:a24e50e0adc773ddaa9c8be2d74e063ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d39f991e5ed475aef9cebf96e9489a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#af9d39f991e5ed475aef9cebf96e9489a">init_observation_timeseries_default</a> (int *num_observationnodes, int num_ticks)</td></tr>
+<tr class="memdesc:af9d39f991e5ed475aef9cebf96e9489a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes num_oberservationnodes timeseries structs with default values and returns them in an array.  <a href="#af9d39f991e5ed475aef9cebf96e9489a">More...</a><br /></td></tr>
+<tr class="separator:af9d39f991e5ed475aef9cebf96e9489a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6c6663be1eaa75400cad802f6ad3b4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#ac6c6663be1eaa75400cad802f6ad3b4f">init_observation_timeseries</a> (const int num_oberservationnodes, const int *x_indices, const int *y_indices, const int num_timeseries_elements)</td></tr>
 <tr class="memdesc:ac6c6663be1eaa75400cad802f6ad3b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes num_oberservationnodes timeseries structs and returns them in an array.  <a href="#ac6c6663be1eaa75400cad802f6ad3b4f">More...</a><br /></td></tr>
 <tr class="separator:ac6c6663be1eaa75400cad802f6ad3b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50880ffdd033973f78b5a6fdd0850169"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a50880ffdd033973f78b5a6fdd0850169">init_start_time_state_from_sh</a> (const int argc, const char *argv[], const int number_nodes_x, const int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes)</td></tr>
 <tr class="memdesc:a50880ffdd033973f78b5a6fdd0850169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a start time energy state for the node field.  <a href="#a50880ffdd033973f78b5a6fdd0850169">More...</a><br /></td></tr>
 <tr class="separator:a50880ffdd033973f78b5a6fdd0850169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e7768eb3343ab965d0cf53ec38e1bf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a4e7768eb3343ab965d0cf53ec38e1bf6">init_nodegrid_default</a> (int *number_nodes_x, int *number_nodes_y)</td></tr>
+<tr class="memdesc:a4e7768eb3343ab965d0cf53ec38e1bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a nodegrid with a default size and initializes it with zero.  <a href="#a4e7768eb3343ab965d0cf53ec38e1bf6">More...</a><br /></td></tr>
+<tr class="separator:a4e7768eb3343ab965d0cf53ec38e1bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0e7c22fbda8e1af706e22f433129c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#ae0e7c22fbda8e1af706e22f433129c5a">init_start_time_state</a> (const int number_nodes_x, const int number_nodes_y, <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> **nodes, const int num_start_levels, const <a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a> *start_levels, const int *start_nodes_x, const int *start_nodes_y)</td></tr>
 <tr class="memdesc:ae0e7c22fbda8e1af706e22f433129c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a start time energy state for the node field.  <a href="#ae0e7c22fbda8e1af706e22f433129c5a">More...</a><br /></td></tr>
 <tr class="separator:ae0e7c22fbda8e1af706e22f433129c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf39094732f19ea2abaaa6b9e968651c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#adf39094732f19ea2abaaa6b9e968651c">read_input_behavior</a> (const int number_of_inputnodes, const int *x_indices, const int *y_indices, const char **inputnodefilenames, const int *number_of_elements)</td></tr>
 <tr class="memdesc:adf39094732f19ea2abaaa6b9e968651c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and parses the inputs defined as csv files to be added to the given nodes during the simulation.  <a href="#adf39094732f19ea2abaaa6b9e968651c">More...</a><br /></td></tr>
 <tr class="separator:adf39094732f19ea2abaaa6b9e968651c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48f6f2ef27631d4a8fe07095ee240e55"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a48f6f2ef27631d4a8fe07095ee240e55">generate_sin_time_series</a> (int hz, double tick_ms, int number_of_samples)</td></tr>
-<tr class="memdesc:a48f6f2ef27631d4a8fe07095ee240e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a specified number of samples of a discretized sinoidal timeseries with the specified frequency and returns it.  <a href="#a48f6f2ef27631d4a8fe07095ee240e55">More...</a><br /></td></tr>
-<tr class="separator:a48f6f2ef27631d4a8fe07095ee240e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a523e3a9cc3052b6f76b7ccbe161fdf01"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a523e3a9cc3052b6f76b7ccbe161fdf01">generate_sin_frequency</a> (int hz, double tick_ms)</td></tr>
-<tr class="memdesc:a523e3a9cc3052b6f76b7ccbe161fdf01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a discretized sinoidal timeseries with the specified frequency and returns it.  <a href="#a523e3a9cc3052b6f76b7ccbe161fdf01">More...</a><br /></td></tr>
-<tr class="separator:a523e3a9cc3052b6f76b7ccbe161fdf01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#af7c004ae5b7c3ca3f33c06630cb45f2a">calculate_period_length</a> (int hz, double tick_ms)</td></tr>
-<tr class="memdesc:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to generate, until the period is reached.  <a href="#af7c004ae5b7c3ca3f33c06630cb45f2a">More...</a><br /></td></tr>
-<tr class="separator:af7c004ae5b7c3ca3f33c06630cb45f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a7aa82b3d289a3938d561ccdc9cd85d09">generate_input_frequencies_from_sh</a> (const int argc, const char *argv[], int *num_inputnodes, double tick_ms)</td></tr>
-<tr class="memdesc:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a7aa82b3d289a3938d561ccdc9cd85d09">More...</a><br /></td></tr>
-<tr class="separator:a7aa82b3d289a3938d561ccdc9cd85d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e3d58ed5d72541a1446a01ce36abba6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a9e3d58ed5d72541a1446a01ce36abba6">generate_input_frequencies</a> (const int number_of_inputnodes, const int *x_indices, const int *y_indices, const int *frequencies, double tick_ms)</td></tr>
-<tr class="memdesc:a9e3d58ed5d72541a1446a01ce36abba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a9e3d58ed5d72541a1446a01ce36abba6">More...</a><br /></td></tr>
-<tr class="separator:a9e3d58ed5d72541a1446a01ce36abba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad51f53053a0805858a7d8e765dbd30"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a1ad51f53053a0805858a7d8e765dbd30">generate_sin_time_series</a> (int hz, const double tick_ms, int number_of_samples)</td></tr>
+<tr class="memdesc:a1ad51f53053a0805858a7d8e765dbd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a specified number of samples of a discretized sinoidal timeseries with the specified frequency and returns it.  <a href="#a1ad51f53053a0805858a7d8e765dbd30">More...</a><br /></td></tr>
+<tr class="separator:a1ad51f53053a0805858a7d8e765dbd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a350baad7636d778e711bd3f3a96baf15"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a350baad7636d778e711bd3f3a96baf15">generate_sin_frequency</a> (int hz, const double tick_ms)</td></tr>
+<tr class="memdesc:a350baad7636d778e711bd3f3a96baf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a discretized sinoidal timeseries with the specified frequency and returns it.  <a href="#a350baad7636d778e711bd3f3a96baf15">More...</a><br /></td></tr>
+<tr class="separator:a350baad7636d778e711bd3f3a96baf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990c4dc8d9333f08b47f34fe33b7c9e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a990c4dc8d9333f08b47f34fe33b7c9e8">calculate_period_length</a> (int hz, const double tick_ms)</td></tr>
+<tr class="memdesc:a990c4dc8d9333f08b47f34fe33b7c9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to generate, until the period is reached.  <a href="#a990c4dc8d9333f08b47f34fe33b7c9e8">More...</a><br /></td></tr>
+<tr class="separator:a990c4dc8d9333f08b47f34fe33b7c9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b1a9cd960f37b128ac8c92d65794348"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a3b1a9cd960f37b128ac8c92d65794348">generate_input_frequencies_from_sh</a> (const int argc, const char *argv[], int *num_inputnodes, const double tick_ms)</td></tr>
+<tr class="memdesc:a3b1a9cd960f37b128ac8c92d65794348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a3b1a9cd960f37b128ac8c92d65794348">More...</a><br /></td></tr>
+<tr class="separator:a3b1a9cd960f37b128ac8c92d65794348"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66135c6a96198f9d52182577f91c00f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a66135c6a96198f9d52182577f91c00f3">generate_input_frequencies_default</a> (int *num_inputnodes, const double tick_ms)</td></tr>
+<tr class="memdesc:a66135c6a96198f9d52182577f91c00f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for a set of default given nodes with default frequencies.  <a href="#a66135c6a96198f9d52182577f91c00f3">More...</a><br /></td></tr>
+<tr class="separator:a66135c6a96198f9d52182577f91c00f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a682f294349cde7945f54bb699f3c921a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a682f294349cde7945f54bb699f3c921a">generate_input_frequencies</a> (const int number_of_inputnodes, const int *x_indices, const int *y_indices, const int *frequencies, const double tick_ms)</td></tr>
+<tr class="memdesc:a682f294349cde7945f54bb699f3c921a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for the given nodes with the specified frequency.  <a href="#a682f294349cde7945f54bb699f3c921a">More...</a><br /></td></tr>
+<tr class="separator:a682f294349cde7945f54bb699f3c921a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3da5c1eb7d008c1aeb3aff4bf07b7a1"><td class="memItemLeft" align="right" valign="top">unsigned int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#ae3da5c1eb7d008c1aeb3aff4bf07b7a1">read_bitmap_contents</a> (const char *bitmap_path, unsigned int *bitmap_size_x, unsigned int *bitmap_size_y)</td></tr>
+<tr class="memdesc:ae3da5c1eb7d008c1aeb3aff4bf07b7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a bitmap image file and returns the sum color values for each pixel in a array.  <a href="#ae3da5c1eb7d008c1aeb3aff4bf07b7a1">More...</a><br /></td></tr>
+<tr class="separator:ae3da5c1eb7d008c1aeb3aff4bf07b7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a353b65af40fdaaedb88f681db991c038"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#a353b65af40fdaaedb88f681db991c038">generate_input_frequencies_from_bitmap</a> (const char *filenames[], const unsigned int num_filenames, const int min_freq, const int max_freq, const int bitmap_duration_ticks, int *num_inputnodes, const double tick_ms)</td></tr>
+<tr class="memdesc:a353b65af40fdaaedb88f681db991c038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images.  <a href="#a353b65af40fdaaedb88f681db991c038">More...</a><br /></td></tr>
+<tr class="separator:a353b65af40fdaaedb88f681db991c038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca1b55e7cb1f36ac09258aa1dfe0a5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="brainsetup_8h.html#adca1b55e7cb1f36ac09258aa1dfe0a5a">generate_input_frequencies_from_sh_bitmap</a> (const int argc, const char *argv[], int *num_inputnodes, const double tick_ms)</td></tr>
+<tr class="memdesc:adca1b55e7cb1f36ac09258aa1dfe0a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images.  <a href="#adca1b55e7cb1f36ac09258aa1dfe0a5a">More...</a><br /></td></tr>
+<tr class="separator:adca1b55e7cb1f36ac09258aa1dfe0a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Setup all node arrays to be passed to the brainsimulation. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a33b8990aff9fc0b1ea7ae9182fae4304"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_FREQ_BITMAPS&#160;&#160;&#160;&quot;--freqbitmaps&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for bitmap image paths, interpreted as frequencies (multiple string paramters). </p>
+
+</div>
+</div>
 <a class="anchor" id="a75b69e92339e4d20d91602e7adf50b4a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -220,6 +265,34 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Command line flag for frequencies of frequency generating nodes (multiple intger paramters). </p>
+
+</div>
+</div>
+<a class="anchor" id="a9d636b755f4895288057bc9fa85a1d4c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_MAX_BITMAP_FREQ&#160;&#160;&#160;&quot;--maxbitmapfreq&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for the frequency to be used for the max bitmap value (assumes 24-bit: 765) (single integer paramter). </p>
+
+</div>
+</div>
+<a class="anchor" id="acfc95da5469eff31f0010d022ae4d8de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLAG_MIN_BITMAP_FREQ&#160;&#160;&#160;&quot;--minbitmapfreq&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command line flag for the frequency to be used for the min non-0 bitmap value (1) (single integer paramter). </p>
 
 </div>
 </div>
@@ -336,7 +409,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af7c004ae5b7c3ca3f33c06630cb45f2a"></a>
+<a class="anchor" id="a990c4dc8d9333f08b47f34fe33b7c9e8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -349,7 +422,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>tick_ms</em>&#160;</td>
         </tr>
         <tr>
@@ -415,7 +488,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9e3d58ed5d72541a1446a01ce36abba6"></a>
+<a class="anchor" id="a682f294349cde7945f54bb699f3c921a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -446,7 +519,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>tick_ms</em>&#160;</td>
         </tr>
         <tr>
@@ -463,7 +536,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">number_of_inputnodes</td><td>The number of input nodes and frequencies to generate. </td></tr>
     <tr><td class="paramname">x_indices</td><td>An array of x-coordinates of the nodes. Defines which node will be modified with the defined frequency. Length: number_of_inputnodes. </td></tr>
     <tr><td class="paramname">y_indices</td><td>An array of y-coordinates of the nodes. Defines which node will be modified with the defined frequency. Length: number_of_inputnodes. </td></tr>
-    <tr><td class="paramname">frequencies</td><td>An array describing the desired frequencies to generate for each node. Length: number_of_inputnodes. </td></tr>
+    <tr><td class="paramname">frequencies</td><td>An array describing the desired frequencies in periods/second (Hz) to generate for each node. Length: number_of_inputnodes. </td></tr>
     <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
   </table>
   </dd>
@@ -472,7 +545,114 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7aa82b3d289a3938d561ccdc9cd85d09"></a>
+<a class="anchor" id="a66135c6a96198f9d52182577f91c00f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>* generate_input_frequencies_default </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>num_inputnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates input timeseries for a set of default given nodes with default frequencies. </p>
+<p>The different time-series may vary as the minimal period length is different. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_inputnodes</td><td>The number of frequency generating nodes is written to this pointer. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the frequencies. Length: num_inputnodes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a353b65af40fdaaedb88f681db991c038"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>* generate_input_frequencies_from_bitmap </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filenames</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>num_filenames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>min_freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>max_freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>bitmap_duration_ticks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>num_inputnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images. </p>
+<p>Bitmaps must have the same dimensions and be encoded using uncompressed, 24-bit bitmap files. Bitmap color values are summed (R+G+B) and translated to frequencies. The minimum non-0 color (1) is mapped to min_freq and the maximum color (765) is mapped to max_freq. Other frequencies are determined using linear interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filenames</td><td>File names of the .bmp files to read. </td></tr>
+    <tr><td class="paramname">num_filenames</td><td>The number of .bmp files to read. </td></tr>
+    <tr><td class="paramname">min_freq</td><td>The minimum frequency to generate. The minimum non-0 color (1) is mapped to min_freq. </td></tr>
+    <tr><td class="paramname">max_freq</td><td>The maximum frequency to generate. The maximum color (765) is mapped to max_freq. </td></tr>
+    <tr><td class="paramname">bitmap_duration_ticks</td><td>The number of ticks for which to generate a signal for a bitmap before moving on to the next bitmap (analogous to a frame's duration in a movie). </td></tr>
+    <tr><td class="paramname">num_inputnodes</td><td>The number of frequency generating nodes is written to this pointer. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the specified frequencies. Length: num_inputnodes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3b1a9cd960f37b128ac8c92d65794348"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -497,7 +677,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>tick_ms</em>&#160;</td>
         </tr>
         <tr>
@@ -518,11 +698,61 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the specified frequencies. Length: num_inputnodes. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a523e3a9cc3052b6f76b7ccbe161fdf01"></a>
+<a class="anchor" id="adca1b55e7cb1f36ac09258aa1dfe0a5a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodeinputseries__t.html">nodeinputseries_t</a>* generate_input_frequencies_from_sh_bitmap </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>num_inputnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>tick_ms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images. </p>
+<p>Bitmaps must have the same dimensions and be encoded using uncompressed, 24-bit bitmap files. Uses command line arguments. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of command line arguments. </td></tr>
+    <tr><td class="paramname">argv</td><td>Command line arguments. </td></tr>
+    <tr><td class="paramname">num_inputnodes</td><td>The number of frequency generating nodes is written to this pointer. </td></tr>
+    <tr><td class="paramname">tick_ms</td><td>The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds. This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of input nodes initialized with the specified frequencies. Length: num_inputnodes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a350baad7636d778e711bd3f3a96baf15"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -535,7 +765,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>tick_ms</em>&#160;</td>
         </tr>
         <tr>
@@ -559,7 +789,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a48f6f2ef27631d4a8fe07095ee240e55"></a>
+<a class="anchor" id="a1ad51f53053a0805858a7d8e765dbd30"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -572,7 +802,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>tick_ms</em>, </td>
         </tr>
         <tr>
@@ -599,6 +829,42 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A series of doubles. Length: number_of_samples. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4e7768eb3343ab965d0cf53ec38e1bf6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="definitions_8h.html#ad42a277ca8bfba06ba03e5e696fa7fca">nodeval_t</a>** init_nodegrid_default </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>number_nodes_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>number_nodes_y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a nodegrid with a default size and initializes it with zero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number_nodes_x</td><td>Writes the number of nodes in the x-axis to this pointer. </td></tr>
+    <tr><td class="paramname">number_nodes_y</td><td>Writes the number of nodes in the y-axis to this pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The initialized 2D node field. Size: number_nodes_x * number_nodes_y. </dd></dl>
 
 </div>
 </div>
@@ -645,6 +911,42 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x_indices</td><td>The x indices of the nodes to observe. Must have num_obervationnodes as length. </td></tr>
     <tr><td class="paramname">y_indices</td><td>The y indices of the nodes to observe. Must have num_obervationnodes as length. </td></tr>
     <tr><td class="paramname">num_timeseries_elements</td><td>The number of elements for the timeseries to hold. Timeseries memory is allocated as part of initialization. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Array of newly initialized timeseries structs. Array has num_oberservationnodes as length. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af9d39f991e5ed475aef9cebf96e9489a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnodetimeseries__t.html">nodetimeseries_t</a>* init_observation_timeseries_default </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>num_observationnodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ticks</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes num_oberservationnodes timeseries structs with default values and returns them in an array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_observationnodes</td><td>Writes the number of timeseries to this pointer. </td></tr>
+    <tr><td class="paramname">num_ticks</td><td>The number of ticks to simulate, as memory is reserved beforehand. </td></tr>
   </table>
   </dd>
 </dl>
@@ -861,6 +1163,49 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The parsed integer argument for the flag. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae3da5c1eb7d008c1aeb3aff4bf07b7a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int* read_bitmap_contents </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>bitmap_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>bitmap_size_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>bitmap_size_y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads a bitmap image file and returns the sum color values for each pixel in a array. </p>
+<p>Array length is width * height. Get pixel using array[y * width + x]. Allocates the new array on the heap (do not forget to free it after use). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bitmap_path</td><td>Path of the bitmap file to read. </td></tr>
+    <tr><td class="paramname">bitmap_size_x</td><td>The x dimension of the read bitmap is written to this pointer. </td></tr>
+    <tr><td class="paramname">bitmap_size_y</td><td>The y dimension of the read bitmap is written to this pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The array of the sum of the bitmap's color values. </dd></dl>
 
 </div>
 </div>

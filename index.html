@@ -100,11 +100,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Available switches:</p><ul>
 <li><code>THREADFACTOR</code>: Factor to multiple the logical corecount with in order to determine the number of threads. May be a floating point number (<em>0.5</em> is a common option). Default = <b>1</b>.</li>
 <li><code>MULTITHREADING</code>: Set to 0 to turn multithreading off and only use a single thread. Default = <b>1</b>.</li>
+<li><code>DAMPING</code>: The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss per simulation tick. The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING). Default = <b>0.001</b>.</li>
+<li><code>D_NEIGHBORFACTOR</code>: How much the direct neighbors influence the energy state of any node. Usually a number in (0,1], however numbers &gt; 1 are possible. Default = <b>1</b>.</li>
+<li><code>ID_NEIGHBORFACTOR</code>: How much the indirect neighbors influence the energy state of any node. Usually a number in (0,1], however numbers &gt; 1 are possible. Default = <b>1</b>.</li>
 </ul>
 <h2>How to run</h2>
 <ol type="1">
 <li>Create a <code>./testoutput</code> directory in the directory from which you execute the brainsimulation. Results will be written to this directory.</li>
-<li>Configure inputs files (WIP, currently disabled by default)</li>
+<li>(Optional) Configure inputs bitmap image files</li>
 <li>Execute the simulation in one of the following ways:<ul>
 <li><p class="startli">Linux, running from the build directory:</p>
 <p class="startli"><code>$ ./brainsimulation -x X_NODES -y Y_NODES --ticks SIMULATION_TICKS [OPTIONAL PARAMETERS]</code></p>
@@ -134,11 +137,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><code>--startlevels STARTING_ENERGY_LEVELS</code>: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.</li>
 <li><code>--startx STARTING_ENERGY_X_INDICES</code>: X indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as <code>--startlevels</code>.</li>
 <li><code>--starty STARTING_ENERGY_Y_INDICES</code>: Y indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as <code>--startlevels</code>.</li>
-<li><code>--freqs FREQUENCIES</code> Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters.</li>
+<li><code>--freqs FREQUENCIES</code> Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters. Can not be used together with <code>--freqbitmaps</code> and its associated flags.</li>
 <li><code>--freqx FREQUENCY_NODES_X_INDICES</code>: X indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as <code>--freqs</code>.</li>
 <li><code>--freqy STARTING_ENERGY_Y_INDICES</code>: Y indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as <code>--freqs</code>.</li>
+<li><code>--freqbitmaps FILENAMES</code>: File paths of bitmap images to be used for specifying sin-frequencies. Bitmaps must be uncompressed 24-bit bitmaps (MS-Paint default). When using multiple bitmaps, they must all have the same dimensions. Can not be used together with <code>--freqs</code> and its associated flags. One or multiple parameters.</li>
+<li><code>--minbitmapfreq MIN_FREQUENCY</code>: The minimum frequency to generate, mapped to the minimum non-0 bitmap color (1). Single integer parameter.</li>
+<li><code>--maxbitmapfreq MAX_FREQUENCY</code>: The maximum frequency to generate, mapped to the maximum bitmap color (765). Single integer parameter.</li>
+<li><code>--bitmapduration DURATION_TICKS</code>: The generation duration (in ticks) for a bitmap's signal (analogous to a frame's duration in a movie). Single integer parameter.</li>
 </ul>
 <p><b>Example:</b> <code>brainsimulation -x 200 -y 200 --ticks 5000 --xobs 50 51 --yobs 50 51 --startlevels 10 11 --startx 10 11 --starty 10 11 --freqs 3 5 --freqx 25 26 --freqy 25 26</code></p>
+<p><b>Example using bitmaps:</b> brainsimulation -x 200 -y 200 &ndash;ticks 3000 &ndash;xobs 50 51 &ndash;yobs 50 51 &ndash;freqbitmaps testinput/input0.bmp testinput/input1.bmp testinput/input2.bmp &ndash;minbitmapfreq 10 &ndash;maxbitmapfreq 40 &ndash;bitmapduration 1000</p>
+<h3>Using Bitmap Images as Inputs</h3>
+<p>You can choose to use bitmap images as inputs and pass them using the <code>--freqbitmaps</code> paramter. Doing this will generate input timeseries for all non-zero (non-black) pixels from the specified 24-bit bitmap images. Each pixel will be directly mapped to the corresponding node in the simulation (using its x and y coordinates, with 0,0 at the top left). Bitmaps must have the same dimensions and must be encoded using uncompressed, 24-bit bitmap files, which is the MS_Paint default. Bitmap color values are summed (R+G+B) and translated to frequencies. The minimum non-0 color (1) is mapped to the value provided using <code>--minbitmapfreq</code> and the maximum color (765) is mapped to the value provided using <code>--maxbitmapfreq</code>. Other frequencies are determined using linear interpolation. A black (value 0) pixel will always be interpreted as a pixel that is currently not generating a signal.</p>
+<p>You can specify multiple images. Each image is shown for the duration specified using <code>--bitmapduration</code> (in ticks). Once its duration is up, the next image is used for generation (analogous to a frame in a movie). No further signals are generated once the last image has finished generating.</p>
 <h2>Developing</h2>
 <p>Check out our code documentation at <a href="https://descartesresearch.github.io/BrainSimulation/">https://descartesresearch.github.io/BrainSimulation/</a> </p>
 </div></div><!-- contents -->

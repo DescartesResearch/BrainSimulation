@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['executioncontext_5ft',['executioncontext_t',['../structexecutioncontext__t.html',1,'']]]
+  ['bitmapfilehader_5ft',['bitmapfilehader_t',['../structbitmapfilehader__t.html',1,'']]],
+  ['bitmapinfoheader_5ft',['bitmapinfoheader_t',['../structbitmapinfoheader__t.html',1,'']]]
 ];
