@@ -24,39 +24,69 @@ static void print_help() {
 	printf("\tRun with: brainsimulation %s X_NODES %s Y_NODES %s SIMULATION_TICKS [OPTIONAL PARAMETERS]\n",
 		FLAG_X_NODES, FLAG_Y_NODES, FLAG_TICKS);
 	printf("Mandatory parameters:\n");
-	printf("\t%s X_NODES: Size of the simulated node grid on the X axis. Single integer parameter.\n",
+	printf("\t%s X_NODES: Size of the simulated node grid on the X axis.\n",
 		FLAG_X_NODES);
-	printf("\t%s Y_NODES: Size of the simulated node grid on the Y axis. Single integer parameter.\n",
+	printf("\t\t Single integer parameter.\n");
+	printf("\t%s Y_NODES: Size of the simulated node grid on the Y axis.\n",
 		FLAG_Y_NODES);
-	printf("\t%s SIMULATION_TICKS: Number of time ticks to simulate. Single integer parameter.\n",
+	printf("\t\t Single integer parameter.\n");
+	printf("\t%s SIMULATION_TICKS: Number of time ticks to simulate.\n",
 		FLAG_TICKS);
+	printf("\t\t Single integer parameter.\n");
 	printf("Recommended parameters (technically optional, but doesn't really make sense not to use them):\n");
-	printf("\t%s OBS_X_INDICES: X indices of the observed nodes. One or multiple integer parameters.\n",
+	printf("\t%s OBS_X_INDICES: X indices of the observed nodes.\n",
 		FLAG_X_OBSERVATIONNODES);
-	printf("\t%s OBS_Y_INDICES: Y indices of the observed nodes. One or multiple integer parameters.\n",
+	printf("\t\t One or multiple integer parameters.\n");
+	printf("\t%s OBS_Y_INDICES: Y indices of the observed nodes.\n",
 		FLAG_Y_OBSERVATIONNODES);
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_X_OBSERVATIONNODES);
+	printf("\t\t One or multiple integer parameters.\n");
 	printf("Optional parameters:\n");
-	printf("\t%s STARTING_ENERGY_LEVELS: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.\n",
+	printf("\t%s STARTING_ENERGY_LEVELS: Initial energy levels of nodes with starting energy.\n",
 		FLAG_START_LEVELS);
-	printf("\t%s STARTING_ENERGY_X_INDICES: X indices of nodes with starting energy. One or multiple integer parameters.\n",
+	printf("\t\t One or multiple floating point parameters.\n");
+	printf("\t%s STARTING_ENERGY_X_INDICES: X indices of nodes with starting energy.\n",
 		FLAG_START_NODES_X);
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_START_LEVELS);
-	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes with starting energy. One or multiple integer parameters.\n",
+	printf("\t\t One or multiple floating point parameters.\n");
+	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes with starting energy.\n",
 		FLAG_START_NODES_Y);
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_START_LEVELS);
-	printf("\t%s FREQUENCIES: Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters.\n",
+	printf("\t\t One or multiple integer parameters.\n");
+	printf("\t%s FREQUENCIES: Frequencies of nodes generating energy using sin-frequencies.\n",
 		FLAG_FREQUENCIES);
-	printf("\t%s FREQUENCY_NODES_X_INDICES: X indices of nodes generating energy using frequencies. One or multiple integer parameters.\n",
+	printf("\t\t Can not be used together with %s and its associated flags.\n", FLAG_FREQ_BITMAPS);
+	printf("\t\t One or multiple integer parameters.\n");
+	printf("\t%s FREQUENCY_NODES_X_INDICES: X indices of nodes generating energy using frequencies.\n",
 		FLAG_FREQ_NODES_X);
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_FREQUENCIES);
-	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes generating energy using frequencies. One or multiple integer parameters.\n",
+	printf("\t\t One or multiple integer parameters.\n");
+	printf("\t%s STARTING_ENERGY_Y_INDICES: Y indices of nodes generating energy using frequencies.\n",
 		FLAG_FREQ_NODES_Y);
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_FREQUENCIES);
+	printf("\t\t One or multiple integer parameters.\n");
+	printf("\t%s FILENAMES: File paths of bitmap images to be used for specifying sin-frequencies.\n",
+		FLAG_FREQ_BITMAPS);
+	printf("\t\t Bitmaps must be uncompressed, 24-bit (MS-Paint default). Multiple bitmaps must have the same dimensions.\n");
+	printf("\t\t Can not be used together with %s and its associated flags.\n", FLAG_FREQUENCIES);
+	printf("\t\t One or multiple parameters.\n");
+	printf("\t%s MIN_FREQUENCY: The minimum frequency to generate, mapped to the minimum non-0 bitmap color (1).\n",
+		FLAG_MIN_BITMAP_FREQ);
+	printf("\t\t Single integer parameter.\n");
+	printf("\t%s MAX_FREQUENCY: The maximum frequency to generate, mapped to the maximum bitmap color (765).\n",
+		FLAG_MAX_BITMAP_FREQ);
+	printf("\t\t Single integer parameter.\n");
+	printf("\t%s DURATION_TICKS: The generation duration (in ticks) for a bitmap's signal.\n", FLAG_BITMAP_DURATION);
+	printf("\t\t (analogous to a frame's duration in a movie)\n");
+	printf("\t\t Single integer parameter.\n");
 	printf("\n");
 	printf("Example:\nbrainsimulation %s 200 %s 200 %s 5000 %s 50 51 %s 50 51 %s 10 11 %s 10 11 %s 10 11 %s 3 5 %s 25 26 %s 25 26\n",
 		FLAG_X_NODES, FLAG_Y_NODES, FLAG_TICKS, FLAG_X_OBSERVATIONNODES, FLAG_Y_OBSERVATIONNODES, FLAG_START_LEVELS,
 		FLAG_START_NODES_X, FLAG_START_NODES_Y, FLAG_FREQUENCIES, FLAG_FREQ_NODES_X, FLAG_FREQ_NODES_Y);
+	printf("Example using bitmaps:\nbrainsimulation %s 200 %s 200 %s 3000 %s 50 51 %s 50 51"
+		" %s testinput/input0.bmp testinput/input1.bmp testinput/input2.bmp %s 10 %s 40 %s 1000\n",
+		FLAG_X_NODES, FLAG_Y_NODES, FLAG_TICKS, FLAG_X_OBSERVATIONNODES, FLAG_Y_OBSERVATIONNODES,
+		FLAG_FREQ_BITMAPS, FLAG_MIN_BITMAP_FREQ, FLAG_MAX_BITMAP_FREQ, FLAG_BITMAP_DURATION);
 	printf("\n");
 }
 
@@ -70,6 +100,17 @@ int main(const int argc, const char *argv[]) {
 	nodetimeseries_t *observationnodes;
 	nodeval_t **nodegrid;
 	nodeinputseries_t *inputs;
+
+	//unsigned int size_x;
+	//unsigned int size_y;
+	//unsigned int *bitmap = read_bitmap_contents("/mnt/c/Users/w-man/Pictures/test.png", &size_x, &size_y);
+	//for (int y = 0; y < size_y; y++) {
+	//	for (int x = 0; x < size_x; x++) {
+	//		printf("%d ", bitmap[y * size_x + x]);
+	//	}
+	//	printf("\n");
+	//}
+
 	if (contains_flag(argc, argv, FLAG_HELP)) {
 		print_help();
 		return 0;
@@ -120,12 +161,23 @@ int main(const int argc, const char *argv[]) {
             nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
 		}
 		if(contains_flag(argc, argv, FLAG_FREQUENCIES) && contains_flag(argc, argv, FLAG_FREQ_NODES_X) && contains_flag(argc, argv, FLAG_FREQ_NODES_Y)) {
-            printf("Parsing input of frequency nodes.\n");
+            printf("Parsing input of frequency nodes from command line.\n");
+			if (contains_flag(argc, argv, FLAG_FREQ_BITMAPS)) {
+				printf("WARNING: \"%s\" and \"%s\" were set at the same time. This is not supported.\n", FLAG_FREQUENCIES, FLAG_FREQ_BITMAPS);
+				printf("\tBitmap files (specified using \"%s\") will be ignored.\n", FLAG_FREQ_BITMAPS);
+			}
             inputs = generate_input_frequencies_from_sh(argc, argv, &num_inputnodes, tick_ms);
             //    nodeinputseries_t *inputs = read_input_behavior(FILE_NUM_INPUTNODES_DEFAULT, FILE_INPUT_NODES_X_INDICES_DEFAULT,
             //                                                    FILE_INPUT_NODES_Y_INDICES_DEFAULT, FILE_INPUTNODES_PATHS,
             //                                                    FILE_INPUT_NUMBER_OF_ELEMENTS_DEFAULT);
-        } else {
+		} else if (contains_flag(argc, argv, FLAG_FREQ_BITMAPS) && contains_flag(argc, argv, FLAG_BITMAP_DURATION)) {
+			printf("Parsing frequency input from bitmap image files.\n");
+			if (contains_flag(argc, argv, FLAG_FREQUENCIES)) {
+				printf("WARNING: \"%s\" and \"%s\" were set at the same time. This is not supported.\n", FLAG_FREQ_BITMAPS, FLAG_FREQUENCIES);
+				printf("\tCommand-line specified input nodes (using \"%s\") will be ignored.\n", FLAG_FREQUENCIES);
+			}
+			inputs = generate_input_frequencies_from_sh_bitmap(argc, argv, &num_inputnodes, tick_ms);
+		} else {
             printf("No input about frequencies of nodes found. Using default values.\n");
             inputs = generate_input_frequencies_default(&num_inputnodes, tick_ms);
 		}

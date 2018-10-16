@@ -6,10 +6,39 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
 #define PI 3.14159265
 // we are working at a millisecond scale, hence the 1000.
 #define SCALE 1000.0
+
+#pragma pack(push, 1)
+// bitmap structs should not be used for any code outside this file and are thus
+// not included in the header
+typedef struct {
+	uint16_t file_type;
+	uint32_t file_size_bytes;
+	uint16_t reserved1;
+	uint16_t reserved2;
+	uint32_t offset;
+} bitmapfilehader_t;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {
+	uint32_t size;
+	int32_t width;
+	int32_t height;
+	uint16_t planes;
+	uint16_t bit_per_px;
+	int32_t compression_type;
+	int32_t size_image_bytes;
+	uint16_t x_px_per_meter;
+	uint16_t y_px_per_meter;
+	int32_t num_colors_used;
+	int32_t num_colors_important;
+} bitmapinfoheader_t;
+#pragma pack(pop)
 
 static unsigned int starts_with_minus(const char * str) {
 	size_t lenstr = strlen(str);
@@ -218,7 +247,7 @@ nodeinputseries_t *read_input_behavior(const int number_of_inputnodes, const int
     return series;
 }
 
-nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms) {
+nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, const double tick_ms) {
 	int *frequencies = malloc(argc * sizeof(int));
 	int *x_indices = malloc(argc * sizeof(int));
 	int *y_indices = malloc(argc * sizeof(int));
@@ -233,7 +262,110 @@ nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char
 	return series;
 }
 
-nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, double tick_ms){
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+nodeinputseries_t *generate_input_frequencies_from_bitmap(const char * filenames[], const unsigned int num_filenames,
+	const int min_freq, const int max_freq, const int bitmap_duration_ticks, int *num_inputnodes, const double tick_ms) {
+	unsigned int width = 0;
+	unsigned int height = 0;
+	unsigned int timeseries_ticks = bitmap_duration_ticks * num_filenames;
+	nodeinputseries_t *series_all;
+	unsigned int num_series_written_to = 0;
+	//read bitmaps and generate sin timeseries
+	for (int image_index = 0; image_index < num_filenames; image_index++) {
+		unsigned int current_width = 0;
+		unsigned int current_height = 0;
+		unsigned int *bitmap = read_bitmap_contents(filenames[image_index], &current_width, &current_height);
+		if (width == 0 || height == 0) {
+			width = current_width;
+			height = current_height;
+			series_all = malloc(width * height * sizeof(nodeinputseries_t));
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
+					int i = y * width + x;
+					series_all[i].x_index = x;
+					series_all[i].y_index = y;
+					series_all[i].timeseries = malloc(timeseries_ticks * sizeof(nodeval_t));
+					//dirty trick: we only set the number of ticks when writing actual values to keep track of written time series
+					series_all[i].timeseries_ticks = 0;
+				}
+			}
+		}
+		else if (current_width != width || current_height != height) {
+			printf("ERROR: Dimension mismatch. %s and %s do not have the same dimensions.\n", filenames[0], filenames[image_index]);
+			free(filenames);
+			free(series_all);
+			return NULL;
+		}
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				int i = y * width + x;
+				int frequency = 0;
+				if (bitmap[i] != 0) {
+					//determine the actual frequency using linear interpolation
+					frequency = min_freq + (max_freq - min_freq)*(bitmap[i] - 1) / 764;
+					nodeval_t * partial_time_series = generate_sin_time_series(frequency, tick_ms, bitmap_duration_ticks);
+					int tick_num_start = image_index * bitmap_duration_ticks;
+					//set the timeseries length and increase the counter of written time series if necessary
+					if (series_all[i].timeseries_ticks == 0) {
+						series_all[i].timeseries_ticks = timeseries_ticks;
+						num_series_written_to++;
+					}
+					//copy the generated sin to the imput time series
+					for (int tick_num = tick_num_start;
+						tick_num < (image_index + 1) * bitmap_duration_ticks; tick_num++) {
+						series_all[i].timeseries[tick_num] = partial_time_series[tick_num - tick_num_start];
+					}
+				}
+				else {
+					for (int tick_num = image_index * bitmap_duration_ticks;
+						tick_num < (image_index + 1) * bitmap_duration_ticks; tick_num++) {
+						series_all[i].timeseries[tick_num] = 0;
+					}
+				}
+			}
+		}
+		free(bitmap);
+	}
+	//copy only time series with set values to the final input set, discard the rest for faster input processing
+	nodeinputseries_t *series_pruned = malloc(num_series_written_to * sizeof(nodeinputseries_t));
+	int series_pruned_index = 0;
+	for (int series_all_index = 0; series_all_index < width * height; series_all_index++) {
+		if (series_all[series_all_index].timeseries_ticks == 0) {
+			free(series_all[series_all_index].timeseries);
+		} else {
+			series_pruned[series_pruned_index].x_index = series_all[series_all_index].x_index;
+			series_pruned[series_pruned_index].y_index = series_all[series_all_index].y_index;
+			series_pruned[series_pruned_index].timeseries = series_all[series_all_index].timeseries;
+			series_pruned[series_pruned_index].timeseries_ticks = series_all[series_all_index].timeseries_ticks;
+			series_pruned_index++;
+		}
+	}
+	if (width > 0 && height > 0) {
+		free(series_all);
+	}
+	*num_inputnodes = num_series_written_to;
+	return series_pruned;
+}
+
+nodeinputseries_t *generate_input_frequencies_from_sh_bitmap(const int argc, const char * argv[], int *num_inputnodes, const double tick_ms) {
+	const char ** filenames = malloc(argc * sizeof(char *));
+	unsigned int num_filenames = parse_args(argc, argv, FLAG_FREQ_BITMAPS, filenames);
+	int bitmap_duration_ticks = parse_int_arg(argc, argv, FLAG_BITMAP_DURATION);
+	int min_freq = 1;
+	int max_freq = 795;
+	if (contains_flag(argc, argv, FLAG_MIN_BITMAP_FREQ)) {
+		min_freq = parse_int_arg(argc, argv, FLAG_MIN_BITMAP_FREQ);
+	}
+	if (contains_flag(argc, argv, FLAG_MAX_BITMAP_FREQ)) {
+		max_freq = parse_int_arg(argc, argv, FLAG_MAX_BITMAP_FREQ);
+	}
+	nodeinputseries_t *series = generate_input_frequencies_from_bitmap(filenames, num_filenames, min_freq, max_freq,
+		bitmap_duration_ticks, num_inputnodes, tick_ms);
+	free(filenames);
+	return series;
+}
+
+nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, const double tick_ms){
 	*num_inputnodes = 40;
 	int input_nodes_x_indices_default[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 										   29, 30, 31, 32, 33, 34,
@@ -249,7 +381,7 @@ nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, doubl
 }
 
 nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
-                                              const int *y_indices, const int *frequencies, double tick_ms) {
+	const int *y_indices, const int *frequencies, const double tick_ms) {
     nodeinputseries_t *series = malloc(number_of_inputnodes * sizeof(nodeinputseries_t));
     int i;
     for (i = 0; i < number_of_inputnodes; ++i) {
@@ -262,7 +394,7 @@ nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, co
 }
 
 
-double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples) {
+double *generate_sin_time_series(int hz, const double tick_ms, int number_of_samples) {
     double *series = malloc(number_of_samples * sizeof(double));
     int i;
     for (i = 0; i < number_of_samples; ++i) {
@@ -272,7 +404,7 @@ double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples) 
     return series;
 }
 
-double *generate_sin_frequency(int hz, double tick_ms) {
+double *generate_sin_frequency(int hz, const double tick_ms) {
     int samples = calculate_period_length(hz, tick_ms);
     printf("Generating %d Hz frequency at at a resolution of %f ms per tick. ", hz, tick_ms);
     printf("Detected period of %d samples.\n", samples);
@@ -285,7 +417,83 @@ double *generate_sin_frequency(int hz, double tick_ms) {
     return generate_sin_time_series(hz, tick_ms, samples);
 }
 
-int calculate_period_length(int hz, double tick_ms) {
+int calculate_period_length(int hz, const double tick_ms) {
     double period = SCALE / (hz * tick_ms);
     return period;
+}
+
+static unsigned int *load_and_sum_bitmap_file(const char *bitmap_path, bitmapinfoheader_t *bitmap_info_header) {
+	FILE *file;
+	bitmapfilehader_t bitmap_file_header;
+	uint8_t *image;
+
+	file = fopen(bitmap_path, "rb");
+	if (file == NULL) {
+		printf("ERROR: Could not open bitmap file: %s\n", bitmap_path);
+		return NULL;
+	}
+	size_t read_result = fread(&bitmap_file_header, sizeof(bitmapfilehader_t), 1, file);
+
+	if (read_result <= 0 || bitmap_file_header.file_type != 0x4D42) {
+		printf("ERROR: File is not bitmap: %s\n", bitmap_path);
+		fclose(file);
+		return NULL;
+	}
+
+	read_result = fread(bitmap_info_header, sizeof(bitmapinfoheader_t), 1, file);
+	if (read_result <= 0) {
+		printf("ERROR: Read error on bitmap file: %s\n", bitmap_path);
+		fclose(file);
+		return NULL;
+	}
+	fseek(file, bitmap_file_header.offset, SEEK_SET);
+	image = malloc(bitmap_info_header->size_image_bytes);
+	read_result = fread(image, sizeof(uint8_t), bitmap_info_header->size_image_bytes, file);
+	if (read_result <= 0 || image == NULL) {
+		printf("ERROR: Read error on bitmap file: %s\n", bitmap_path);
+		fclose(file);
+		free(image);
+		return NULL;
+	}
+
+	unsigned int colors = bitmap_info_header->bit_per_px / 8;
+	if (bitmap_info_header->bit_per_px != 24) {
+		printf("ERROR: Unsupported bitmap format with only %d bits per pixel."
+			" 24 bit bitmap required.\n", bitmap_info_header->bit_per_px);
+		fclose(file);
+		free(image);
+		return NULL;
+	}
+
+	if (bitmap_info_header->compression_type != 0) {
+		printf("ERROR: Compressed bitmaps are unsupported. Compressed bitmap detected: %s\n", bitmap_path);
+		fclose(file);
+		free(image);
+		return NULL;
+	}
+
+	unsigned int *sums = malloc(bitmap_info_header->height * bitmap_info_header->width * sizeof(unsigned int));
+	//bitmaps seem to have their "0,0" coordinate in the bottom left, we want it in the top left
+	//that's way we invert the y-axis
+	for (int y = 0; y < bitmap_info_header->height; y++) {
+		for (int x = 0; x < bitmap_info_header->width; x++) {
+			int target_position = (bitmap_info_header->height - 1 - y) * bitmap_info_header->width + x;
+			int source_position = y * bitmap_info_header->width + x;
+			for (int color = 0; color < colors; color++) {
+				sums[target_position] += image[source_position * colors + color];
+			}
+		}
+	}
+	
+	fclose(file);
+	free(image);
+	return sums;
+}
+
+unsigned int *read_bitmap_contents(const char *bitmap_path, unsigned int *bitmap_size_x, unsigned int *bitmap_size_y) {
+	bitmapinfoheader_t info;
+	unsigned int *summed_bitmap = load_and_sum_bitmap_file(bitmap_path, &info);
+	*bitmap_size_x = info.width;
+	*bitmap_size_y = info.height;
+	return summed_bitmap;
 }

@@ -25,6 +25,17 @@
 #define FLAG_FREQ_NODES_X "--freqx"
 /** Command line flag for y indices of frequency generating nodes (multiple integer paramters).*/
 #define FLAG_FREQ_NODES_Y "--freqy"
+/** Command line flag for bitmap image paths, interpreted as frequencies (multiple string paramters).*/
+#define FLAG_FREQ_BITMAPS "--freqbitmaps"
+/** Command line flag for the frequency to be used for the min non-0 bitmap value (1) (single integer paramter).*/
+#define FLAG_MIN_BITMAP_FREQ "--minbitmapfreq"
+/** Command line flag for the frequency to be used for the max bitmap value (assumes 24-bit: 765) (single integer paramter).*/
+#define FLAG_MAX_BITMAP_FREQ "--maxbitmapfreq"
+/** Command line flag for the duration (in ticks) a bitmap is to be used for input before it is followed by the next bitmap
+ *  (single integer paramter).
+ */
+#define FLAG_BITMAP_DURATION "--bitmapduration"
+
 
 /**
  * @file
@@ -141,7 +152,7 @@ nodeinputseries_t *read_input_behavior(const int number_of_inputnodes, const int
  * @param number_of_samples The number of samples to generate.
  * @return A series of doubles. Length: number_of_samples.
  */
-double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
+double *generate_sin_time_series(int hz, const double tick_ms, int number_of_samples);
 
 /**
  * Generates a discretized sinoidal timeseries with the specified frequency and returns it. Automatically detects the
@@ -151,7 +162,7 @@ double *generate_sin_time_series(int hz, double tick_ms, int number_of_samples);
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
  * @return A series of doubles. Length: Period of the frequency.
  */
-double *generate_sin_frequency(int hz, double tick_ms);
+double *generate_sin_frequency(int hz, const double tick_ms);
 
 /**
  * Calcuated the period length of the given frequency at the specified resolution, i.e., the number of samples to
@@ -161,7 +172,7 @@ double *generate_sin_frequency(int hz, double tick_ms);
  * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
  * @return The number of samples required for one period.
  */
-int calculate_period_length(int hz, double tick_ms);
+int calculate_period_length(int hz, const double tick_ms);
 
 /**
 * Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
@@ -173,7 +184,7 @@ int calculate_period_length(int hz, double tick_ms);
 * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
 * @return The array of input nodes initialized with the specified frequencies. Length: num_inputnodes.
 */
-nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, double tick_ms);
+nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char * argv[], int *num_inputnodes, const double tick_ms);
 
 /**
 * Generates input timeseries for a set of default given nodes with default frequencies. The different time-series may
@@ -183,7 +194,7 @@ nodeinputseries_t *generate_input_frequencies_from_sh(const int argc, const char
 * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
 * @return The array of input nodes initialized with the frequencies. Length: num_inputnodes.
 */
-nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, double tick_ms);
+nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, const double tick_ms);
 
 /**
  * Generates input timeseries for the given nodes with the specified frequency. The different time-series may vary as
@@ -200,6 +211,51 @@ nodeinputseries_t *generate_input_frequencies_default(int *num_inputnodes, doubl
  * @return The array of input nodes initialized with the specified frequencies. Length: number_of_inputnodes.
  */
 nodeinputseries_t *generate_input_frequencies(const int number_of_inputnodes, const int *x_indices,
-                                              const int *y_indices, const int *frequencies, double tick_ms);
+                                              const int *y_indices, const int *frequencies, const double tick_ms);
+
+
+/**
+ * Reads a bitmap image file and returns the sum color values for each pixel in a array.
+ * Array length is width * height. Get pixel using array[y * width + x].
+ * Allocates the new array on the heap (do not forget to free it after use).
+ * @param bitmap_path Path of the bitmap file to read.
+ * @param bitmap_size_x The x dimension of the read bitmap is written to this pointer.
+ * @param bitmap_size_y The y dimension of the read bitmap is written to this pointer.
+ * @return The array of the sum of the bitmap's color values.
+ */
+unsigned int *read_bitmap_contents(const char *bitmap_path, unsigned int *bitmap_size_x, unsigned int *bitmap_size_y);
+
+/**
+ * Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images.
+ * Bitmaps must have the same dimensions and be encoded using uncompressed, 24-bit bitmap files.
+ * Bitmap color values are summed (R+G+B) and translated to frequencies. The minimum non-0 color (1) is mapped
+ * to min_freq and the maximum color (765) is mapped to max_freq. Other frequencies are determined using
+ * linear interpolation.
+ * @param filenames File names of the .bmp files to read.
+ * @param num_filenames The number of .bmp files to read.
+ * @param min_freq The minimum frequency to generate. The minimum non-0 color (1) is mapped to min_freq.
+ * @param max_freq The maximum frequency to generate. The maximum color (765) is mapped to max_freq.
+ * @param bitmap_duration_ticks The number of ticks for which to generate a signal for a bitmap before moving on
+ * to the next bitmap (analogous to a frame's duration in a movie).
+ * @param num_inputnodes The number of frequency generating nodes is written to this pointer.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
+ * @return The array of input nodes initialized with the specified frequencies. Length: num_inputnodes.
+*/
+nodeinputseries_t *generate_input_frequencies_from_bitmap(const char * filenames[], const unsigned int num_filenames,
+	const int min_freq, const int max_freq, const int bitmap_duration_ticks, int *num_inputnodes, const double tick_ms);
+
+/**
+ * Generates input timeseries for all non-zero (non-black) nodes from the specified 24-bit bitmap images.
+ * Bitmaps must have the same dimensions and be encoded using uncompressed, 24-bit bitmap files.
+ * Uses command line arguments.
+ * @param argc Number of command line arguments.
+ * @param argv Command line arguments.
+ * @param num_inputnodes The number of frequency generating nodes is written to this pointer.
+ * @param tick_ms The milliseconds in between each simulation tick, i.e., the required resolution in milliseconds.
+ * This parameter influences the number of generated samples, as frequency is defined in periods/second (Hz).
+ * @return The array of input nodes initialized with the specified frequencies. Length: num_inputnodes.
+ */
+nodeinputseries_t *generate_input_frequencies_from_sh_bitmap(const int argc, const char * argv[], int *num_inputnodes, const double tick_ms);
 
 #endif

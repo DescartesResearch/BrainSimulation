@@ -35,7 +35,7 @@ Available switches:
 ## How to run
 
 1. Create a `./testoutput` directory in the directory from which you execute the brainsimulation. Results will be written to this directory.
-2. Configure inputs files (WIP, currently disabled by default)
+2. (Optional) Configure inputs bitmap image files
 3. Execute the simulation in one of the following ways:
   * Linux, running from the build directory:
 
@@ -67,12 +67,25 @@ Optional parameters:
 * `--startlevels STARTING_ENERGY_LEVELS`: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.
 * `--startx STARTING_ENERGY_X_INDICES`: X indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as `--startlevels`.
 * `--starty STARTING_ENERGY_Y_INDICES`: Y indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as `--startlevels`.
-* `--freqs FREQUENCIES` Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters.
+* `--freqs FREQUENCIES` Frequencies of nodes generating energy using sin-frequencies. One or multiple integer parameters. Can not be used together with `--freqbitmaps` and its associated flags.
 * `--freqx FREQUENCY_NODES_X_INDICES`: X indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as `--freqs`.
 * `--freqy STARTING_ENERGY_Y_INDICES`: Y indices of nodes generating energy using frequencies. One or multiple integer parameters. Must have the same number of parameters as `--freqs`.
+* `--freqbitmaps FILENAMES`: File paths of bitmap images to be used for specifying sin-frequencies. Bitmaps must be uncompressed 24-bit bitmaps (MS-Paint default). When using multiple bitmaps, they must all have the same dimensions. Can not be used together with `--freqs` and its associated flags. One or multiple parameters.
+* `--minbitmapfreq MIN_FREQUENCY`: The minimum frequency to generate, mapped to the minimum non-0 bitmap color (1). Single integer parameter.
+* `--maxbitmapfreq MAX_FREQUENCY`: The maximum frequency to generate, mapped to the maximum bitmap color (765). Single integer parameter.
+* `--bitmapduration DURATION_TICKS`: The generation duration (in ticks) for a bitmap's signal (analogous to a frame's duration in a movie). Single integer parameter.
 
 **Example:**  
 `brainsimulation -x 200 -y 200 --ticks 5000 --xobs 50 51 --yobs 50 51 --startlevels 10 11 --startx 10 11 --starty 10 11 --freqs 3 5 --freqx 25 26 --freqy 25 26`
+
+**Example using bitmaps:**
+brainsimulation -x 200 -y 200 --ticks 3000 --xobs 50 51 --yobs 50 51 --freqbitmaps testinput/input0.bmp testinput/input1.bmp testinput/input2.bmp --minbitmapfreq 10 --maxbitmapfreq 40 --bitmapduration 1000
+
+### Using Bitmap Images as Inputs
+
+You can choose to use bitmap images as inputs and pass them using the `--freqbitmaps` paramter. Doing this will generate input timeseries for all non-zero (non-black) pixels from the specified 24-bit bitmap images. Each pixel will be directly mapped to the corresponding node in the simulation (using its x and y coordinates, with 0,0 at the top left). Bitmaps must have the same dimensions and must be encoded using uncompressed, 24-bit bitmap files, which is the MS_Paint default. Bitmap color values are summed (R+G+B) and translated to frequencies. The minimum non-0 color (1) is mapped to the value provided using `--minbitmapfreq` and the maximum color (765) is mapped to the value provided using `--maxbitmapfreq`. Other frequencies are determined using linear interpolation. A black (value 0) pixel will always be interpreted as a pixel that is currently not generating a signal.
+
+You can specify multiple images. Each image is shown for the duration specified using `--bitmapduration` (in ticks). Once its duration is up, the next image is used for generation (analogous to a frame in a movie). No further signals are generated once the last image has finished generating.
 
 ## Developing
 
