@@ -79,7 +79,7 @@ Optional parameters:
 `brainsimulation -x 200 -y 200 --ticks 5000 --xobs 50 51 --yobs 50 51 --startlevels 10 11 --startx 10 11 --starty 10 11 --freqs 3 5 --freqx 25 26 --freqy 25 26`
 
 **Example using bitmaps:**
-brainsimulation -x 200 -y 200 --ticks 3000 --xobs 50 51 --yobs 50 51 --freqbitmaps testinput/input0.bmp testinput/input1.bmp testinput/input2.bmp --minbitmapfreq 10 --maxbitmapfreq 40 --bitmapduration 1000
+`brainsimulation -x 200 -y 200 --ticks 3000 --xobs 50 51 --yobs 50 51 --freqbitmaps testinput/input0.bmp testinput/input1.bmp testinput/input2.bmp --minbitmapfreq 10 --maxbitmapfreq 40 --bitmapduration 1000`
 
 ### Using Bitmap Images as Inputs
 
