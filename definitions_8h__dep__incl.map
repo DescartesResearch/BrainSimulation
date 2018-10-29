@@ -1,7 +1,7 @@
 <map id="definitions.h" name="definitions.h">
-<area shape="rect" id="node2" href="$brainsetup_8h.html" title="Setup all node arrays to be passed to the brainsimulation. " alt="" coords="5,80,108,107"/>
-<area shape="rect" id="node3" href="$utils_8h.html" title="Common helper functions. " alt="" coords="132,80,192,107"/>
-<area shape="rect" id="node4" href="$brainsimulation_8h.html" title="Main entry points for the brainsimultion. " alt="" coords="129,155,261,181"/>
-<area shape="rect" id="node5" href="$nodefunc_8h.html" title="Represents the behavior of single nodes. " alt="" coords="267,80,361,107"/>
-<area shape="rect" id="node6" href="$kernels_8h.html" title="Supports different types of kernel&#45;function, which can be chosen live. " alt="" coords="385,80,465,107"/>
+<area shape="rect" id="node2" href="$brainsetup_8h.html" title="Setup all node arrays to be passed to the brainsimulation. " alt="" coords="5,80,99,107"/>
+<area shape="rect" id="node3" href="$utils_8h.html" title="Common helper functions. " alt="" coords="123,80,181,107"/>
+<area shape="rect" id="node4" href="$brainsimulation_8h.html" title="Main entry points for the brainsimultion. " alt="" coords="125,155,245,181"/>
+<area shape="rect" id="node5" href="$nodefunc_8h.html" title="Represents the behavior of single nodes. " alt="" coords="257,80,343,107"/>
+<area shape="rect" id="node6" href="$kernels_8h.html" title="Supports different types of kernel&#45;function, which can be chosen live. " alt="" coords="368,80,443,107"/>
 </map>
