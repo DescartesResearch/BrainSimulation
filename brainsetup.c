@@ -12,9 +12,13 @@
 // we are working at a millisecond scale, hence the 1000.
 #define SCALE 1000.0
 
+/**
+ * \cond HIDDEN_SYMBOLS
+ */
+
 #pragma pack(push, 1)
-// bitmap structs should not be used for any code outside this file and are thus
-// not included in the header
+// Bitmap structs should not be used for any code outside this file and are thus
+// not included in the header. They are therefore also hidden from Doxygen.
 typedef struct {
 	uint16_t file_type;
 	uint32_t file_size_bytes;
@@ -39,6 +43,10 @@ typedef struct {
 	int32_t num_colors_important;
 } bitmapinfoheader_t;
 #pragma pack(pop)
+
+/**
+ * \endcond
+ */
 
 static unsigned int starts_with_minus(const char * str) {
 	size_t lenstr = strlen(str);
