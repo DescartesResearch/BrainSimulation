@@ -23,17 +23,29 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
     // add indirect neighbor factor
     maidn = maidn * ID_NEIGHBORFACTOR;
 
+    // add factor
+    nodeval_t act_old_factored = act_old * ENERGY_FACTOR;
 
-    // rest of the algorithm
-    nodeval_t slope3 = madn - act_old;
-    nodeval_t slope4 = maidn - act_old;
-    nodeval_t slope_vector = slope3 + slope4;
+    // calculate slope
+    nodeval_t slope_d = madn - act_old_factored;
+    nodeval_t slope_id = maidn - act_old_factored;
+    nodeval_t slope_vector = slope_d + slope_id;
+
+    // add factors
+    slope_vector = slope_vector * DELTA_FACTOR;
+    slope_old = slope_old * SLOPE_FACTOR;
+
+    // calculate new slope
     nodeval_t slope_new = slope_old + slope_vector;
-    nodeval_t act_new = act_old + slope_new;
 
-    // apply physical damping
-    act_new = act_new / (1 + DAMPING);
+    // add factors
+    nodeval_t slope_new_weighted = slope_new * SLOPE_WEIGHT;
+    nodeval_t act_old_weighted = act_old * ENERGY_WEIGHT;
 
+    // calculate new energy levels
+    nodeval_t act_new = act_old_weighted + slope_new_weighted;
+
+    // store results
     nodestate_t res;
     res.act = act_new;
     res.slope = slope_new;

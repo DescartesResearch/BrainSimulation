@@ -31,7 +31,7 @@
 
 #ifndef D_NEIGHBORFACTOR
 /**
- * How much the direct neighbors influence the energy state of any node. Usually a number in (0,1], however numbers > 1
+ * Ratio of how much the direct neighbors influence the energy state of any node. This is a factor multiplied with the direct neighbor-energy. See parameter (a1) in the flowchart. Usually a number in (0,1], however numbers > 1
  * are possible. Default is 1.
  */
 #define D_NEIGHBORFACTOR 1
@@ -39,7 +39,7 @@
 
 #ifndef ID_NEIGHBORFACTOR
 /**
- * How much the indirect neighbors influence the energy state of any node. Usually a number in (0,1], however numbers
+ * Ratio of how much the indirect neighbors influence the energy state of any node. This is a factor multiplied with the indirect neighbor-energy. See parameter (a2) in the flowchart. Usually a number in (0,1], however numbers
  * > 1 are possible. Default is 1.
  */
 #define ID_NEIGHBORFACTOR 1
@@ -47,11 +47,51 @@
 
 #ifndef DAMPING
 /**
- * The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss
+ * DEPRECATED. CURRENTLY IGNORED. The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss
  * per simulation tick. The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING).
  * Default: 0.001.
  */
 #define DAMPING 0.001
+#endif
+
+#ifndef ENERGY_FACTOR
+/**
+ * Ratio of how much the historical energy state negatively influences the current energy slope. This is a factor multiplied with the historical energy. See parameter (b) in the flowchart.
+ * Usually a number in (0,1], however numbers > 1 are possible. Default is 1.
+ */
+#define ENERGY_FACTOR 1
+#endif
+
+#ifndef ENERGY_WEIGHT
+/**
+ * Ratio of how much the historical energy state influences the current energy state. This is a factor multiplied with the historical energy. See parameter (g) in the flowchart.
+ * Usually a number in (0,1], however numbers > 1 are possible. Default is 1.
+ */
+#define ENERGY_WEIGHT 1
+#endif
+
+#ifndef DELTA_FACTOR
+/**
+ * Ratio of how much the current slope vector influences the slope calculation. This is a factor multiplied with the current slope vector. See parameter (e) in the flowchart.
+ * Usually a number in (0,1], however numbers > 1 are possible. Default is 1.
+ */
+#define DELTA_FACTOR 1
+#endif
+
+#ifndef SLOPE_FACTOR
+/**
+ * Ratio of how much the historical slope influences the current energy state. This is a factor multiplied with the historical slope. See parameter (d) in the flowchart.
+ * Usually a number in (0,1], however numbers > 1 are possible. Default is 1.
+ */
+#define SLOPE_FACTOR 1
+#endif
+
+#ifndef SLOPE_WEIGHT
+/**
+ * Ratio of how much the current calculated slope influences the current energy state. This is a factor multiplied with the slope. See parameter (h) in the flowchart.
+ * Usually a number in (0,1], however numbers > 1 are possible. Default is 1.
+ */
+#define SLOPE_WEIGHT 1
 #endif
 
 //types
