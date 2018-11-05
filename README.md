@@ -29,7 +29,7 @@ Available switches:
 * `THREADFACTOR`: Factor to multiple the logical corecount with in order to determine the number of threads. May be a floating point number (*0.5* is a common option). Default = **1**.
 * `MULTITHREADING`: Set to 0 to turn multithreading off and only use a single thread. Default = **1**.
 
-Available function modificators (These factors can be customized during compilation to configure the behavior of each node during the simulation.):
+Available function modificators:
 
 * `D_NEIGHBORFACTOR`:  Ratio of how much the direct neighbors influence the energy state of any node. This is a factor multiplied with the direct neighbor-energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
 * `ID_NEIGHBORFACTOR`:  Ratio of how much the indirect neighbors influence the energy state of any node. This is a factor multiplied with the indirect neighbor-energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
@@ -38,6 +38,7 @@ Available function modificators (These factors can be customized during compilat
 * `DELTA_FACTOR`:  Ratio of how much the current slope vector influences the slope calculation. This is a factor multiplied with the current slope vector. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
 * `SLOPE_FACTOR`:  Ratio of how much the historical slope influences the current energy state. This is a factor multiplied with the historical slope. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
 * `SLOPE_WEIGHT`:  Ratio of how much the current calculated slope influences the current energy state. This is a factor multiplied with the slope. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+These factors can be configured during compilation to customize the behavior of each node during the simulation.
 
 
 ## How to run
