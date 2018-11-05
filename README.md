@@ -38,6 +38,7 @@ Available function modificators:
 * `DELTA_FACTOR`:  Ratio of how much the current slope vector influences the slope calculation. This is a factor multiplied with the current slope vector. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
 * `SLOPE_FACTOR`:  Ratio of how much the historical slope influences the current energy state. This is a factor multiplied with the historical slope. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
 * `SLOPE_WEIGHT`:  Ratio of how much the current calculated slope influences the current energy state. This is a factor multiplied with the slope. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+
 These factors can be configured during compilation to customize the behavior of each node during the simulation.
 
 
