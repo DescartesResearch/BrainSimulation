@@ -28,9 +28,14 @@ You can customize the build by passing Preprocessor options. Using make, pass th
 Available switches:
 * `THREADFACTOR`: Factor to multiple the logical corecount with in order to determine the number of threads. May be a floating point number (*0.5* is a common option). Default = **1**.
 * `MULTITHREADING`: Set to 0 to turn multithreading off and only use a single thread. Default = **1**.
-* `DAMPING`: The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss per simulation tick. The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING). Default = **0.001**.
-* `D_NEIGHBORFACTOR`:  How much the direct neighbors influence the energy state of any node. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
-* `ID_NEIGHBORFACTOR`:  How much the indirect neighbors influence the energy state of any node. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+
+Available function modificators:
+These factors can be customized during compilation to configure the behavior of each node during the simulation.
+* `D_NEIGHBORFACTOR`:  Ratio of how much the direct neighbors influence the energy state of any node. This is a factor multiplied with the direct neighbor-energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+* `ID_NEIGHBORFACTOR`:  Ratio of how much the indirect neighbors influence the energy state of any node. This is a factor multiplied with the indirect neighbor-energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+* `ENERGY_FACTOR`:  Ratio of how much the historical energy state negatively influences the current energy slope. This is a factor multiplied with the historical energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+* `ENERGY_WEIGHT`:  Ratio of how much the historical energy state influences the current energy state. This is a factor multiplied with the historical energy. Usually a number in (0,1], however numbers > 1 are possible. Default = **1**.
+
 
 ## How to run
 
