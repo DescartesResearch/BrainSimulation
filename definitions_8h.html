@@ -141,14 +141,29 @@ Macros</h2></td></tr>
 <tr class="memdesc:ad84eb231d5c0486abed10179be90ca88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flouting point factor to modifiy the number of threads in relation to the number of logical processors on the execution system. <br /></td></tr>
 <tr class="separator:ad84eb231d5c0486abed10179be90ca88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39cf601beea71182ace97640642a7b90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a39cf601beea71182ace97640642a7b90">D_NEIGHBORFACTOR</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:a39cf601beea71182ace97640642a7b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">How much the direct neighbors influence the energy state of any node.  <a href="#a39cf601beea71182ace97640642a7b90">More...</a><br /></td></tr>
+<tr class="memdesc:a39cf601beea71182ace97640642a7b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the direct neighbors influence the energy state of any node.  <a href="#a39cf601beea71182ace97640642a7b90">More...</a><br /></td></tr>
 <tr class="separator:a39cf601beea71182ace97640642a7b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a557ba3286f9c32c0d3ba36fce2231ad3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a557ba3286f9c32c0d3ba36fce2231ad3">ID_NEIGHBORFACTOR</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:a557ba3286f9c32c0d3ba36fce2231ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">How much the indirect neighbors influence the energy state of any node.  <a href="#a557ba3286f9c32c0d3ba36fce2231ad3">More...</a><br /></td></tr>
+<tr class="memdesc:a557ba3286f9c32c0d3ba36fce2231ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the indirect neighbors influence the energy state of any node.  <a href="#a557ba3286f9c32c0d3ba36fce2231ad3">More...</a><br /></td></tr>
 <tr class="separator:a557ba3286f9c32c0d3ba36fce2231ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f94005fada4c6d8e87b75924d8f5135"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a7f94005fada4c6d8e87b75924d8f5135">DAMPING</a>&#160;&#160;&#160;0.001</td></tr>
-<tr class="memdesc:a7f94005fada4c6d8e87b75924d8f5135"><td class="mdescLeft">&#160;</td><td class="mdescRight">The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss per simulation tick.  <a href="#a7f94005fada4c6d8e87b75924d8f5135">More...</a><br /></td></tr>
+<tr class="memdesc:a7f94005fada4c6d8e87b75924d8f5135"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEPRECATED.  <a href="#a7f94005fada4c6d8e87b75924d8f5135">More...</a><br /></td></tr>
 <tr class="separator:a7f94005fada4c6d8e87b75924d8f5135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504d42831c7c682e715326d427f087a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a504d42831c7c682e715326d427f087a3">ENERGY_FACTOR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a504d42831c7c682e715326d427f087a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the historical energy state negatively influences the current energy slope.  <a href="#a504d42831c7c682e715326d427f087a3">More...</a><br /></td></tr>
+<tr class="separator:a504d42831c7c682e715326d427f087a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add2c739a81ed81c77a12130685bdbf09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#add2c739a81ed81c77a12130685bdbf09">ENERGY_WEIGHT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:add2c739a81ed81c77a12130685bdbf09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the historical energy state influences the current energy state.  <a href="#add2c739a81ed81c77a12130685bdbf09">More...</a><br /></td></tr>
+<tr class="separator:add2c739a81ed81c77a12130685bdbf09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dfa1f83b8fc3c56d6abcd0f98ce8976"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a6dfa1f83b8fc3c56d6abcd0f98ce8976">DELTA_FACTOR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a6dfa1f83b8fc3c56d6abcd0f98ce8976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the current slope vector influences the slope calculation.  <a href="#a6dfa1f83b8fc3c56d6abcd0f98ce8976">More...</a><br /></td></tr>
+<tr class="separator:a6dfa1f83b8fc3c56d6abcd0f98ce8976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a05c713774f5aef51bfdb56dc0064c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#a0a05c713774f5aef51bfdb56dc0064c8">SLOPE_FACTOR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a0a05c713774f5aef51bfdb56dc0064c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the historical slope influences the current energy state.  <a href="#a0a05c713774f5aef51bfdb56dc0064c8">More...</a><br /></td></tr>
+<tr class="separator:a0a05c713774f5aef51bfdb56dc0064c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4803d5a83449bebaf714f8be321af7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="definitions_8h.html#ada4803d5a83449bebaf714f8be321af7">SLOPE_WEIGHT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ada4803d5a83449bebaf714f8be321af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of how much the current calculated slope influences the current energy state.  <a href="#ada4803d5a83449bebaf714f8be321af7">More...</a><br /></td></tr>
+<tr class="separator:ada4803d5a83449bebaf714f8be321af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -182,8 +197,8 @@ typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
       </table>
 </div><div class="memdoc">
 
-<p>How much the direct neighbors influence the energy state of any node. </p>
-<p>Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
+<p>Ratio of how much the direct neighbors influence the energy state of any node. </p>
+<p>This is a factor multiplied with the direct neighbor-energy. See parameter (a1) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
 
 </div>
 </div>
@@ -197,8 +212,53 @@ typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
       </table>
 </div><div class="memdoc">
 
-<p>The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss per simulation tick. </p>
-<p>The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING). Default: 0.001. </p>
+<p>DEPRECATED. </p>
+<p>CURRENTLY IGNORED. The amount of physical damping applied at each simulation step for each energy level, i.e., the ratio of energy loss per simulation tick. The energy level is damped using the function: enery_level = energy_level / (1 + DAMPING). Default: 0.001. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6dfa1f83b8fc3c56d6abcd0f98ce8976"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELTA_FACTOR&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio of how much the current slope vector influences the slope calculation. </p>
+<p>This is a factor multiplied with the current slope vector. See parameter (e) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
+
+</div>
+</div>
+<a class="anchor" id="a504d42831c7c682e715326d427f087a3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENERGY_FACTOR&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio of how much the historical energy state negatively influences the current energy slope. </p>
+<p>This is a factor multiplied with the historical energy. See parameter (b) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
+
+</div>
+</div>
+<a class="anchor" id="add2c739a81ed81c77a12130685bdbf09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENERGY_WEIGHT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio of how much the historical energy state influences the current energy state. </p>
+<p>This is a factor multiplied with the historical energy. See parameter (g) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
 
 </div>
 </div>
@@ -212,10 +272,40 @@ typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
       </table>
 </div><div class="memdoc">
 
-<p>How much the indirect neighbors influence the energy state of any node. </p>
-<p>Usually a number in (0,1], however numbers </p><blockquote class="doxtable">
+<p>Ratio of how much the indirect neighbors influence the energy state of any node. </p>
+<p>This is a factor multiplied with the indirect neighbor-energy. See parameter (a2) in the flowchart. Usually a number in (0,1], however numbers </p><blockquote class="doxtable">
 <p>1 are possible. Default is 1.</p>
 </blockquote>
+
+</div>
+</div>
+<a class="anchor" id="a0a05c713774f5aef51bfdb56dc0064c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLOPE_FACTOR&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio of how much the historical slope influences the current energy state. </p>
+<p>This is a factor multiplied with the historical slope. See parameter (d) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ada4803d5a83449bebaf714f8be321af7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLOPE_WEIGHT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio of how much the current calculated slope influences the current energy state. </p>
+<p>This is a factor multiplied with the slope. See parameter (h) in the flowchart. Usually a number in (0,1], however numbers &gt; 1 are possible. Default is 1. </p>
 
 </div>
 </div>
