@@ -55,7 +55,7 @@ static void print_help() {
 	printf("\t\t One or multiple integer parameters.\n");
 	printf("\t%s FREQUENCIES: Frequencies of nodes generating energy using sin-frequencies.\n",
 		FLAG_FREQUENCIES);
-	printf("\t\t Can not be used together with %s and its associated flags.\n", FLAG_FREQ_BITMAPS);
+	printf("\t\t Cannot be used together with %s and its associated flags.\n", FLAG_FREQ_BITMAPS);
 	printf("\t\t One or multiple integer parameters.\n");
 	printf("\t%s FREQUENCY_NODES_X_INDICES: X indices of nodes generating energy using frequencies.\n",
 		FLAG_FREQ_NODES_X);
@@ -68,7 +68,7 @@ static void print_help() {
 	printf("\t%s FILENAMES: File paths of bitmap images to be used for specifying sin-frequencies.\n",
 		FLAG_FREQ_BITMAPS);
 	printf("\t\t Bitmaps must be uncompressed, 24-bit (MS-Paint default). Multiple bitmaps must have the same dimensions.\n");
-	printf("\t\t Can not be used together with %s and its associated flags.\n", FLAG_FREQUENCIES);
+	printf("\t\t Cannot be used together with %s and its associated flags.\n", FLAG_FREQUENCIES);
 	printf("\t\t One or multiple parameters.\n");
 	printf("\t%s MIN_FREQUENCY: The minimum frequency to generate, mapped to the minimum non-0 bitmap color (1).\n",
 		FLAG_MIN_BITMAP_FREQ);
