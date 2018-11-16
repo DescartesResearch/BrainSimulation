@@ -9,6 +9,8 @@
 #define FLAG_X_OBSERVATIONNODES "--xobs"
 /** Command line flag for y indices of observation nodes (multiple integer paramters).*/
 #define FLAG_Y_OBSERVATIONNODES "--yobs"
+/** Command line flag to observa all nodes (no additional parameters).*/
+#define FLAG_ALL_OBSERVATIONNODES "--allobs"
 /** Command line flag for node grid size on the x axis (single integer paramter).*/
 #define FLAG_X_NODES "-x"
 /** Command line flag for node grid size on the y axis (single integer paramter).*/
@@ -91,6 +93,17 @@ nodetimeseries_t *init_observation_timeseries_default(int * num_observationnodes
 nodetimeseries_t *init_observation_timeseries(const int num_oberservationnodes,
                                               const int *x_indices, const int *y_indices,
                                               const int num_timeseries_elements);
+
+/**
+* Initializes timeseries structs to observe all nodes in the grid and returns them in an array.
+* @param node_grid_size_x The grid's x-dimensions.
+* @param node_grid_size_y The grid's y-dimensions.
+* @param num_timeseries_elements The number of elements for the timeseries to hold.
+* Timeseries memory is allocated as part of initialization.
+* @return Array of newly initialized timeseries structs. Array has node_grid_size_x * node_grid_size_y as length.
+*/
+nodetimeseries_t *init_all_observation_timeseries(const int node_grid_size_x,
+	const int node_grid_size_y, const int num_timeseries_elements);
 
 /**
  * Sets a start time energy state for the node field. All unspecified nodes start with 0

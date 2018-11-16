@@ -18,15 +18,18 @@ unsigned int simulate(double tick_ms, int num_ticks, int number_nodes_x, int num
                                                                                           number_nodes_y);
     printf("Number of ticks: %d\n", num_ticks);
     printf("Length of each tick (ms): %f\n", tick_ms);
-    printf("Number of observation nodes: %d\n", num_obervationnodes);
-    printf("Observation nodes: %d\n", num_obervationnodes);
     printf("Number of threads: %d\n", executioncontext.num_threads);
+	printf("Number of observation nodes: %d\n", num_obervationnodes);
     struct timeval tv1, tv2;
     get_daytime(&tv1);
-    int i = 0;
-    for (i = 0; i < num_obervationnodes; ++i) {
-        printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
-    }
+	if (num_obervationnodes == number_nodes_x * number_nodes_y) {
+		printf("WARNING: Observing all nodes. This is very slow and result files will occupy a lot of disk space.\n");
+	} else {
+		for (int i = 0; i < num_obervationnodes; ++i) {
+			printf("(%d;%d), ", observationnodes[i].x_index, observationnodes[i].y_index);
+		}
+	}
+    
     printf("\n");
     // Starting simulation
     // initializing memory
@@ -119,14 +122,12 @@ unsigned int execute_partial_simulation(partialsimulationcontext_t *context) {
         // add the input signals AFTER the actual computation takes place.
         process_partial_inputs(j, context->tick_ms, context->new_state, context->number_partial_inputs,
                                context->partial_inputs);
-        //only the management thread extracts observations
+        //extract observation nodes
 #if MULTITHREADING
-        if (wait_at_barrier(context->barrier)) {
+		wait_at_barrier(context->barrier);
 #endif
-            extract_observationnodes(j, context->num_obervationnodes, context->observationnodes, context->new_state);
-#if MULTITHREADING
-        }
-#endif
+        extract_observationnodes(j, context->num_partial_obervationnodes,
+				context->partial_observationnodes, context->new_state);
         //everyone swaps their own pointers
         // swap array states -> the new_state becomes the old_state, old_state can be overwritten
         nodeval_t **tmp = context->old_state;
@@ -161,10 +162,10 @@ unsigned int execute_partial_tick(partialsimulationcontext_t *context) {
     return 0;
 }
 
-void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
+void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t **observationnodes,
                               nodeval_t **state) {
     for (int i = 0; i < num_obervationnodes; ++i) {
-        observationnodes[i].timeseries[ticknumber] = state[observationnodes[i].x_index][observationnodes[i].y_index];
+        observationnodes[i]->timeseries[ticknumber] = state[observationnodes[i]->x_index][observationnodes[i]->y_index];
     }
     return;
 }

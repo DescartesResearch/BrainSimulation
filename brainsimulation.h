@@ -124,14 +124,15 @@ unsigned int execute_partial_tick(partialsimulationcontext_t *context);
 
 /**
  * Extracts and stores/saves the information into the specified observation nodes.
+ * Called for the partial observation nodes within the partial simulation contexts.
  *
  * @param ticknumber The current tick number, i.e., the tick number to store.
  * @param num_obervationnodes The number of observation nodes.
- * @param observationnodes An array containing all observation nodes. All values in the struct elements must be already
- * initialized. Length: num_observationnodes.
+ * @param observationnodes An array pointing to the observation nodes. All values in the pointed to struct
+ * elements must be already initialized. Length: num_observationnodes.
  * @param state The current state to store.
  */
-void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t *observationnodes,
+void extract_observationnodes(int ticknumber, int num_obervationnodes, nodetimeseries_t **observationnodes,
                               nodeval_t **state);
 
 /**

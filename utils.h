@@ -129,8 +129,8 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  * @param tick_ms Milliseconds in between each simulation tick.
  * @param number_nodes_x The number of total nodes in the first dimension of nodes.
  * @param number_nodes_y The number of total nodes in the second dimension of nodes.
- * @param num_obervationnodes The number of nodes to observe.
- * @param observationnodes Pointers to the timeseries for the nodes to observe.
+ * @param num_global_obervationnodes The number of total nodes to observe in the entire simulation.
+ * @param global_observationnodes Pointers to the all the timeseries for the nodes to observe.
  * Observations are to be written here.
  * @param old_state 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.
  * @param new_state 2D array of nodes with the new energy level.Values will be overwritten. Size number_nodes_x *
@@ -152,7 +152,7 @@ void join_and_close_simulation_threads(threadhandle_t **handles, const int num_t
  */
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
                                      int number_nodes_x, int number_nodes_y,
-                                     int num_obervationnodes, nodetimeseries_t *observationnodes,
+                                     int num_global_obervationnodes, nodetimeseries_t *global_observationnodes,
                                      nodeval_t **old_state,
                                      nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
                                      kernelfunc_t d_ptr, kernelfunc_t id_ptr,

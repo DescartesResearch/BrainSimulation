@@ -42,6 +42,10 @@ static void print_help() {
 	printf("\t\t Must have the same number of parameters as %s.\n", FLAG_X_OBSERVATIONNODES);
 	printf("\t\t One or multiple integer parameters.\n");
 	printf("Optional parameters:\n");
+	printf("\t%s: Observes all nodes instead of only a few specified nodes.\n", FLAG_ALL_OBSERVATIONNODES);
+	printf("\t\t Causes %s and %s to be ignored (can thus be ommited).\n", FLAG_X_OBSERVATIONNODES, FLAG_Y_OBSERVATIONNODES);
+	printf("\t\t Needs no additional parameters.\n");
+	printf("\t\t WARNING: Leads to very slow execution times. Use only when absolutely needed.\n");
 	printf("\t%s STARTING_ENERGY_LEVELS: Initial energy levels of nodes with starting energy.\n",
 		FLAG_START_LEVELS);
 	printf("\t\t One or multiple floating point parameters.\n");
@@ -127,22 +131,14 @@ int main(const int argc, const char *argv[]) {
 	} else {
 		printf("Brainsimulation: Run with --help for help.\n");
 		printf("Parsing input parameters.\n");
-		if(contains_flag(argc, argv, FLAG_X_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_Y_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_TICKS)){
-            printf("Parsing observation input.\n");
-            observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
-            num_ticks = observationnodes->timeseries_ticks;
-		} else {
-            printf("No observation input found. Using default values.\n");
-			if (contains_flag(argc, argv, FLAG_TICKS)){
-				printf("Number of ticks defined.");
-				num_ticks = parse_int_arg(argc, argv, FLAG_TICKS);
-				printf("Parsing %d.\n", num_ticks);
-			} else {
-				printf("Number of ticks not defined. Using default values.\n");
-				num_ticks = 5000;
-			}
-            observationnodes = init_observation_timeseries_default(&num_observationnodes, num_ticks);
-
+		if (contains_flag(argc, argv, FLAG_TICKS)){
+			printf("Number of ticks defined.");
+			num_ticks = parse_int_arg(argc, argv, FLAG_TICKS);
+			printf("Parsing %d ticks.\n", num_ticks);
+		}
+		else {
+			printf("Number of ticks not defined. Using default values.\n");
+			num_ticks = 5000;
 		}
         if(contains_flag(argc, argv, FLAG_X_NODES) && contains_flag(argc, argv, FLAG_Y_NODES)) {
             printf("Parsing gridsize input.\n");
@@ -159,6 +155,19 @@ int main(const int argc, const char *argv[]) {
         } else {
             printf("No input about Grid-size found. Using default values.\n");
             nodegrid = init_nodegrid_default(&number_nodes_x, &number_nodes_y);
+		}
+		if (contains_flag(argc, argv, FLAG_ALL_OBSERVATIONNODES)) {
+			printf("Observing all nodes.\n");
+			printf("WARNING: Observing all nodes is very slow, it is recommended to only observe specific nodes.\n");
+			observationnodes = init_all_observation_timeseries(number_nodes_x, number_nodes_y, num_ticks); //init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
+			num_observationnodes = number_nodes_x * number_nodes_y;
+		} else if (contains_flag(argc, argv, FLAG_X_OBSERVATIONNODES) && contains_flag(argc, argv, FLAG_Y_OBSERVATIONNODES)){
+			printf("Parsing observation input.\n");
+			observationnodes = init_observation_timeseries_from_sh(argc, argv, &num_observationnodes);
+			num_ticks = observationnodes->timeseries_ticks;
+		} else {
+			printf("No observation input found. Using default values.\n");
+			observationnodes = init_observation_timeseries_default(&num_observationnodes, num_ticks);
 		}
 		if(contains_flag(argc, argv, FLAG_FREQUENCIES) && contains_flag(argc, argv, FLAG_FREQ_NODES_X) && contains_flag(argc, argv, FLAG_FREQ_NODES_Y)) {
             printf("Parsing input of frequency nodes from command line.\n");

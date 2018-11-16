@@ -123,19 +123,19 @@ unsigned int wait_at_barrier(threadbarrier_t *barrier) {
 }
 
 void init_partial_simulation_context(partialsimulationcontext_t *context, int num_ticks, double tick_ms,
-                                     int number_nodes_x, int number_nodes_y,
-                                     int num_obervationnodes, nodetimeseries_t *observationnodes,
-                                     nodeval_t **old_state,
-                                     nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
-                                     kernelfunc_t d_ptr, kernelfunc_t id_ptr,
-                                     int number_global_inputs, nodeinputseries_t *global_inputs,
-                                     int thread_start_x, int thread_end_x, threadbarrier_t *barrier) {
+					int number_nodes_x, int number_nodes_y,
+					int num_global_obervationnodes, nodetimeseries_t *global_observationnodes,
+					nodeval_t **old_state,
+					nodeval_t **new_state, nodeval_t **slopes, nodeval_t ****kernels,
+					kernelfunc_t d_ptr, kernelfunc_t id_ptr,
+					int number_global_inputs, nodeinputseries_t *global_inputs,
+					int thread_start_x, int thread_end_x, threadbarrier_t *barrier) {
     context->num_ticks = num_ticks;
     context->tick_ms = tick_ms;
     context->number_nodes_x = number_nodes_x;
     context->number_nodes_y = number_nodes_y;
-    context->num_obervationnodes = num_obervationnodes;
-    context->observationnodes = observationnodes;
+	context->num_global_obervationnodes = num_global_obervationnodes;
+    context->global_observationnodes = global_observationnodes;
     context->old_state = old_state;
     context->new_state = new_state;
     context->slopes = slopes;
@@ -148,26 +148,41 @@ void init_partial_simulation_context(partialsimulationcontext_t *context, int nu
     context->thread_end_x = thread_end_x;
     context->barrier = barrier;
 
+	//derive the partial observation nodes
+	context->num_partial_obervationnodes = 0;
+	for (int i = 0; i < num_global_obervationnodes; i++) { //count partial array elements
+		if (global_observationnodes != NULL
+			&& global_observationnodes[i].x_index >= thread_start_x && global_observationnodes[i].x_index < thread_end_x) {
+			context->num_partial_obervationnodes++;
+		}
+	}
+	context->partial_observationnodes = malloc(context->num_partial_obervationnodes * sizeof(nodetimeseries_t *));
+	int j = 0;
+	for (int i = 0; i < num_global_obervationnodes; i++) {
+		if (global_observationnodes != NULL
+			&& global_observationnodes[i].x_index >= thread_start_x && global_observationnodes[i].x_index < thread_end_x) {
+			context->partial_observationnodes[j] = &(global_observationnodes[i]);
+			j++;
+		}
+	}
+
     //derive the partial inputs
-    context->number_partial_inputs = 0;
-    //count partial inputs
-    for (int i = 0; i < number_global_inputs; i++) {
-        if (global_inputs != NULL
-            && global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
-            context->number_partial_inputs++;
-        }
-    }
-    //allocate partial input array; we never free this,
-    //as partial contexts survive for the entire duration of the simulation
-    context->partial_inputs = malloc(context->number_partial_inputs * sizeof(nodeinputseries_t *));
-    int j = 0;
-    for (int i = 0; i < number_global_inputs; i++) {
-        if (global_inputs != NULL
-            && global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
-            context->partial_inputs[j] = &(context->global_inputs[i]);
-            j++;
-        }
-    }
+	context->number_partial_inputs = 0;
+	for (int i = 0; i < number_global_inputs; i++) { //count partial array elements
+		if (global_inputs != NULL
+			&& global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
+			context->number_partial_inputs++;
+		}
+	}
+	context->partial_inputs = malloc(context->number_partial_inputs * sizeof(nodeinputseries_t *));
+	j = 0;
+	for (int i = 0; i < number_global_inputs; i++) {
+		if (global_inputs != NULL
+			&& global_inputs[i].x_index >= thread_start_x && global_inputs[i].x_index < thread_end_x) {
+			context->partial_inputs[j] = &(global_inputs[i]);
+			j++;
+		}
+	}
 }
 
 void init_executioncontext(executioncontext_t *context) {

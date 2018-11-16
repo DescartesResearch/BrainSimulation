@@ -218,12 +218,23 @@ typedef struct {
     /**
      * The number of nodes to observe.
      */
-    int num_obervationnodes;
+    int num_global_obervationnodes;
 
     /**
      * Timeseries to write the observations into.
      */
-    nodetimeseries_t *observationnodes;
+    nodetimeseries_t *global_observationnodes;
+
+	/**
+	* The number of nodes to observe in this context.
+	*/
+	int num_partial_obervationnodes;
+
+	/**
+	* Timeseries to write the observations into within this context,
+	* points to time series held within the global context.
+	*/
+	nodetimeseries_t **partial_observationnodes;
 
     /**
     * 2D array of nodes with their current energy level.Size number_nodes_x * number_nodes_y.

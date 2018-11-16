@@ -192,6 +192,21 @@ nodetimeseries_t *init_observation_timeseries(const int num_observationnodes,
     return series;
 }
 
+nodetimeseries_t *init_all_observation_timeseries(const int node_grid_size_x,
+	const int node_grid_size_y, const int num_timeseries_elements) {
+	nodetimeseries_t *series = malloc(node_grid_size_x * node_grid_size_y * sizeof(nodetimeseries_t));
+	for (int y = 0; y < node_grid_size_y; y++) {
+		for (int x = 0; x < node_grid_size_x; x++) {
+			int i = y * node_grid_size_x + x;
+			series[i].x_index = x;
+			series[i].y_index = y;
+			series[i].timeseries = malloc(num_timeseries_elements * sizeof(nodeval_t));
+			series[i].timeseries_ticks = num_timeseries_elements;
+		}
+	}
+	return series;
+}
+
 void init_start_time_state_from_sh(const int argc, const char * argv[],
 	const int number_nodes_x, const int number_nodes_y, nodeval_t **nodes) {
 	nodeval_t * start_levels = malloc(argc * sizeof(nodeval_t));

@@ -74,6 +74,8 @@ Recommended parameters (technically optional, but doesn't really make sense not 
 * `--yobs OBS_Y_INDICES`: Y indices of the observed nodes. One or multiple integer parameters. Must have the same number of parameters as `--xobs`.
 
 Optional parameters:
+* `--allobs`: Observes all nodes instead of only a few specified nodes. Causes `--xobs` and `--yobs` to be ignored (can thus be ommited). Needs no additional parameters.  
+  **WARNING**: Leads to very slow execution times and comsumes a lot of disk space for result files. Use only when absolutely needed.
 * `--startlevels STARTING_ENERGY_LEVELS`: Initial energy levels of nodes with starting energy. One or multiple floating point parameters.
 * `--startx STARTING_ENERGY_X_INDICES`: X indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as `--startlevels`.
 * `--starty STARTING_ENERGY_Y_INDICES`: Y indices of nodes with starting energy. One or multiple integer parameters. Must have the same number of parameters as `--startlevels`.
