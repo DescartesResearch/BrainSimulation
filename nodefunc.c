@@ -31,7 +31,7 @@ nodestate_t process(nodeval_t act_old, nodeval_t slope_old, int number_d_neighbo
     nodeval_t slope_id = maidn - act_old_factored;
     nodeval_t slope_vector = slope_d + slope_id;
 
-    // add factors
+    // add factor
     slope_vector = slope_vector * DELTA_FACTOR;
     slope_old = slope_old * SLOPE_FACTOR;
 

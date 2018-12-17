@@ -6,6 +6,7 @@ import csv
 import math
 import os
 import io
+import itertools
 
 # Prints the results to the given csv.
 def print_csv(pathname, array):
@@ -155,20 +156,24 @@ if __name__ == "__main__":
     # Defines the parameter grid to be measured
     param_comp_dict = {
                 "-DTHREADFACTOR": [0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 8, 16, 32],
-                "-DMULTITHREADING": [0,1]
+                #"-DMULTITHREADING": [0,1]
                  }
+    r1 = list(range(0,10000,100))
+    r2 = list(range(10000,100000,1000))
+    r3 = list(range(100000,500000,100000))
+    grids = list(itertools.chain(r1, r2, r3))
     param_run_dict = {
-        #"gridsize": [15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 1000000, 2000000, 3000000, 4000000, 5000000],
-        "ticks": [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000],
-        "obsnodes" : [1,2,3,4,5,6,7,8,9,10],
-        "inputnodes" : [1,2,3,4,5,6,7,8,9,10],
-        "startnodes" : [1,2,3,4,5,6,7,8,9,10]
+        "gridsize": grids,
+        #"ticks": [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000],
+        #"obsnodes" : [1,2,3,4,5,6,7,8,9,10],
+        #"inputnodes" : [1,2,3,4,5,6,7,8,9,10],
+        #"startnodes" : [1,2,3,4,5,6,7,8,9,10]
         }
-    param1 = "num_x_nodes"
-    param2 = "num_y_nodes"
-    param1_values = list(range(100, 1000, 10))
-    param2_values = list(range(100, 1000, 10))
+    #param1 = "num_x_nodes"
+    #param2 = "num_y_nodes"
+    #param1_values = list(range(100, 1000, 10))
+    #param2_values = list(range(100, 1000, 10))
     # The output directory
     output_dir = "./analyze/measurements"
     take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
-    two_dimensional_measurements(param1, param1_values, param2, param2_values, output_dir)
+    #two_dimensional_measurements(param1, param1_values, param2, param2_values, output_dir)
