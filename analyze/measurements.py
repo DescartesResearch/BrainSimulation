@@ -174,6 +174,14 @@ if __name__ == "__main__":
     #param1_values = list(range(100, 1000, 10))
     #param2_values = list(range(100, 1000, 10))
     # The output directory
-    output_dir = "./analyze/measurements"
+    output_dir = "./analyze/measurements1"
+    take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
+    output_dir = "./analyze/measurements2"
+    take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
+    output_dir = "./analyze/measurements3"
+    take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
+    output_dir = "./analyze/measurements4"
+    take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
+    output_dir = "./analyze/measurements5"
     take_single_direction_measurements(param_comp_dict, param_run_dict, output_dir)
     #two_dimensional_measurements(param1, param1_values, param2, param2_values, output_dir)
